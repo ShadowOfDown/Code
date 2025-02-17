@@ -18,7 +18,10 @@ public class SceneStateControl
     {
         Debug.Log("SetState : " + state.ToString());
         stateBegin =false;
-        IEnumeratorSystem.Instance.startCoroutine(LoadScene(SceneName),"LoadScene : " + SceneName);
+        if (!isLoadingScene)
+        {
+            IEnumeratorSystem.Instance.startCoroutine(LoadScene(SceneName), "LoadScene : " + SceneName);
+        }
 
         if (currentState != null)
         {
@@ -30,12 +33,10 @@ public class SceneStateControl
     IEnumerator LoadScene(string SceneName)
     {
         if (SceneName == null || SceneName.Length == 0) { yield break; }
+        if (isLoadingScene) { yield break; }
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName);
         isLoadingScene = true;
-        while (!asyncOperation.isDone)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => { return asyncOperation.isDone; });
         isLoadingScene = false ;
     }
 

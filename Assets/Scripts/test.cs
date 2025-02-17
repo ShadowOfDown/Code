@@ -11,46 +11,8 @@ using UnityEngine;
 
 public class test : MonoBehaviourPunCallbacks
 {
-    [SerializeField]
-    float timer = 0;
-    int t = 0;
-    IEnumerator ttt;
-
     private void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
-    }
-    private void Update()
-    {
-        timer += Time.deltaTime;
-        while(timer < 2)
-        {
-            return;
-        }
-        timer = 0;
-        IEnumerator tt = te();
-        IEnumeratorSystem.Instance.startCoroutine(tt);
-        t++;
-        if(t == 3)
-        {
-            ttt = tt;
-        }
-        if(t == 5)
-        {
-            IEnumeratorSystem.Instance.stopCoroutine(ttt);
-        }
-    }
-
-    IEnumerator te()
-    {
-        float t = Time.time;
-        Debug.Log("Start"+"  "+ t);
-        yield return new WaitForSeconds(20);
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log(PhotonNetwork.Server);
-        Debug.Log(PhotonNetwork.CloudRegion);
+        GameLoop.Instance.gameObject.SetActive(true);
     }
 }

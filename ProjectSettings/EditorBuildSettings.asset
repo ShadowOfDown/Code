@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  m_configObjects: {}
+    path: Assets/Scenes/StartScene.unity
+    guid: 013df1897b1eed840832554955266b06
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 5340327b1c18d9441b161cb18874ee5f, type: 2}
+    com.unity.adaptiveperformance.oppo.android.provider_settings: {fileID: 11400000, guid: a1ad8870baa92aa4888bea1210f48672, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: e665ba506d51b964a9577a57958fb337, type: 2}

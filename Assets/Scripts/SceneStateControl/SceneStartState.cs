@@ -16,7 +16,7 @@ public class SceneStartState : ISceneState
 
     public override void StateBegin()
     {
-
+        UI_Manager.Instance.Init();
     }
     public override void StateEnd()
     {
