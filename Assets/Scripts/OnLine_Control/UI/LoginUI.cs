@@ -29,6 +29,11 @@ public class LoginUI : MonoBehaviour
 
     public void On_OnLine_StartButtonClicked()
     {
+        if (OnLine_Manager.Instance.IsConnected||OnLine_Manager.Instance.isInMaster) {
+            UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
+            UI_Manager.Instance.CloseUI("LoginUI");
+            return;
+        }
         OnLine_Manager.Instance.ConnectMaster();
         UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在连接服务器...");
         OnLine_Manager.Instance.OnConnectedServerEvent += EnterLobbyUI;

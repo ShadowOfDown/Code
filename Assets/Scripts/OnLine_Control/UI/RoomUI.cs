@@ -22,7 +22,8 @@ public class RoomUI : MonoBehaviour
     public void Awake()
     {
         text = transform.Find("bg/title/Text").GetComponent<Text>();
-        text.text = OnLine_Manager.Instance.CurrentRoom.Name;
+        OnLine_Manager.Instance.OnJoinedRoomEvent += SetRoomName;
+        OnLine_Manager.Instance.OnJoinedRoomEvent += InitPlayerList;
         transform.Find("bg/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseBtnClicked);
         PlayerItem = Resources.Load<GameObject>("UI/PlayerItem");
         ContentTrf = transform.Find("bg/Content");
@@ -33,15 +34,19 @@ public class RoomUI : MonoBehaviour
         OnLine_Manager.Instance.OnPlayerEnteredRoomEvent += OnPlayerEnteredRoom;
         OnLine_Manager.Instance.OnPlayerLeftRoomEvent += OnPlayerLeftRoom;
         OnLine_Manager.Instance.OnLeftRoomEvent += OnLeftRoom;
-
-        InitPlayerList();
     }
     public void OnCloseBtnClicked()
     {
         OnLine_Manager.Instance.LeaveRoom(OnLine_Manager.Instance.CurrentRoom.Name);
     }
 
-    public void InitPlayerList()
+    public void SetRoomName(string name)
+    {
+        text.text = name;
+        OnLine_Manager.Instance.OnJoinedRoomEvent -= SetRoomName;
+    }
+
+    public void InitPlayerList(string name)
     {
         OnPlayerEnteredRoom(OnLine_Manager.Instance.MasterClient);
         OnPlayerEnteredRoom(OnLine_Manager.Instance.LocalPlayer);
@@ -53,12 +58,16 @@ public class RoomUI : MonoBehaviour
     }
     public void OnLeftRoom(string s)
     {
+        OnLine_Manager.Instance.OnPlayerPropertiesUpdateEvent -= OnPlayerPropertiesUpdate;
+        OnLine_Manager.Instance.OnPlayerEnteredRoomEvent -= OnPlayerEnteredRoom;
+        OnLine_Manager.Instance.OnPlayerLeftRoomEvent -= OnPlayerLeftRoom;
+        OnLine_Manager.Instance.OnLeftRoomEvent -= OnLeftRoom;
         UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
         UI_Manager.Instance.CloseUI(name);
     }
     public void OnPlayerEnteredRoom(Player newPlayer)
     {
-        if (PlayerIDs.Contains(newPlayer.UserId)) { return; }
+        if (newPlayer == null|| PlayerIDs.Contains(newPlayer.UserId)) { return; }
         PlayerItem t = Instantiate(PlayerItem, ContentTrf).AddComponent<PlayerItem>();
         t.Init(newPlayer);
         PlayerIDs.Add(newPlayer.UserId);
@@ -105,7 +114,7 @@ public class RoomUI : MonoBehaviour
     {
         if (OnLine_Manager.Instance.CountOfPlayers <= 1)
         {
-            UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("你怎么一个人啊，是没有人陪你玩吗？");
+            UI_Manager.Instance.LogWarnning("你怎么一个人啊，是没有人陪你玩吗？");
             return;
         }
         ExitGames.Client.Photon.Hashtable table = new ExitGames.Client.Photon.Hashtable();

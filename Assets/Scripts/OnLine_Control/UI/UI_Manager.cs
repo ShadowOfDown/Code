@@ -3,10 +3,11 @@
 //Version : 1.0
 //UnityVersion : 2021.3.45f1c1
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public class UI_Manager
 {
     #region SingleTon
@@ -98,6 +99,20 @@ public class UI_Manager
             GameObject.Destroy(go);
         }
         uiList.Clear();
+    }
+
+    public void LogWarnning(string message) { 
+        ShowUI<MaskUI>("MaskUI").ShowMessage(message);
+        IEnumeratorSystem.Instance.startCoroutine(CloseUIForSeconds(3,"MaskUI"));
+    }
+
+    IEnumerator CloseUIForSeconds(float seconds,string name)
+    {
+        GameObject go = Find(name);
+        if (go == null) yield break;
+        yield return new WaitForSeconds(seconds);
+        uiList.Remove(go);
+        GameObject.Destroy(go);
     }
 
 

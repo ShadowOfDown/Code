@@ -33,6 +33,7 @@ public class GameLoop : MonoBehaviour
     private GameLoop(){}
     [SerializeField]
     private SceneStateControl sceneStateControl = new SceneStateControl();
+    [SerializeField]
     private UI_Manager ui_manager;
     private void Awake()
     {

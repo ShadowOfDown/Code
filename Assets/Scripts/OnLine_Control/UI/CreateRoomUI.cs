@@ -41,6 +41,8 @@ public class CreateRoomUI : MonoBehaviour
     }
     public void OnCreatedRoom(string name)
     {
+        OnLine_Manager.Instance.OnCreatedRoomEvent -= OnCreatedRoom;
+        OnLine_Manager.Instance.OnCreateRoomFailedEvent -= OnCreateRoomFailed;
         UI_Manager.Instance.ShowUI<RoomUI>("RoomUI");
         UI_Manager.Instance.CloseUI("LobbyUI");
         UI_Manager.Instance.CloseUI("MaskUI");
@@ -49,5 +51,6 @@ public class CreateRoomUI : MonoBehaviour
     public void OnCreateRoomFailed()
     {
         UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("创建房间失败");
+        UI_Manager.Instance.CloseUI(name);
     }
 }

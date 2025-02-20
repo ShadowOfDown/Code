@@ -20,18 +20,27 @@ public class InputUserNameUI : MonoBehaviour
         transform.Find("bg/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseBtnClicked);
         transform.Find("bg/okBtn").GetComponent<Button>().onClick.AddListener(OnSetBtnClicked);
         inputField = transform.Find("bg/InputField").GetComponent<InputField>();
-        if (OnLine_Manager.Instance.PlayerName == null || OnLine_Manager.Instance.PlayerName.Length == 0)
-        {
-            inputField.text = "User" + UnityEngine.Random.Range(1, 99999);
+        
+        if (OnLine_Manager.Instance.PlayerName == null || OnLine_Manager.Instance.PlayerName.Length == 0){
+            inputField.text = "User_" + UnityEngine.Random.Range(1, 99999);
         }
-        inputField.text = OnLine_Manager.Instance.PlayerName;
+        else{
+            Debug.Log(OnLine_Manager.Instance.PlayerName + "   Length  : "+ OnLine_Manager.Instance.PlayerName.Length);
+            inputField.text = OnLine_Manager.Instance.PlayerName;
+        }
     }
 
     public void OnCloseBtnClicked()
     {
-        if (inputField.text == null && (OnLine_Manager.Instance.PlayerName == null || OnLine_Manager.Instance.PlayerName.Length == 0))
-        {
-            OnLine_Manager.Instance.SetName("User" + UnityEngine.Random.Range(1, 99999));
+        if (OnLine_Manager.Instance.PlayerName == null || OnLine_Manager.Instance.PlayerName.Length == 0){
+            if (inputField.text == null || inputField.text.Length <= 2)
+            {
+                OnLine_Manager.Instance.SetName("User_" + UnityEngine.Random.Range(1, 99999));
+            }
+            else {
+                OnLine_Manager.Instance.SetName(inputField.text);
+            }
+            OnNameChanged?.Invoke();
         }
         UI_Manager.Instance.CloseUI("InputUserNameUI");
     }
@@ -39,15 +48,11 @@ public class InputUserNameUI : MonoBehaviour
     {
         if (inputField.text.Length < 2)
         {
-            UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("输入字符不得少于2");
+            UI_Manager.Instance.LogWarnning("输入字符不得少于2");
             return;
         }
         OnLine_Manager.Instance.SetName(inputField.text);
+        OnNameChanged?.Invoke();
         UI_Manager.Instance.CloseUI("InputUserNameUI");
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }
