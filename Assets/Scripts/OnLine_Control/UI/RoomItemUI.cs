@@ -16,7 +16,7 @@ public class RoomItemUI : MonoBehaviour
     private Text roomCount;
     private RoomInfo roomInfo;
     private Button joinBtn;
-    private void Awake()
+    public void Init ()
     {
         roomName = transform.Find("roomName").GetComponent<Text>();
         roomCount = transform.Find("Count").GetComponent<Text>();
@@ -53,9 +53,18 @@ public class RoomItemUI : MonoBehaviour
 
     public void OnJoinedRoom(string name)
     {
+        Debug.Log("OnJoinedRoom Event Invoke");
         OnLine_Manager.Instance.OnJoinedRoomEvent -= OnJoinedRoom;
-        UI_Manager.Instance.ShowUI<RoomUI>("RoomUI");
+        UI_Manager.Instance.ShowUI<RoomUI>("RoomUI").SetRoomName(roomName.text);
         UI_Manager.Instance.CloseUI("LobbyUI");
         UI_Manager.Instance.CloseUI("MaskUI");
+    }
+
+    private void OnDestroy()
+    {
+        if (OnLine_Manager.isLoaded)
+        {
+            OnLine_Manager.Instance.OnJoinedRoomEvent -= OnJoinedRoom;
+        }
     }
 }

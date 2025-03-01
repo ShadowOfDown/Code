@@ -31,7 +31,6 @@ public class GameLoop : MonoBehaviour
     #endregion
 
     private GameLoop(){}
-    [SerializeField]
     private SceneStateControl sceneStateControl = new SceneStateControl();
     [SerializeField]
     private UI_Manager ui_manager;
@@ -39,7 +38,9 @@ public class GameLoop : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
+
         ui_manager = UI_Manager.Instance;
+        ui_manager.Init();
     }
 
     private void Start()

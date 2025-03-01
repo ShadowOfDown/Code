@@ -4,11 +4,12 @@ public class CustomScriptTemplate : UnityEditor.AssetModificationProcessor
 {
     public static void OnWillCreateAsset(string newFileMeta)
     {
-        string newFilePath = newFileMeta.Replace(".meta", ""); 
-        string fileExt = Path.GetExtension(newFilePath); 
-        if (fileExt != ".cs") { return; }
+        if (newFileMeta.EndsWith(".cs")) { return; }
+        string newFilePath = newFileMeta.Replace(".meta", "");
+        if (!newFilePath.EndsWith(".cs") ){ return; }
 
-        string realPath = Application.dataPath.Replace("Assets", "") + newFilePath; string scriptContent = File.ReadAllText(realPath);
+        string realPath = Application.dataPath.Replace("Assets", "") + newFilePath; 
+        string scriptContent = File.ReadAllText(realPath);
         //这里实现自定义的一些规则
         scriptContent = scriptContent.Replace("#SCRIPTNAME#", Path.GetFileName(newFilePath));
         scriptContent = scriptContent.Replace("#COMPANYNAME#", "CompanyName");

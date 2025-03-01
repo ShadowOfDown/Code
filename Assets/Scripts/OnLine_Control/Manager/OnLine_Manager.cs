@@ -14,6 +14,7 @@ using UnityEngine;
 public class OnLine_Manager : MonoBehaviourPunCallbacks
 {
     #region 单例
+    public static bool isLoaded { get; private set; } = false;
     private static OnLine_Manager instance;
     private static object locker = new object();
     public static OnLine_Manager Instance {
@@ -24,6 +25,7 @@ public class OnLine_Manager : MonoBehaviourPunCallbacks
                         Debug.Log("OnLine_Manager SingleTon Created !");
                         GameObject go = new GameObject("OnLine_Manager");
                         instance = go.AddComponent<OnLine_Manager>();
+                        isLoaded = true;
                         DontDestroyOnLoad(go);
                     }
                 }
@@ -203,8 +205,13 @@ public class OnLine_Manager : MonoBehaviourPunCallbacks
     /// <returns></returns>
     public bool CreateRoom(string roomName,Photon.Realtime.RoomOptions roomOptions)
     {
-        OnCreatingRoomEvent?.Invoke();
-        return PhotonNetwork.CreateRoom(roomName, roomOptions,lobby);
+        bool res = false;
+        if (PhotonNetwork.IsConnectedAndReady)
+        {
+            res = PhotonNetwork.CreateRoom(roomName, roomOptions, lobby);
+            OnCreatingRoomEvent?.Invoke();
+        }
+        return res;
     }
     /// <summary>
     /// 离开当前房间
@@ -379,5 +386,9 @@ public class OnLine_Manager : MonoBehaviourPunCallbacks
                 Rooms.Remove(temp);
             }
         }
+    }
+    private void OnDestroy()
+    {
+        isLoaded = false;
     }
 }

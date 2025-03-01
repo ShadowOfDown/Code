@@ -10,14 +10,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyUI : MonoBehaviour
+public class LobbyUI : UIObject
 {
     private Transform ContentTrf;
     private GameObject RoomPrefab;
     private Dictionary<RoomInfo, RoomItemUI> roomList = new Dictionary<RoomInfo, RoomItemUI>();
+    [SerializeField]
     private bool isRefesh = false;
     private IEnumerator autoFlash;
-    private void Awake()
+    public override void OnLoad()
     {
         if(OnLine_Manager.Instance.isInMaster)
         {
@@ -37,7 +38,7 @@ public class LobbyUI : MonoBehaviour
 
         transform.Find("NameButton").GetComponent<Button>().onClick.AddListener(OnNameButtonClicked);
         transform.Find("NameButton/Name").GetComponent<Text>().text = OnLine_Manager.Instance.PlayerName;
-        RoomPrefab = Resources.Load<GameObject>("UI/RoomItem");
+        RoomPrefab = Resources.Load<GameObject>("LoginSystem/UI/Prefabs/RoomItem");
     }
     private void EnterTypedLobbyLater()
     {
@@ -61,13 +62,6 @@ public class LobbyUI : MonoBehaviour
         autoFlash = AutoFlashRoomList();
         IEnumeratorSystem.Instance.startCoroutine(autoFlash);
         OnLine_Manager.Instance.OnJoinedLobbyEvent -= OnJoinedLobby;
-    }
-    private void OnDestroy()
-    {
-        if (autoFlash != null)
-        {
-            IEnumeratorSystem.Instance.stopCoroutine(autoFlash);
-        }
     }
     public void OnCreateButtonClicked()
     {
@@ -94,10 +88,12 @@ public class LobbyUI : MonoBehaviour
         }
         foreach (RoomItemUI roomItemUI in roomList.Values) {
             Destroy(roomItemUI.gameObject);
+            Debug.Log("Destory "+ roomItemUI.gameObject.name);
         }
         roomList.Clear();
         foreach (RoomInfo room in rooms) {
             RoomItemUI t = Instantiate(RoomPrefab, ContentTrf).AddComponent<RoomItemUI>();
+            t.Init();
             t.setRoomInfo(room);
             roomList.Add(room, t);
         }
@@ -108,8 +104,17 @@ public class LobbyUI : MonoBehaviour
 
     public void OnCloseButtonClicked()
     {
+        CloseAutoFlash();
         UI_Manager.Instance.ShowUI<LoginUI>("LoginUI");
         UI_Manager.Instance.CloseUI("LobbyUI");
+    }
+
+    public void CloseAutoFlash()
+    {
+        if (autoFlash != null)
+        {
+            IEnumeratorSystem.Instance.stopCoroutine(autoFlash);
+        }
     }
     IEnumerator AutoFlashRoomList()
     {
@@ -117,8 +122,16 @@ public class LobbyUI : MonoBehaviour
             yield return new WaitForSeconds(3);
             if (OnLine_Manager.Instance.InLobby)
             {
-                OnLine_Manager.Instance.RefreshRoomList();
+                OnUpdateButtonClicked();
             }
+        }
+    }
+
+    public override void OnClose()
+    {
+        base.OnClose();
+        if (autoFlash != null && IEnumeratorSystem.isLoaded) {
+            IEnumeratorSystem.Instance.stopCoroutine(autoFlash);
         }
     }
 }

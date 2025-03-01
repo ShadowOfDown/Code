@@ -11,11 +11,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputUserNameUI : MonoBehaviour
+public class InputUserNameUI : UIObject
 {
     public InputField inputField;
     public event Action OnNameChanged;
-    public void Awake()
+    public override void OnLoad()
     {
         transform.Find("bg/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseBtnClicked);
         transform.Find("bg/okBtn").GetComponent<Button>().onClick.AddListener(OnSetBtnClicked);

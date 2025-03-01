@@ -9,14 +9,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginUI : MonoBehaviour
+public class LoginUI : UIObject
 {
     [SerializeField]
     private Button OnLine_StartButton;
     private Button QuitButton;
     private Button SettingsButton;
 
-    private void Awake()
+    public override void OnLoad()
     {
         OnLine_StartButton = transform.Find("OnLine_StartButton").GetComponent<Button>();
         QuitButton = transform.Find("QuitButton").GetComponent<Button>();
@@ -58,10 +58,5 @@ public class LoginUI : MonoBehaviour
 
         OnLine_Manager.Instance.OnConnectedServerEvent -= EnterLobbyUI;
         UI_Manager.Instance.CloseUI("LoginUI");
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }

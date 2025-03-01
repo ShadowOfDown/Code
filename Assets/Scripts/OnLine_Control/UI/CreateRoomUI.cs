@@ -12,16 +12,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreateRoomUI : MonoBehaviour
+public class CreateRoomUI : UIObject
 {
     public InputField inputField;
-    private void Awake()
+    public override void OnLoad()
     {
         transform.Find("bg/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseBtnClicked);
         transform.Find("bg/okBtn").GetComponent<Button>().onClick.AddListener(OnCreateBtnClicked);
         inputField = transform.Find("bg/InputField").GetComponent<InputField>();
         inputField.text = OnLine_Manager.Instance.PlayerName + "的房间";
-        OnLine_Manager.Instance.OnCreatedRoomEvent += OnCreatedRoom;
+        OnLine_Manager.Instance.OnJoinedRoomEvent += OnJoinedRoom;
         OnLine_Manager.Instance.OnCreateRoomFailedEvent += OnCreateRoomFailed;
 
     }
@@ -36,12 +36,14 @@ public class CreateRoomUI : MonoBehaviour
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 5;
         roomOptions.PublishUserId = true;
+
+
         OnLine_Manager.Instance.CreateRoom(inputField.text, roomOptions);
         UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在创建房间...");
     }
-    public void OnCreatedRoom(string name)
+    public void OnJoinedRoom(string name)
     {
-        OnLine_Manager.Instance.OnCreatedRoomEvent -= OnCreatedRoom;
+        OnLine_Manager.Instance.OnCreatedRoomEvent -= OnJoinedRoom;
         OnLine_Manager.Instance.OnCreateRoomFailedEvent -= OnCreateRoomFailed;
         UI_Manager.Instance.ShowUI<RoomUI>("RoomUI");
         UI_Manager.Instance.CloseUI("LobbyUI");
@@ -50,7 +52,7 @@ public class CreateRoomUI : MonoBehaviour
     }
     public void OnCreateRoomFailed()
     {
-        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("创建房间失败");
+        UI_Manager.Instance.LogWarnning("创建房间失败");
         UI_Manager.Instance.CloseUI(name);
     }
 }

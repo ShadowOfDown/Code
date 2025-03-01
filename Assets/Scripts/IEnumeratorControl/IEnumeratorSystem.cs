@@ -10,13 +10,23 @@ using UnityEngine;
 public class IEnumeratorSystem : MonoBehaviour
 {
     #region µ¥Àý
+    public static void SetLoaded(bool isdestroyed)
+    {
+        isLoaded = isdestroyed;
+    }
+
+    public static void SetLoaded()
+    {
+        isLoaded = true;
+    }
     private static IEnumeratorSystem instance;
+    public static bool isLoaded { get; private set; } = false;
     private static object locker = new object();
     public static IEnumeratorSystem Instance
     {
         get
         {
-            if (instance == null)
+            if (instance == null && !isLoaded)
             {
                 lock (locker)
                 {
@@ -25,6 +35,7 @@ public class IEnumeratorSystem : MonoBehaviour
                         GameObject go = new GameObject("IEnumeratorSystem");
                         instance = go.AddComponent<IEnumeratorSystem>();
                         DontDestroyOnLoad(go);
+                        isLoaded = true ;
                     }
                 }
             }
@@ -91,4 +102,11 @@ public class IEnumeratorSystem : MonoBehaviour
         allCoroutinesName.Remove(name);
         dictionary.Remove(name);
     }
+
+    private void OnDestroy()
+    {
+        isLoaded = false;
+    }
+
+
 }

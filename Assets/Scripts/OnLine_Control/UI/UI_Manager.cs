@@ -30,72 +30,102 @@ public class UI_Manager
 
     private UI_Manager(){}
     [SerializeField]
-    private List<GameObject> uiList;
+    private List<UIObject> uiList;
     public Transform CanvasTf { get; private set; }
 
     public void Init()
     {
-        CanvasTf = GameObject.Find("canvas")?.transform;
-        if(CanvasTf == null)
-        {
-            CanvasTf = GameObject.Instantiate(Resources.Load<GameObject>("UI/Canvas")).transform;
-        }
-        uiList = new List<GameObject>();
-        ShowUI<LoginUI>("LoginUI");
+        FindCanvas();
+
+        uiList = new List<UIObject>();
     }
 
-    private GameObject Find(string name)
+    void FindCanvas()
     {
-        foreach (GameObject go in uiList)
+        CanvasTf = GameObject.Find("Canvas")?.transform;
+        if (CanvasTf == null)
+        {
+            CanvasTf = UIObject.Instantiate(Resources.Load<GameObject>("LoginSystem/UI/Prefabs/Canvas")).transform;
+        }
+    }
+
+    private UIObject Find(string name)
+    {
+        CheckList();
+        foreach (UIObject go in uiList)
         {
             if (go.name == name) return go;
         }
         return null;
     }
 
-    private T Find<T>(string name) where T : Component
+    private void CheckList()
     {
-        foreach(GameObject go in uiList)
+        List<UIObject> ToRemove = new List<UIObject>();
+        foreach(UIObject go in uiList)
+        {
+            if(go == null)
+            {
+                Debug.LogWarning("Some GameObject In uiList Had Been Destroyed£¡");
+                ToRemove.Add(go);
+            }
+        }
+        foreach(UIObject go in ToRemove)
+        {
+            uiList.Remove(go);
+        }
+    }
+
+    private T Find<T>(string name) where T : UIObject
+    {
+        CheckList();
+        foreach(UIObject go in uiList)
         {
             if (go.name == name) return go.GetComponent<T>();
         }
         return null;
     }
-    public T ShowUI<T>(string Name) where T : Component
+    public T ShowUI<T>(string Name) where T : UIObject
     {
         T ui = Find<T>(Name);
         if(ui == null)
         {
-            GameObject go = GameObject.Instantiate(Resources.Load<GameObject>("UI/" + Name),CanvasTf) ;
+            if(CanvasTf == null) { FindCanvas(); }
+            GameObject go = GameObject.Instantiate(Resources.Load<GameObject>("LoginSystem/UI/Prefabs/" + Name),CanvasTf) ;
             go.name = Name;
-            uiList.Add(go);
             ui = go.AddComponent<T>();
+            uiList.Add(ui);
         }
         else
         {
             ui.gameObject.SetActive(true);
         }
+        ui.OnLoad();
         return ui;
     }
 
     public void CloseUI(string Name)
     {
-        GameObject go = Find(Name);
+        UIObject go = Find(Name);
         if(go == null) return;
+        go.OnClose();
         uiList.Remove(go);
-        GameObject.Destroy(go);
+        GameObject.Destroy(go.gameObject);
     }
 
     public void HideUI(string Name) { 
-        GameObject go = Find(Name);
+        UIObject go = Find(Name);
         if(go == null) return;
-        go.SetActive(false);
+        go.OnHide();
+        go.gameObject.SetActive(false);
     }
 
     public void CloseAllUI()
     {
-        foreach (GameObject go in uiList)
+        CheckList();
+        foreach (UIObject go in uiList)
         {
+            go.OnClose();
             GameObject.Destroy(go);
         }
         uiList.Clear();
@@ -108,11 +138,11 @@ public class UI_Manager
 
     IEnumerator CloseUIForSeconds(float seconds,string name)
     {
-        GameObject go = Find(name);
+        UIObject go = Find(name);
         if (go == null) yield break;
         yield return new WaitForSeconds(seconds);
         uiList.Remove(go);
-        GameObject.Destroy(go);
+        UIObject.Destroy(go);
     }
 
 
