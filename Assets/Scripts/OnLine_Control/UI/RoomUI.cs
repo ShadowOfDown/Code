@@ -29,14 +29,14 @@ public class RoomUI : UIObject
         StartGame.onClick.AddListener(Game);
         InitPlayerList();
 
-        OnLine_Manager.Instance.OnPlayerPropertiesUpdateEvent += OnPlayerPropertiesUpdate;
-        OnLine_Manager.Instance.OnPlayerEnteredRoomEvent += OnPlayerEnteredRoom;
-        OnLine_Manager.Instance.OnPlayerLeftRoomEvent += OnPlayerLeftRoom;
-        OnLine_Manager.Instance.OnLeftRoomEvent += OnLeftRoom;
+        EventManager.AddListener<Player,ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerPropertiesUpdate);
+        EventManager.AddListener<Player>("OnPlayerEnteredRoomEvent",OnPlayerEnteredRoom);
+        EventManager.AddListener<Player>("OnPlayerLeftRoomEvent", OnPlayerLeftRoom);
+        EventManager.AddListener<string>("OnLeftRoomEvent", OnLeftRoom);
     }
     public void OnCloseBtnClicked()
     {
-        OnLine_Manager.Instance.LeaveRoom(OnLine_Manager.Instance.CurrentRoom.Name);
+        GameLoop.Instance.onlineManager.LeaveRoom(GameLoop.Instance.onlineManager.CurrentRoom.Name);
     }
 
     public void SetRoomName(string name)
@@ -46,9 +46,9 @@ public class RoomUI : UIObject
 
     public void InitPlayerList()
     {
-        OnPlayerEnteredRoom(OnLine_Manager.Instance.MasterClient);
-        OnPlayerEnteredRoom(OnLine_Manager.Instance.LocalPlayer);
-        foreach (Player p in OnLine_Manager.Instance.PlayerListOthers)
+        OnPlayerEnteredRoom(GameLoop.Instance.onlineManager.MasterClient);
+        OnPlayerEnteredRoom(GameLoop.Instance.onlineManager .LocalPlayer);
+        foreach (Player p in GameLoop.Instance.onlineManager.PlayerListOthers)
         {
             OnPlayerEnteredRoom(p);
             OnPlayerPropertiesUpdate(p, p.CustomProperties);
@@ -63,10 +63,10 @@ public class RoomUI : UIObject
     public override void OnClose()
     {
         base.OnClose();
-        OnLine_Manager.Instance.OnPlayerPropertiesUpdateEvent -= OnPlayerPropertiesUpdate;
-        OnLine_Manager.Instance.OnPlayerEnteredRoomEvent -= OnPlayerEnteredRoom;
-        OnLine_Manager.Instance.OnPlayerLeftRoomEvent -= OnPlayerLeftRoom;
-        OnLine_Manager.Instance.OnLeftRoomEvent -= OnLeftRoom;
+        EventManager.RemoveListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerPropertiesUpdate);
+        EventManager.RemoveListener<Player>("OnPlayerEnteredRoomEvent", OnPlayerEnteredRoom);
+        EventManager.RemoveListener<Player>("OnPlayerLeftRoomEvent", OnPlayerLeftRoom);
+        EventManager.RemoveListener<string>("OnLeftRoomEvent", OnLeftRoom);
     }
     public void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -90,7 +90,7 @@ public class RoomUI : UIObject
 
     public void UpdateUI()
     {
-        if (AllReady() && OnLine_Manager.Instance.IsClient) { StartGame.gameObject.SetActive(true); }
+        if (AllReady() && GameLoop.Instance.onlineManager.IsClient) { StartGame.gameObject.SetActive(true); }
         else { StartGame.gameObject.SetActive(false); }
     }
 
@@ -122,7 +122,7 @@ public class RoomUI : UIObject
         //}
         ExitGames.Client.Photon.Hashtable table = new ExitGames.Client.Photon.Hashtable();
         table.Add("StartGame", true);
-        OnLine_Manager.Instance.SetPlayerCustomProperties(table);
-        OnLine_Manager.Instance.CurrentRoom.IsOpen = false;
+        GameLoop.Instance.onlineManager.SetPlayerCustomProperties(table);
+        GameLoop.Instance.onlineManager.CurrentRoom.IsOpen = false;
     }
 }

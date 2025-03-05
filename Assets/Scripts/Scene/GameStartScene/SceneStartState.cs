@@ -18,12 +18,13 @@ public class SceneStartState : ISceneState
 
     public override void StateBegin()
     {
+        UI_Manager.Instance.Init();
         UI_Manager.Instance.ShowUI<LoginUI>("LoginUI");
-        OnLine_Manager.Instance.OnPlayerPropertiesUpdateEvent += SwitchScene;
+        EventManager.AddListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", SwitchScene);
     }
     public override void StateEnd()
     {
-        OnLine_Manager.Instance.OnPlayerPropertiesUpdateEvent -= SwitchScene;
+        EventManager.RemoveListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", SwitchScene);
     }
     public override void StateUpdate()
     {
@@ -34,6 +35,7 @@ public class SceneStartState : ISceneState
     {
         if (changedProps != null && changedProps.ContainsKey("StartGame"))
         {
+            UI_Manager.Instance.CloseAllUI();
             my_control.SetState(new RoleSelectScene(my_control), "RoleSelectScene");
         }
     }

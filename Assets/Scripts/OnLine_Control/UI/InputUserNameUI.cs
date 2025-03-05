@@ -21,24 +21,24 @@ public class InputUserNameUI : UIObject
         transform.Find("bg/okBtn").GetComponent<Button>().onClick.AddListener(OnSetBtnClicked);
         inputField = transform.Find("bg/InputField").GetComponent<InputField>();
         
-        if (OnLine_Manager.Instance.PlayerName == null || OnLine_Manager.Instance.PlayerName.Length == 0){
+        if (GameLoop.Instance.onlineManager.PlayerName == null || GameLoop.Instance.onlineManager.PlayerName.Length == 0){
             inputField.text = "User_" + UnityEngine.Random.Range(1, 99999);
         }
         else{
-            Debug.Log(OnLine_Manager.Instance.PlayerName + "   Length  : "+ OnLine_Manager.Instance.PlayerName.Length);
-            inputField.text = OnLine_Manager.Instance.PlayerName;
+            Debug.Log(GameLoop.Instance.onlineManager.PlayerName + "   Length  : "+ GameLoop.Instance.onlineManager.PlayerName.Length);
+            inputField.text = GameLoop.Instance.onlineManager.PlayerName;
         }
     }
 
     public void OnCloseBtnClicked()
     {
-        if (OnLine_Manager.Instance.PlayerName == null || OnLine_Manager.Instance.PlayerName.Length == 0){
+        if (GameLoop.Instance.onlineManager.PlayerName == null || GameLoop.Instance.onlineManager.PlayerName.Length == 0){
             if (inputField.text == null || inputField.text.Length <= 2)
             {
-                OnLine_Manager.Instance.SetName("User_" + UnityEngine.Random.Range(1, 99999));
+                GameLoop.Instance.onlineManager.SetName("User_" + UnityEngine.Random.Range(1, 99999));
             }
             else {
-                OnLine_Manager.Instance.SetName(inputField.text);
+                GameLoop.Instance.onlineManager.SetName(inputField.text);
             }
             OnNameChanged?.Invoke();
         }
@@ -51,7 +51,7 @@ public class InputUserNameUI : UIObject
             UI_Manager.Instance.LogWarnning("输入字符不得少于2");
             return;
         }
-        OnLine_Manager.Instance.SetName(inputField.text);
+        GameLoop.Instance.onlineManager.SetName(inputField.text);
         OnNameChanged?.Invoke();
         UI_Manager.Instance.CloseUI("InputUserNameUI");
     }

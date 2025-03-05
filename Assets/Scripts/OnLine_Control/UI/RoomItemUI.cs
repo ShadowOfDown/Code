@@ -22,12 +22,13 @@ public class RoomItemUI : MonoBehaviour
         roomCount = transform.Find("Count").GetComponent<Text>();
         joinBtn = transform.Find("joinBtn").GetComponent<Button>();
         joinBtn.onClick.AddListener(JoinRoom);
-        OnLine_Manager.Instance.OnJoinedRoomEvent += OnJoinedRoom;
+        EventManager.AddListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
     }
 
     public void setRoomInfo(RoomInfo roomInfo)
     {
-        roomName.text = roomInfo.Name;
+        roomInfo.CustomProperties.TryGetValue("name", out object temp);
+        roomName.text =(string)temp;
         roomCount.text = roomInfo.PlayerCount + " / " + roomInfo.MaxPlayers;
         this.roomInfo = roomInfo;
         if (roomInfo.PlayerCount >= roomInfo.MaxPlayers)
@@ -45,7 +46,7 @@ public class RoomItemUI : MonoBehaviour
     {
         if (roomInfo.PlayerCount < roomInfo.MaxPlayers)
         {
-            if(OnLine_Manager.Instance.JoinRoom(roomInfo.Name))
+            if(GameLoop.Instance.onlineManager.JoinRoom(roomInfo.Name))
                 UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在加入房间...");
         }
     }
@@ -54,7 +55,7 @@ public class RoomItemUI : MonoBehaviour
     public void OnJoinedRoom(string name)
     {
         Debug.Log("OnJoinedRoom Event Invoke");
-        OnLine_Manager.Instance.OnJoinedRoomEvent -= OnJoinedRoom;
+        EventManager.RemoveListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
         UI_Manager.Instance.ShowUI<RoomUI>("RoomUI").SetRoomName(roomName.text);
         UI_Manager.Instance.CloseUI("LobbyUI");
         UI_Manager.Instance.CloseUI("MaskUI");
@@ -62,9 +63,6 @@ public class RoomItemUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (OnLine_Manager.isLoaded)
-        {
-            OnLine_Manager.Instance.OnJoinedRoomEvent -= OnJoinedRoom;
-        }
+        EventManager.RemoveListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
     }
 }

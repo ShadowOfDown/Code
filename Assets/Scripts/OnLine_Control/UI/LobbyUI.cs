@@ -16,19 +16,20 @@ public class LobbyUI : UIObject
     private GameObject RoomPrefab;
     private Dictionary<RoomInfo, RoomItemUI> roomList = new Dictionary<RoomInfo, RoomItemUI>();
     [SerializeField]
-    private bool isRefesh = false;
     private IEnumerator autoFlash;
+    private bool MaskOn = false;
+    private string SearchKey = "µÄ";
     public override void OnLoad()
     {
-        if(OnLine_Manager.Instance.isInMaster)
+        if(GameLoop.Instance.onlineManager.IsConnectedAndReady)
         {
-            OnLine_Manager.Instance.EnterTypedLubby();
-            OnLine_Manager.Instance.OnJoinedLobbyEvent += OnJoinedLobby;
+            GameLoop.Instance.onlineManager.EnterTypedLubby();
+            EventManager.AddListener("OnJoinedLobbyEvent", OnJoinedLobby);
         }
         else
         {
-            if (!OnLine_Manager.Instance.IsConnected) { OnLine_Manager.Instance.ConnectMaster(); }
-            OnLine_Manager.Instance.OnConnectedServerEvent += EnterTypedLobbyLater;
+            if (!GameLoop.Instance.onlineManager.IsConnected) { GameLoop.Instance.onlineManager.ConnectMaster(); }
+            EventManager.AddListener("OnConnectedServerEvent", EnterTypedLobbyLater);
         }
         transform.Find("content/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseButtonClicked);
         transform.Find("content/updateBtn").GetComponent<Button>().onClick.AddListener(OnUpdateButtonClicked);
@@ -37,53 +38,57 @@ public class LobbyUI : UIObject
         ContentTrf = transform.Find("content/ScrollView/Viewport/Content");
 
         transform.Find("NameButton").GetComponent<Button>().onClick.AddListener(OnNameButtonClicked);
-        transform.Find("NameButton/Name").GetComponent<Text>().text = OnLine_Manager.Instance.PlayerName;
+        transform.Find("NameButton/Name").GetComponent<Text>().text = GameLoop.Instance.onlineManager.PlayerName;
         RoomPrefab = Resources.Load<GameObject>("LoginSystem/UI/Prefabs/RoomItem");
+
+        EventManager.AddListener<List<RoomInfo>>("OnRoomListUpdateEvent", FreshRoomList);
     }
     private void EnterTypedLobbyLater()
     {
-        OnLine_Manager.Instance.OnConnectedServerEvent -= EnterTypedLobbyLater;
-        OnLine_Manager.Instance.EnterTypedLubby();
-        OnLine_Manager.Instance.OnJoinedLobbyEvent += OnJoinedLobby;
+        EventManager.RemoveListener("OnConnectedServerEvent", EnterTypedLobbyLater);
+        GameLoop.Instance.onlineManager.EnterTypedLubby();
+        EventManager.AddListener("OnJoinedLobbyEvent", OnJoinedLobby);
     }
     public void OnNameButtonClicked()
     {
         transform.Find("NameButton").GetComponent<Button>().enabled = false;
         UI_Manager.Instance.ShowUI<InputUserNameUI>("InputUserNameUI").OnNameChanged += ChangeName;
+        MaskOn = true;
         transform.Find("NameButton").GetComponent<Button>().enabled = true;
     }
     private void ChangeName()
     {
-        transform.Find("NameButton/Name").GetComponent<Text>().text = OnLine_Manager.Instance.PlayerName;
+        transform.Find("NameButton/Name").GetComponent<Text>().text = GameLoop.Instance.onlineManager.PlayerName;
     }
     public void OnJoinedLobby()
     {
         OnUpdateButtonClicked();
         autoFlash = AutoFlashRoomList();
         IEnumeratorSystem.Instance.startCoroutine(autoFlash);
-        OnLine_Manager.Instance.OnJoinedLobbyEvent -= OnJoinedLobby;
     }
     public void OnCreateButtonClicked()
     {
-        if (!OnLine_Manager.Instance.InLobby || OnLine_Manager.Instance.CurrentRoom!=null) { return; }
+        if (!GameLoop.Instance.onlineManager.InLobby || GameLoop.Instance.onlineManager.CurrentRoom!=null) { return; }
         UI_Manager.Instance.ShowUI<CreateRoomUI>("CreateRoomUI");
     }
     public void OnUpdateButtonClicked()
     {
-        if (!OnLine_Manager.Instance.InLobby) { return; }
+        if (!GameLoop.Instance.onlineManager.InLobby) { return; }
         UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("Ë¢ÐÂÖÐ...");
-        isRefesh = true;
-        OnLine_Manager.Instance.OnRoomListUpdateEvent += FreshRoomList;
-        OnLine_Manager.Instance.RefreshRoomList();
+        MaskOn = true;
+        GameLoop.Instance.onlineManager.RefreshRoomList(SearchKey);
     }
 
     private void FreshRoomList(List<RoomInfo > rooms)
     {
-        UI_Manager.Instance.CloseUI("MaskUI");
-        if (!OnLine_Manager.Instance.InLobby)
+        if (MaskOn)
+        {
+            UI_Manager.Instance.CloseUI("MaskUI");
+            MaskOn = false;
+        }
+        if (!GameLoop.Instance.onlineManager.InLobby)
         {
             Debug.Log("Not In Lobby");
-            OnLine_Manager.Instance.OnRoomListUpdateEvent -= FreshRoomList;
             return;
         }
         foreach (RoomItemUI roomItemUI in roomList.Values) {
@@ -97,8 +102,6 @@ public class LobbyUI : UIObject
             t.setRoomInfo(room);
             roomList.Add(room, t);
         }
-        Debug.Log(roomList.Count);
-        OnLine_Manager.Instance.OnRoomListUpdateEvent -= FreshRoomList;
     }
 
 
@@ -120,9 +123,9 @@ public class LobbyUI : UIObject
     {
         while (true) {
             yield return new WaitForSeconds(3);
-            if (OnLine_Manager.Instance.InLobby)
+            if (GameLoop.Instance.onlineManager.InLobby)
             {
-                OnUpdateButtonClicked();
+                GameLoop.Instance.onlineManager.RefreshRoomList(SearchKey);
             }
         }
     }
@@ -133,5 +136,10 @@ public class LobbyUI : UIObject
         if (autoFlash != null && IEnumeratorSystem.isLoaded) {
             IEnumeratorSystem.Instance.stopCoroutine(autoFlash);
         }
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveListener("OnJoinedLobbyEvent", OnJoinedLobby);
     }
 }

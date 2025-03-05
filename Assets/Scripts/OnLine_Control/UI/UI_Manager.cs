@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 [Serializable]
 public class UI_Manager
 {
@@ -36,10 +37,20 @@ public class UI_Manager
     public void Init()
     {
         FindCanvas();
+        FindUnityEventSystem();
 
         uiList = new List<UIObject>();
     }
-
+    public void FindUnityEventSystem()
+    {
+        EventSystem e = GameObject.Find("EventSystem")?.GetComponent<EventSystem>();
+        if(e == null)
+        {
+            GameObject go = new GameObject("EventSystem");
+            go.AddComponent<EventSystem>();
+            go.AddComponent<StandaloneInputModule>();
+        }
+    }
     void FindCanvas()
     {
         CanvasTf = GameObject.Find("Canvas")?.transform;
@@ -145,5 +156,16 @@ public class UI_Manager
         UIObject.Destroy(go);
     }
 
-
+    public void UIobjectUpdate()
+    {
+        CheckList();
+        foreach(UIObject go in uiList)
+        {
+            if (!go.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+            go.OnUpdate();
+        }
+    }
 }

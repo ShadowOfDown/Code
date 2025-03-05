@@ -29,14 +29,14 @@ public class LoginUI : UIObject
 
     public void On_OnLine_StartButtonClicked()
     {
-        if (OnLine_Manager.Instance.IsConnected||OnLine_Manager.Instance.isInMaster) {
+        if (GameLoop.Instance.onlineManager.IsConnected|| GameLoop.Instance.onlineManager.IsConnectedAndReady) {
             UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
             UI_Manager.Instance.CloseUI("LoginUI");
             return;
         }
-        OnLine_Manager.Instance.ConnectMaster();
-        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在连接服务器...");
-        OnLine_Manager.Instance.OnConnectedServerEvent += EnterLobbyUI;
+        EventManager.AddListener("OnConnectedServerEvent", EnterLobbyUI);
+        GameLoop.Instance.onlineManager.ConnectMaster();
+        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在连接服务器...");  
     }
 
     public void On_QuitButtonClicked()
@@ -56,7 +56,7 @@ public class LoginUI : UIObject
         UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
 
 
-        OnLine_Manager.Instance.OnConnectedServerEvent -= EnterLobbyUI;
+        EventManager.RemoveListener("OnConnectedServerEvent", EnterLobbyUI);
         UI_Manager.Instance.CloseUI("LoginUI");
     }
 }
