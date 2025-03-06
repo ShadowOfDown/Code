@@ -21,6 +21,33 @@ public class ImageGameObjectBuilder : SingleGameObjectBuilder
 
   #region Properties
   public override string GameObjectName { get; }
+<<<<<<< HEAD
+=======
+  public ImageComponentBuilder Image
+  {
+    get 
+    {
+     return ComponentTable["Image"] as ImageComponentBuilder; 
+    }
+    set
+    {
+      ComponentTable["Image"] = value;
+    }
+  }
+  public bool PreserveAspect
+  {
+    get 
+    {
+      ImageComponentBuilder imageBuilder = ComponentTable["Image"] as ImageComponentBuilder;
+      return imageBuilder.PreserveAspect; 
+    }
+    set
+    {
+      ImageComponentBuilder imageBuilder = ComponentTable["Image"] as ImageComponentBuilder;
+      imageBuilder.PreserveAspect = value;
+    }
+  }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 

@@ -7,6 +7,7 @@ public abstract class SingleGameObjectBuilder : ISingleGameObjectBuilder
   public virtual string GameObjectName { get; }
   public virtual Transform Transform
   {
+<<<<<<< HEAD
     get
     {
       return GameObject.transform;
@@ -18,6 +19,13 @@ public abstract class SingleGameObjectBuilder : ISingleGameObjectBuilder
     {
       return GameObject.GetComponent<RectTransform>();
     }
+=======
+    get { return GameObject.transform; }
+  }
+  public virtual RectTransform RectTransform
+  {
+    get { return GameObject.GetComponent<RectTransform>(); }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
   public GameObject GameObject { get; set; }
   public Dictionary<string, IComponentBuilder> ComponentTable { get; set; }
@@ -42,7 +50,14 @@ public abstract class SingleGameObjectBuilder : ISingleGameObjectBuilder
 
     foreach (IComponentBuilder component in ComponentTable.Values)
     {
+<<<<<<< HEAD
       component.Build(GameObject);
+=======
+      if (component != null)
+      {
+        component.Build(GameObject);
+      }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     }
 
     if (DebugInfo.PrintDebugInfo)
@@ -51,7 +66,11 @@ public abstract class SingleGameObjectBuilder : ISingleGameObjectBuilder
     }
   }
 
+<<<<<<< HEAD
   public void SetActive(bool state)
+=======
+  public virtual void SetActive(bool state)
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   {
     GameObject.SetActive(state);
   }
@@ -63,11 +82,26 @@ public abstract class SingleGameObjectBuilder : ISingleGameObjectBuilder
     {
       foreach (string componentName in GetComponentNameTable())
       {
+<<<<<<< HEAD
         if (componentTable.ContainsKey(componentName) == false)
         {
           componentTable.Add(componentName, GetDefaultConponentTable()[componentName]);
           Debug.LogWarning($"{GameObjectName} lack component {componentName}");
           isComponentValid = false;
+=======
+        if (componentTable != null)
+        {
+          if (componentTable.ContainsKey(componentName) == false)
+          {
+            componentTable.Add(componentName, GetDefaultConponentTable()[componentName]);
+            Debug.LogWarning($"{GameObjectName} lack component {componentName}");
+          }
+        }
+        else 
+        {
+          isComponentValid = false;
+          Debug.LogWarning($"{GameObjectName} lack component {componentName}");
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
         }
       }
     }
@@ -87,5 +121,13 @@ public abstract class SingleGameObjectBuilder : ISingleGameObjectBuilder
       ComponentTable[componentName] = component;
     }
   }
+<<<<<<< HEAD
+=======
+
+  public void clearOffSet()
+  {
+    RectTransform.offsetMax = RectTransform.offsetMin = Vector2.zero;
+  }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 }

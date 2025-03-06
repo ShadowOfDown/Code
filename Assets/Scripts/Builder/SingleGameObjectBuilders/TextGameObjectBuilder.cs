@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using TMPro;
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
 
 public class TextGameObjectBuilder : SingleGameObjectBuilder
 {
@@ -23,6 +27,7 @@ public class TextGameObjectBuilder : SingleGameObjectBuilder
 
   #region Properties
   public override string GameObjectName { get; }
+<<<<<<< HEAD
   public string Content 
   { 
     get
@@ -37,6 +42,15 @@ public class TextGameObjectBuilder : SingleGameObjectBuilder
     } 
   }
   
+=======
+  public TextComponentBuilder TextBuilder { get { return ComponentTable["Text"] as TextComponentBuilder; } }
+  public string Content
+  {
+    get { return TextBuilder.Content; }
+    set { TextBuilder.ModifyContent(value); }
+  }
+
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 
@@ -63,10 +77,30 @@ public class TextGameObjectBuilder : SingleGameObjectBuilder
     return defaultComponentTable;
   }
 
+<<<<<<< HEAD
   public void ModifyContent(string content)
   {
     TextComponentBuilder textComponentBuilder = ComponentTable["Text"] as TextComponentBuilder;
     textComponentBuilder.ModifyContent(content);
+=======
+  public override void Build(Dictionary<string, IComponentBuilder> componentTable)
+  {
+    if (componentTable.ContainsKey("ContentSizeFitter") == false)
+    {
+      componentTable.Add("ContentSizeFitter", new ContentSizeFitterComponentBuilder(ContentSizeFitterComponentBuilder.defaultArguTable));
+    }
+    else if (componentTable["ContentSizeFitter"] == null)
+    {
+      componentTable["ContentSizeFitter"] = new ContentSizeFitterComponentBuilder(ContentSizeFitterComponentBuilder.defaultArguTable);
+    }
+
+    base.Build(componentTable);
+  }
+
+  public void ModifyContent(string content)
+  {
+    TextBuilder.ModifyContent(content);
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
   #endregion
 }

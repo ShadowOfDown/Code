@@ -9,17 +9,29 @@ public class ButtonComponentBuilder : ComponentBuilder<string>
   public readonly static HashSet<string> arguNameTable = new()
   {
     "gameObjectName",
+<<<<<<< HEAD
     "resourcesFolderPath", 
   };
   public readonly static Dictionary<string, string> defaultArguTable = new()
   {
     {"gameObjectName", null}, 
+=======
+    "resourcesFolderPath",
+  };
+  public readonly static Dictionary<string, string> defaultArguTable = new()
+  {
+    {"gameObjectName", null},
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     {"resourcesFolderPath", null},
   };
   #endregion
 
 
   #region Properities
+<<<<<<< HEAD
+=======
+  public override bool Enable { get { return Button.enabled; } set { Button.enabled = value; } }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public Button Button { get; set; }
   public Sprite PressedSprite { get; set; }
   #endregion
@@ -64,14 +76,26 @@ public class ButtonComponentBuilder : ComponentBuilder<string>
 
   public override void Modify(Dictionary<string, string> arguTable)
   {
+<<<<<<< HEAD
     if (arguTable["gameObjectName"] != null)
+=======
+    if (arguTable.ContainsKey("gameObjectName") == false)
+    {
+      Button.transition = Selectable.Transition.None;
+    }
+    else if (arguTable["gameObjectName"] != null)
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     {
       PressedSprite = Resources.Load<Sprite>(arguTable["resourcesFolderPath"] + arguTable["gameObjectName"]);
 
       Button.transition = Selectable.Transition.SpriteSwap;
       Button.spriteState = new SpriteState
       {
+<<<<<<< HEAD
         highlightedSprite = PressedSprite,
+=======
+        highlightedSprite = null,
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
         pressedSprite = PressedSprite,
         disabledSprite = null
       };
@@ -83,8 +107,13 @@ public class ButtonComponentBuilder : ComponentBuilder<string>
       {
         normalColor = Color.white,
         highlightedColor = Color.gray,
+<<<<<<< HEAD
         pressedColor = Color.gray,
         disabledColor = Color.black,
+=======
+        pressedColor = Color.white,
+        disabledColor = Color.gray,
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
         selectedColor = Color.white,
         colorMultiplier = 1.0f,
         fadeDuration = 0.1f,

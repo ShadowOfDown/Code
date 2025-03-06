@@ -6,6 +6,10 @@ using System.Collections.Generic;
 public class TextComponentBuilder : ComponentBuilder<List<float>>
 {
   #region Fields
+<<<<<<< HEAD
+=======
+  public override bool Enable { get { return Text.enabled; } set { Text.enabled = value; } }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public readonly static string componentType = "Image";
   public readonly static HashSet<string> arguNameTable = new()
   {
@@ -88,7 +92,10 @@ public class TextComponentBuilder : ComponentBuilder<List<float>>
     Text.enableWordWrapping = true;
     Text.overflowMode = TextOverflowModes.Overflow;
     Text.font = GetFont(arguTable["font"]);
+<<<<<<< HEAD
     Text.fontSharedMaterial = Text.font.material;
+=======
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
 
   public void Modify(TextMeshProUGUI text)

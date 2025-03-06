@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using UnityEngine.Events;
 
 public class RoleSelectScene : ISceneState
@@ -11,6 +12,18 @@ public class RoleSelectScene : ISceneState
   private bool _showPromptBox = false;
   SelectBoxGameObjectBuilder _confirmSelectBox;
   SelectBoxGameObjectBuilder _promptSelectBox;
+=======
+using UnityEditor.Search;
+using UnityEngine.Events;
+
+public class RoleSelectScene : MonoBehaviour
+{
+  #region Fields
+  public static readonly string resourcesFolderPath = "Arts/Textures/RoleSelectScene/";
+  private bool _showIntroduction = false;
+  SelectBoxUniversalBuilder _confirmSelectBox;
+  PromptBoxUniversalBuilder _promptSelectBox;
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   private readonly Dictionary<string, Vector2> _fullScreenRectTransformArgu = new()
   {
     {"referenceObjectPixels", PixelInfo.referenceScreenPixel},
@@ -26,7 +39,11 @@ public class RoleSelectScene : ISceneState
     {"gameObjectName", "BackgroundImage"},
     {"resourcesFolderPath", resourcesFolderPath},
   };
+<<<<<<< HEAD
   private readonly List<RoleInfoBox> roleInfoBoxList = new();
+=======
+  private readonly List<RoleInfoInterface> roleInfoBoxList = new();
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   private RoleIntroduction _roleDetailInterface = null;
   #endregion
 
@@ -35,12 +52,17 @@ public class RoleSelectScene : ISceneState
 
 
   #region Methods
+<<<<<<< HEAD
   public RoleSelectScene(SceneStateControl control) : base(control)
   {
     this.StateName = "RoleSelectScene";
   }
 
   public override void StateBegin()
+=======
+
+  public void Start()
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   {
     // Canvas =========================================================================================
     _canvas = new CanvasGameObjectBuilder();
@@ -64,13 +86,18 @@ public class RoleSelectScene : ISceneState
     // roleInfoBox ====================================================================================
     for (int roleNum = 0; roleNum < 8; roleNum++)
     {
+<<<<<<< HEAD
       roleInfoBoxList.Add(new RoleInfoBox(roleNum, _backgroundImage.Transform, OnRoleImageClicked));
+=======
+      roleInfoBoxList.Add(new RoleInfoInterface(roleNum, _backgroundImage.Transform, OnRoleImageClicked));
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     }
 
     // SelectInterface ================================================================================
     _roleDetailInterface = new RoleIntroduction(_backgroundImage.Transform, 0, OnReturnButtonClicked);
   
     // SelectionConfirmBox ============================================================================
+<<<<<<< HEAD
     _confirmSelectBox= new SelectBoxGameObjectBuilder(
       "PromptBox_01", new Vector2(0.5f, 0.18f), _backgroundImage.Transform, new SortedDictionary<string, UnityAction>
       {
@@ -88,6 +115,23 @@ public class RoleSelectScene : ISceneState
     _promptSelectBox.ModifyContent("该角色已经被选择");
   }
   public override void StateUpdate()
+=======
+    _confirmSelectBox= new SelectBoxUniversalBuilder(
+      "PromptBox_01", new Vector2(0.5f, 0.18f), _backgroundImage.Transform, new SortedDictionary<string, UnityAction>
+      {
+        {"comfirm", OnConfirmButtonClicked},
+        {"wait", OnReturnButtonClicked}
+      });
+    _confirmSelectBox.ModifyContent("whether to choose?");
+
+    // PromptSelectBox ================================================================================
+    _promptSelectBox = new PromptBoxUniversalBuilder(
+      "PromptBox_02", new Vector2(0.5f, 0.5f), _backgroundImage.Transform);
+    _promptSelectBox.ModifyContent("has been chosen");
+    _promptSelectBox.SetActive(false);
+  }
+  public void Update()
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   {
     SetActive();
   }
@@ -103,12 +147,15 @@ public class RoleSelectScene : ISceneState
     _roleDetailInterface.SetActive(_showIntroduction);
     // 提示框
     _confirmSelectBox.SetActive(_showIntroduction);
+<<<<<<< HEAD
     _promptSelectBox.SetActive(_showIntroduction & _showPromptBox);
   }
 
   public override void StateEnd()
   {
 
+=======
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
 
   // Buttons ==========================================================================================
@@ -136,6 +183,7 @@ public class RoleSelectScene : ISceneState
     {
       Debug.Log("OnConfirmButtonClicked");
     }
+<<<<<<< HEAD
     _showPromptBox = true;
   }
 
@@ -146,6 +194,9 @@ public class RoleSelectScene : ISceneState
       Debug.Log("OnPromptButtonClicked");
     }
     _showPromptBox = false;
+=======
+    _promptSelectBox.SetActive(true);
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
   #endregion
 }

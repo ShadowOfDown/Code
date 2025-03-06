@@ -15,8 +15,13 @@ public class RectTransformComponentBuilder : ComponentBuilder<Vector2>
   public static readonly Dictionary<string, Vector2> defaultArguTable = new()
   {
     {"referenceObjectPixels", PixelInfo.referenceScreenPixel},
+<<<<<<< HEAD
     {"archorMin", new Vector2(0.5f, 0.5f)},
     {"archorMax", new Vector2(0.5f, 0.5f)},
+=======
+    {"archorMin", Vector2.zero},
+    {"archorMax", Vector2.one},
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     {"pivotPos", new Vector2(0.5f, 0.5f)},
   };
   #endregion
@@ -69,6 +74,14 @@ public class RectTransformComponentBuilder : ComponentBuilder<Vector2>
 
   public override void Modify(Dictionary<string, Vector2> posArgus)
   {
+<<<<<<< HEAD
+=======
+    if (posArgus == null)
+    {
+      posArgus = defaultArguTable;
+    }
+    
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     RectTransform.anchorMin = posArgus["archorMin"];
     RectTransform.anchorMax = posArgus["archorMax"];
     RectTransform.pivot = posArgus["pivotPos"];
@@ -106,5 +119,13 @@ public class RectTransformComponentBuilder : ComponentBuilder<Vector2>
       Debug.Log($"successfully load {componentType} in {gameObject.name}");
     }
   }
+<<<<<<< HEAD
+=======
+
+  public void clearOffSet()
+  {
+    RectTransform.offsetMax = RectTransform.offsetMin = Vector2.zero;
+  }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 }

@@ -20,6 +20,10 @@ public class ImageComponentBuilder : ComponentBuilder<string>
 
 
   # region Properities
+<<<<<<< HEAD
+=======
+  public override bool Enable { get { return Image.enabled; } set { Image.enabled = value; } }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public Image Image { get; set; }
   public Texture2D Texture
   {
@@ -36,6 +40,20 @@ public class ImageComponentBuilder : ComponentBuilder<string>
       Image.sprite = value;
     }
   }
+<<<<<<< HEAD
+=======
+  public bool PreserveAspect 
+  { 
+    get 
+    {
+      return Image.preserveAspect;
+    } 
+    set
+    {
+      Image.preserveAspect = value;
+    } 
+  }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 
@@ -78,8 +96,16 @@ public class ImageComponentBuilder : ComponentBuilder<string>
 
   public override void Modify(Dictionary<string, string> arguTable)
   {
+<<<<<<< HEAD
     Image.sprite = Resources.Load<Sprite>(arguTable["resourcesFolderPath"] + arguTable["gameObjectName"]);
     Image.preserveAspect = true;
+=======
+    if (arguTable["gameObjectName"] != null & arguTable["resourcesFolderPath"] != null)
+    {
+      Image.sprite = Resources.Load<Sprite>(arguTable["resourcesFolderPath"] + arguTable["gameObjectName"]);
+      Image.preserveAspect = true;
+    }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
 
   public void Modify(Image image)

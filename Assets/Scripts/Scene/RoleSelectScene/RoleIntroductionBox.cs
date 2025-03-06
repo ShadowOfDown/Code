@@ -124,7 +124,11 @@ public class RoleIntroduction
   public ImageGameObjectBuilder RoleImageBuilder { get; set; }
   public TextBoxGameObjectBuilder NameCardBuilder { get; set; }
   public TextBoxGameObjectBuilder IntroductionBuilder { get; set; }
+<<<<<<< HEAD
   public ButtonBoxGameObjectbuilder ReturnButtonBuilder { get; set; }
+=======
+  public ButtonUniversalbuilder ReturnButtonBuilder { get; set; }
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 
@@ -202,10 +206,17 @@ public class RoleIntroduction
     IntroductionBuilder.ModifyContent(SettingsInfo.roleIntroductionList[roleIdx]);
 
     // ReturnButton =====================================================================================
+<<<<<<< HEAD
     ReturnButtonBuilder = new ButtonBoxGameObjectbuilder(
       "ReturnImage", new Vector2(1.0f, 1.0f), parentTransform, new Dictionary<string, UnityAction>
       {
         {"返回", OnReturnButtonClick},
+=======
+    ReturnButtonBuilder = new ButtonUniversalbuilder(
+      "ReturnImage", new Vector2(1.0f, 1.0f), SelectBackgroundImage.Transform, new Dictionary<string, UnityAction>
+      {
+        {"onClickAction", OnReturnButtonClick},
+>>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
       }, 1
     );
   }
