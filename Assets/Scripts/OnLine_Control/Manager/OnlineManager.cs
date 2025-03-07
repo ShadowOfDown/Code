@@ -5,11 +5,14 @@
 
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OnlineManager : MonoBehaviourPunCallbacks
 {
+    public const string RoomIDSearchFilter = "C0";
+    public const string RoomNameSearchFilter = "C1";
     public OnlineManager() { }
 
     #region paramaters
@@ -148,8 +151,9 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     /// </summary>
     public void RefreshRoomList(string SearchKey)
     {
-        if(SearchKey == null||SearchKey.Length == 0) { SearchKey = "1"; }
-        PhotonNetwork.GetCustomRoomList(lobby, SearchKey);
+        if(SearchKey == null||SearchKey.Length == 0) { SearchKey = "1"; PhotonNetwork.GetCustomRoomList(lobby, SearchKey);return; }
+        Debug.Log("Searching Room : " + SearchKey);
+        PhotonNetwork.GetCustomRoomList(lobby, $"{RoomIDSearchFilter}='{SearchKey}'");
     }
     public void RefreshRoomList()
     {

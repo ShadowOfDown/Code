@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using Photon.Realtime;
 
 public class StartInterface : IInterfaceBuilder
 {
@@ -40,21 +41,43 @@ public class StartInterface : IInterfaceBuilder
     {
       Debug.Log("setting button is clicked");
     }
-    // TODO: 切换到设置场景
+        // TODO: 切换到设置场景
+
+        UI_Manager.Instance.ShowUI<SettingScene>("SettingsUI");
+        UI_Manager.Instance.CloseUI("LoginUI");
   }
 
   // 登录按钮: 
-  private void OnLoginButtonClick()
-  {
-    if (DebugInfo.PrintDebugInfo)
+    private void OnLoginButtonClick()
     {
-      Debug.Log("login button is clicked");
+        if (DebugInfo.PrintDebugInfo)
+        {
+            Debug.Log("login button is clicked");
+        }
+        // TODO: 进入登录逻辑
+        if (GameLoop.Instance.onlineManager.IsConnected || GameLoop.Instance.onlineManager.IsConnectedAndReady)
+        {
+            UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
+            UI_Manager.Instance.CloseUI("LoginUI");
+            return;
+        }
+        EventManager.AddListener("OnConnectedServerEvent", EnterLobbyUI);
+        GameLoop.Instance.onlineManager.ConnectMaster();
+        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在连接服务器...");
     }
-    // TODO: 进入登录逻辑
-  }
+    private void EnterLobbyUI()
+    {
+        UI_Manager.Instance.CloseUI("MaskUI");
 
-  // 退出按钮
-  private void OnExitButtonClick()
+        UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
+
+
+        EventManager.RemoveListener("OnConnectedServerEvent", EnterLobbyUI);
+        UI_Manager.Instance.CloseUI("LoginUI");
+    }
+
+    // 退出按钮
+    private void OnExitButtonClick()
   {
     if (DebugInfo.PrintDebugInfo)
     {
@@ -82,4 +105,6 @@ public class StartInterface : IInterfaceBuilder
     _exitButton.SetActive(state);
     _startButton.SetActive(state); 
   }
+
+
 }

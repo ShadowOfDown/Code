@@ -21,8 +21,6 @@ public class ImageGameObjectBuilder : SingleGameObjectBuilder
 
   #region Properties
   public override string GameObjectName { get; }
-<<<<<<< HEAD
-=======
   public ImageComponentBuilder Image
   {
     get 
@@ -47,7 +45,6 @@ public class ImageGameObjectBuilder : SingleGameObjectBuilder
       imageBuilder.PreserveAspect = value;
     }
   }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 

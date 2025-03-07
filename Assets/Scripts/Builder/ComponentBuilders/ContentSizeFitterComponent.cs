@@ -21,10 +21,7 @@ public class ContentSizeFitterComponentBuilder : ComponentBuilder<bool>
   
   #region Properities
   public ContentSizeFitter ContentSizeFitter { set; get; }
-<<<<<<< HEAD
-=======
   public override bool Enable { get { return ContentSizeFitter.enabled; } set { ContentSizeFitter.enabled = value; } }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 
@@ -68,12 +65,6 @@ public class ContentSizeFitterComponentBuilder : ComponentBuilder<bool>
   public override void Modify(Dictionary<string, bool> arguTable)
   {
     ArguTable = arguTable;
-<<<<<<< HEAD
-    ContentSizeFitter.verticalFit = ArguTable["verticalFit"] ? 
-      ContentSizeFitter.FitMode.PreferredSize : ContentSizeFitter.FitMode.Unconstrained;
-    ContentSizeFitter.horizontalFit = ArguTable["horizontalFit"] ? 
-      ContentSizeFitter.FitMode.PreferredSize : ContentSizeFitter.FitMode.Unconstrained;
-=======
     if (arguTable != null && ContentSizeFitter != null)
     {
       ContentSizeFitter.verticalFit = ArguTable["verticalFit"] ? 
@@ -81,7 +72,6 @@ public class ContentSizeFitterComponentBuilder : ComponentBuilder<bool>
       ContentSizeFitter.horizontalFit = ArguTable["horizontalFit"] ? 
         ContentSizeFitter.FitMode.PreferredSize : ContentSizeFitter.FitMode.Unconstrained;
     }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
 
   public void Modify(ContentSizeFitter contentSizeFitter)

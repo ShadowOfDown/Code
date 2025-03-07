@@ -7,10 +7,7 @@ using UnityEngine.UI;
 public class EventTriggerComponentBuilder : ComponentBuilder<UnityAction>
 {
   #region Fields
-<<<<<<< HEAD
-=======
   public override bool Enable { get { return EventTrigger.enabled; } set { EventTrigger.enabled = value; } }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public readonly static string componentType = "Button";
   public readonly static HashSet<string> arguNameTable = new()
   {

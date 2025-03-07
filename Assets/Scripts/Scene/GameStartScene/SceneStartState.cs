@@ -19,7 +19,7 @@ public class SceneStartState : ISceneState
     public override void StateBegin()
     {
         UI_Manager.Instance.Init();
-        UI_Manager.Instance.ShowUI<LoginUI>("LoginUI");
+        UI_Manager.Instance.ShowUI<StartScene>("LoginUI");
         EventManager.AddListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", SwitchScene);
     }
     public override void StateEnd()

@@ -15,10 +15,13 @@ public class LobbyUI : UIObject
     private Transform ContentTrf;
     private GameObject RoomPrefab;
     private Dictionary<RoomInfo, RoomItemUI> roomList = new Dictionary<RoomInfo, RoomItemUI>();
-    [SerializeField]
+    private List<RoomItemUI> roomItems = new List<RoomItemUI>();
     private IEnumerator autoFlash;
     private bool MaskOn = false;
-    private string SearchKey = "的";
+    private string SearchKey = "";
+    private bool hasSearched = false;
+    private Button SearchButton;
+    private InputField RoomIDInputfield;
     public override void OnLoad()
     {
         if(GameLoop.Instance.onlineManager.IsConnectedAndReady)
@@ -34,14 +37,34 @@ public class LobbyUI : UIObject
         transform.Find("content/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseButtonClicked);
         transform.Find("content/updateBtn").GetComponent<Button>().onClick.AddListener(OnUpdateButtonClicked);
         transform.Find("content/createBtn").GetComponent<Button>().onClick.AddListener(OnCreateButtonClicked);
+        transform.Find("content/SearchRoom/SearchButton").GetComponent<Button>().onClick.AddListener(OnSearchButtonClicked);
 
         ContentTrf = transform.Find("content/ScrollView/Viewport/Content");
 
         transform.Find("NameButton").GetComponent<Button>().onClick.AddListener(OnNameButtonClicked);
         transform.Find("NameButton/Name").GetComponent<Text>().text = GameLoop.Instance.onlineManager.PlayerName;
         RoomPrefab = Resources.Load<GameObject>("LoginSystem/UI/Prefabs/RoomItem");
+        RoomIDInputfield = transform.Find("content/SearchRoom/InputField").GetComponent<InputField>();
 
         EventManager.AddListener<List<RoomInfo>>("OnRoomListUpdateEvent", FreshRoomList);
+    }
+
+    private void OnSearchButtonClicked()
+    {
+        SearchKey = RoomIDInputfield.text;
+        if (!GameLoop.Instance.onlineManager.InLobby) { return; }
+        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("查询中...");
+        Debug.Log("OnSearchButtonClicked Invoked .\nTry To Search Room : " +  RoomIDInputfield.text);
+        MaskOn = true;
+        hasSearched = true;
+        GameLoop.Instance.onlineManager.RefreshRoomList(SearchKey);
+        RoomIDInputfield.text = "";
+    }
+
+    private void OnSearchRoomFailed(string searchKey)
+    {
+        UI_Manager.Instance.LogWarnning("查无此房间:" + searchKey);
+        SearchKey = "";
     }
     private void EnterTypedLobbyLater()
     {
@@ -64,6 +87,7 @@ public class LobbyUI : UIObject
     {
         OnUpdateButtonClicked();
         autoFlash = AutoFlashRoomList();
+        EventManager.RemoveListener("OnJoinedLobbyEvent", OnJoinedLobby);
         IEnumeratorSystem.Instance.startCoroutine(autoFlash);
     }
     public void OnCreateButtonClicked()
@@ -76,11 +100,19 @@ public class LobbyUI : UIObject
         if (!GameLoop.Instance.onlineManager.InLobby) { return; }
         UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("刷新中...");
         MaskOn = true;
-        GameLoop.Instance.onlineManager.RefreshRoomList(SearchKey);
+        GameLoop.Instance.onlineManager.RefreshRoomList();
     }
 
     private void FreshRoomList(List<RoomInfo > rooms)
     {
+        if (hasSearched)
+        {
+            hasSearched = false;
+            if(rooms == null || rooms.Count == 0)
+            {
+                OnSearchRoomFailed(SearchKey);
+            }
+        }
         if (MaskOn)
         {
             UI_Manager.Instance.CloseUI("MaskUI");
@@ -91,16 +123,25 @@ public class LobbyUI : UIObject
             Debug.Log("Not In Lobby");
             return;
         }
-        foreach (RoomItemUI roomItemUI in roomList.Values) {
-            Destroy(roomItemUI.gameObject);
-            Debug.Log("Destory "+ roomItemUI.gameObject.name);
+
+
+        foreach (RoomItemUI roomItemUI in roomList.Values)
+        {
+            roomItemUI.gameObject.SetActive(false);
+        }
+        if (roomList.Count < rooms.Count) {
+            for (int i = 0; i < rooms.Count - roomList.Count; i++) {
+                RoomItemUI t = Instantiate(RoomPrefab, ContentTrf).AddComponent<RoomItemUI>();
+                t.Init();
+                t.gameObject.SetActive(false);
+                roomItems.Add(t);
+            }
         }
         roomList.Clear();
-        foreach (RoomInfo room in rooms) {
-            RoomItemUI t = Instantiate(RoomPrefab, ContentTrf).AddComponent<RoomItemUI>();
-            t.Init();
-            t.setRoomInfo(room);
-            roomList.Add(room, t);
+        for (int i = 0; i < rooms.Count; i++) { 
+            roomItems[i].gameObject.SetActive(true);
+            roomItems[i].setRoomInfo(rooms[i]);
+            roomList.Add(rooms[i], roomItems[i]);
         }
     }
 
@@ -108,7 +149,7 @@ public class LobbyUI : UIObject
     public void OnCloseButtonClicked()
     {
         CloseAutoFlash();
-        UI_Manager.Instance.ShowUI<LoginUI>("LoginUI");
+        UI_Manager.Instance.ShowUI<StartScene>("LoginUI");
         UI_Manager.Instance.CloseUI("LobbyUI");
     }
 
@@ -136,10 +177,5 @@ public class LobbyUI : UIObject
         if (autoFlash != null && IEnumeratorSystem.isLoaded) {
             IEnumeratorSystem.Instance.stopCoroutine(autoFlash);
         }
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.RemoveListener("OnJoinedLobbyEvent", OnJoinedLobby);
     }
 }

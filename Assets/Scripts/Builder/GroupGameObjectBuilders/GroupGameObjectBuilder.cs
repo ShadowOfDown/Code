@@ -4,11 +4,8 @@ using System.Collections.Generic;
 public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
 {
   #region Property
-<<<<<<< HEAD
-=======
   public abstract GameObject GameObject { get; }
   public abstract string GameObjectName { get; }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public abstract Transform ParentTransform { get; }
   public abstract Transform Transform{ get; }
   public abstract RectTransform RectTransform { get; }
@@ -27,11 +24,7 @@ public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
     return LackedGameObjectNameTable;
   }
 
-<<<<<<< HEAD
-  public void Build(SortedDictionary<string, Dictionary<string, IComponentBuilder>> gameObjectComponentTable)
-=======
   public virtual void Build(SortedDictionary<string, Dictionary<string, IComponentBuilder>> gameObjectComponentTable)
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   {
     if (IsGameObjectValid(gameObjectComponentTable) == false)
     {
@@ -42,9 +35,6 @@ public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
     {
       if (LackedGameObjectNameTable.Contains(gameObjectName) == false)
       {
-<<<<<<< HEAD
-        GameObjectTable[gameObjectName].Build(gameObjectComponentTable[gameObjectName]);
-=======
         if (gameObjectComponentTable[gameObjectName] != null)
         {
           GameObjectTable[gameObjectName].Build(gameObjectComponentTable[gameObjectName]);
@@ -53,7 +43,6 @@ public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
         {
           GameObjectTable[gameObjectName] = null;
         }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
       }
     }
   }
@@ -62,11 +51,7 @@ public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
   {
     foreach (string gameObjectName in GetGameObjectTypeTable())
     {
-<<<<<<< HEAD
-      if (GameObjectTable.ContainsKey(gameObjectName))
-=======
       if (GameObjectTable.ContainsKey(gameObjectName) && GameObjectTable[gameObjectName] != null)
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
       {
         GameObjectTable[gameObjectName].SetActive(state);
       }
@@ -108,8 +93,6 @@ public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
 
     return isGameObjectValid;
   }
-<<<<<<< HEAD
-=======
 
   public void clearOffSet()
   {
@@ -118,6 +101,5 @@ public abstract class GroupGameObjectBuilder : IGroupGameObjectBuilder
       component?.clearOffSet();
     }
   }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 }

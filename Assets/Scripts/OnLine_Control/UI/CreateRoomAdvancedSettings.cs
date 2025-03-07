@@ -62,14 +62,15 @@ public class CreateRoomAdvancedSettings : UIObject
     }
     public void OnCloseBtnClicked()
     {
-        UI_Manager.Instance.CloseUI(this.name);
+        UI_Manager.Instance.HideUI(this.name);
     }
 
-    public override void OnClose()
+    public override void OnHide()
     {
-        base.OnClose();
+        base.OnHide();
         UI_Manager.Instance.ShowUI<CreateRoomUI>(createRoomUI.gameObject.name);
     }
+
     public void OnOKBtnClicked()
     {
         if (needPassword && passwordInputField.text!=null && passwordInputField.text.Length >0) {
@@ -80,7 +81,7 @@ public class CreateRoomAdvancedSettings : UIObject
             createRoomUI.roomID = roomIDInputField.text;
         }
         roomOptions.IsVisible = isVisible;
-        UI_Manager.Instance.CloseUI(this.name);
+        UI_Manager.Instance.HideUI(this.name);
 
         createRoomUI.roomOptions = roomOptions;
     }

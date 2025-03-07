@@ -1,18 +1,11 @@
 using System.Collections.Generic;
-<<<<<<< HEAD
-=======
-using Microsoft.Unity.VisualStudio.Editor;
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
 using UnityEngine;
 
 public class TextBoxGameObjectBuilder : GroupGameObjectBuilder
 {
   #region Fields
-<<<<<<< HEAD
-=======
   public override GameObject GameObject { get { return ImageBuilder.GameObject; }}
   public override string GameObjectName { get { return ImageBuilder.GameObjectName; } }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public override Transform ParentTransform { get; }
   public override Transform Transform { get { return ImageBuilder.Transform; } }
   public override RectTransform RectTransform { get { return ImageBuilder.RectTransform;}}

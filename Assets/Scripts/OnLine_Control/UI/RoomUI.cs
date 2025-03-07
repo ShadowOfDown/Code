@@ -13,7 +13,8 @@ using UnityEngine.UI;
 
 public class RoomUI : UIObject
 {
-    private Text text;
+    private Text nameText;
+    private Text IDText;
     private Dictionary<string, PlayerItem> Players = new Dictionary<string, PlayerItem>();
     private GameObject PlayerItem;
     private Transform ContentTrf;
@@ -21,7 +22,8 @@ public class RoomUI : UIObject
     private List<string> PlayerIDs = new List<string>();
     public override void OnLoad()
     {
-        text = transform.Find("bg/title/Text").GetComponent<Text>();
+        nameText = transform.Find("bg/title/roomText").GetComponent<Text>();
+        IDText = transform.Find("bg/title/IDText").GetComponent<Text>();
         transform.Find("bg/title/closeBtn").GetComponent<Button>().onClick.AddListener(OnCloseBtnClicked);
         PlayerItem = Resources.Load<GameObject>("LoginSystem/UI/Prefabs/PlayerItem");
         ContentTrf = transform.Find("bg/Content");
@@ -39,9 +41,10 @@ public class RoomUI : UIObject
         GameLoop.Instance.onlineManager.LeaveRoom(GameLoop.Instance.onlineManager.CurrentRoom.Name);
     }
 
-    public void SetRoomName(string name)
+    public void SetRoomNameAndID(string name,string ID)
     {
-        text.text = name;
+        nameText.text = name;
+        IDText.text = "RoomID : "+ID;
     }
 
     public void InitPlayerList()
@@ -63,10 +66,6 @@ public class RoomUI : UIObject
     public override void OnClose()
     {
         base.OnClose();
-        EventManager.RemoveListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerPropertiesUpdate);
-        EventManager.RemoveListener<Player>("OnPlayerEnteredRoomEvent", OnPlayerEnteredRoom);
-        EventManager.RemoveListener<Player>("OnPlayerLeftRoomEvent", OnPlayerLeftRoom);
-        EventManager.RemoveListener<string>("OnLeftRoomEvent", OnLeftRoom);
     }
     public void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -124,5 +123,13 @@ public class RoomUI : UIObject
         table.Add("StartGame", true);
         GameLoop.Instance.onlineManager.SetPlayerCustomProperties(table);
         GameLoop.Instance.onlineManager.CurrentRoom.IsOpen = false;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerPropertiesUpdate);
+        EventManager.RemoveListener<Player>("OnPlayerEnteredRoomEvent", OnPlayerEnteredRoom);
+        EventManager.RemoveListener<Player>("OnPlayerLeftRoomEvent", OnPlayerLeftRoom);
+        EventManager.RemoveListener<string>("OnLeftRoomEvent", OnLeftRoom);
     }
 }

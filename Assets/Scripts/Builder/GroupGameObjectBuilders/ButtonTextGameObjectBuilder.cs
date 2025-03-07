@@ -4,10 +4,7 @@ using UnityEngine;
 public class ButtonTextGameObjectBuilder : GroupGameObjectBuilder
 {
   #region Fields
-<<<<<<< HEAD
-=======
   public override GameObject GameObject { get { return ButtonBuilder.GameObject; }}
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public override Transform ParentTransform { get; }
   public override Transform Transform { get { return ButtonBuilder.Transform; } }
   public override RectTransform RectTransform { get { return ButtonBuilder.RectTransform; } }
@@ -28,10 +25,7 @@ public class ButtonTextGameObjectBuilder : GroupGameObjectBuilder
     get { return TextBuilder.Content; }
     set { TextBuilder.Content = value; }
   }
-<<<<<<< HEAD
-=======
   public override string GameObjectName { get { return ButtonBuilder.GameObjectName; } }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 

@@ -19,9 +19,6 @@ public interface ISingleGameObjectBuilder
   public void SetActive(bool state);
   public bool IsComponentValid(Dictionary<string, IComponentBuilder> componentTable);
   public void AddComponent(string componentName, IComponentBuilder component);
-<<<<<<< HEAD
-=======
   public void clearOffSet();
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 }

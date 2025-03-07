@@ -148,12 +148,15 @@ namespace MyFrame.Event{
 
         public static void OnBroadcasting(string eventType)
         {
-#if REQUIRE_LISTENER
+
             if (!eventTable.ContainsKey(eventType))
             {
+#if REQUIRE_LISTENER
                 throw new BroadcastException(string.Format("Broadcasting message \"{0}\" but no listener found. Try marking the message with Messenger.MarkAsPermanent.", eventType));
-            }
+#else
+                return;
 #endif
+            }
 #if LOG_EVENT_CREATED_OR_DESTROY_MESSAGES
             Debug.Log(string.Format("Event {0} has been Invoked", eventType));
 #endif

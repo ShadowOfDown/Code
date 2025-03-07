@@ -53,5 +53,6 @@ public class GameLoop : MonoBehaviour
     private void Update()
     {
         sceneStateControl.StateUpdate();
+        ui_manager.UIobjectUpdate();
     }
 }

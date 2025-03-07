@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3248352882999684680}
   m_Layer: 5
-  m_Name: LoginUI
+  m_Name: SettingsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -57,6 +57,7 @@ public class UI_Manager
         if (CanvasTf == null)
         {
             CanvasTf = UIObject.Instantiate(Resources.Load<GameObject>("LoginSystem/UI/Prefabs/Canvas")).transform;
+            CanvasTf.gameObject.name = "Canvas";
         }
     }
 
@@ -105,13 +106,13 @@ public class UI_Manager
             GameObject go = GameObject.Instantiate(Resources.Load<GameObject>("LoginSystem/UI/Prefabs/" + Name),CanvasTf) ;
             go.name = Name;
             ui = go.AddComponent<T>();
+            ui.OnLoad();
             uiList.Add(ui);
         }
         else
         {
             ui.gameObject.SetActive(true);
         }
-        ui.OnLoad();
         return ui;
     }
 
@@ -137,14 +138,14 @@ public class UI_Manager
         foreach (UIObject go in uiList)
         {
             go.OnClose();
-            GameObject.Destroy(go);
+            GameObject.Destroy(go.gameObject);
         }
         uiList.Clear();
     }
 
-    public void LogWarnning(string message) { 
-        ShowUI<MaskUI>("MaskUI").ShowMessage(message);
-        IEnumeratorSystem.Instance.startCoroutine(CloseUIForSeconds(3,"MaskUI"));
+    public void LogWarnning(string message) {
+        ShowUI<MaskUI>("WarningUI").ShowMessage(message);
+        IEnumeratorSystem.Instance.startCoroutine(CloseUIForSeconds(3,"WarningUI"));
     }
 
     IEnumerator CloseUIForSeconds(float seconds,string name)
@@ -153,7 +154,7 @@ public class UI_Manager
         if (go == null) yield break;
         yield return new WaitForSeconds(seconds);
         uiList.Remove(go);
-        UIObject.Destroy(go);
+        UIObject.Destroy(go.gameObject);
     }
 
     public void UIobjectUpdate()

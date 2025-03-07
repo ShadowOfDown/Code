@@ -1,117 +1,115 @@
 // 开始场景
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.Search;
-using UnityEngine.Events;
-using UnityEngine.UIElements;
 
-public class StartScene : MonoBehaviour
+public class StartScene : UIObject
 {
-  #region Fields 
-  private readonly List<List<bool>> _interfaceList = new()
+    #region Fields 
+    private readonly List<List<bool>> _interfaceList = new()
   {
     new() { true, false, false },
     new() { false, true, false },
     new() { false, false, true },
   };
-  public static int interfaceIdx = 0;
-  public static readonly string resourcesFolderPath = "Arts/Textures/StartScene/";
-  private readonly Dictionary<string, Vector2> _fullScreenRectTransformArgu = new()
+    public static int interfaceIdx = 0;
+    public static readonly string resourcesFolderPath = "Arts/Textures/StartScene/";
+    private readonly Dictionary<string, Vector2> _fullScreenRectTransformArgu = new()
   {
     {"referenceObjectPixels", PixelInfo.referenceScreenPixel},
     {"archorMin", new Vector2(0.5f, 0.5f)},
     {"archorMax", new Vector2(0.5f, 0.5f)},
     {"pivotPos", new Vector2(0.5f, 0.5f)},
   };
-  private CanvasGameObjectBuilder _canvas = null;
-  private ImageGameObjectBuilder _backgroundImage = null;
-  private readonly Dictionary<string, string> _backgroundImageArgu = new()
+    private CanvasGameObjectBuilder _canvas = null;
+    private ImageGameObjectBuilder _backgroundImage = null;
+    private readonly Dictionary<string, string> _backgroundImageArgu = new()
   {
     {"gameObjectName", "BackgroundImage"},
     {"resourcesFolderPath", resourcesFolderPath},
   };
-  private LoadingSliderUniversalBuilder _loadingBar = null;
-  private StartInterface _startInterface = null;
-  private WeiXinLoginInterface _weiXinLoginInterface = null;
-  
-  #endregion
+    private LoadingSliderUniversalBuilder _loadingBar = null;
+    private StartInterface _startInterface = null;
+    private WeiXinLoginInterface _weiXinLoginInterface = null;
 
-  #region Properties
-  #endregion
+    #endregion
+
+    #region Properties
+    #endregion
 
 
-  #region Methods
+    #region Methods
 
-  public void Start()
-  {
-    // Canvas
-    _canvas = new CanvasGameObjectBuilder();
-    _canvas.Build(
-      new Dictionary<string, IComponentBuilder>
-      {
-        {"RectTransform", new RectTransformComponentBuilder(_fullScreenRectTransformArgu)},
-      }
-    );
-
-    // Background
-    _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", _canvas.Transform);
-    _backgroundImage.Build(
-      new Dictionary<string, IComponentBuilder>
-      {
+    public override void OnLoad()
+    {
+        _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", this.transform);
+        _backgroundImage.Build(
+          new Dictionary<string, IComponentBuilder>
+          {
         {"RectTransform", new RectTransformComponentBuilder(_fullScreenRectTransformArgu)},
         {"Image", new ImageComponentBuilder(_backgroundImageArgu)}
-      }
-    );
+          }
+        );
 
-    // 加载场景
-    _loadingBar = new LoadingSliderUniversalBuilder("LoadingBar", _backgroundImage.Transform);
+        // 加载场景
+        _loadingBar = new LoadingSliderUniversalBuilder("LoadingBar", _backgroundImage.Transform);
 
-    // 按钮
-    _startInterface = new StartInterface(_backgroundImage.Transform);
-    _startInterface.SetActive(false);
+        // 按钮
+        _startInterface = new StartInterface(_backgroundImage.Transform);
+        _startInterface.SetActive(false);
 
-    // 微信登录界面
-    _weiXinLoginInterface = new WeiXinLoginInterface(_backgroundImage.Transform);
-    _weiXinLoginInterface.SetActive(false);
-  }
+        // 微信登录界面
+        _weiXinLoginInterface = new WeiXinLoginInterface(_backgroundImage.Transform);
+        _weiXinLoginInterface.SetActive(false);
 
-  public void Update()
-  {
-    // TODO: 更新加载进度
-    SetValue(_loadingBar.Value + 0.0001f);
-    SetActive();
-  }
-
-  public void SetActive()
-  {
-    _loadingBar.SetActive(_interfaceList[interfaceIdx][0]);
-    _startInterface.SetActive(_interfaceList[interfaceIdx][1]);
-    _weiXinLoginInterface.SetActive(_interfaceList[interfaceIdx][2]);
-  }
-
-  // 设置加载进度
-  public void SetValue(float value)
-  {
-    if (_loadingBar.Value < 1)
-    {
-      _loadingBar.Value = value;
-      if (_loadingBar.Value >= 1)
-      {
-        DebugInfo.Print("move to start interface");
-        interfaceIdx++;
-      }
     }
-  }
 
-  
-
-  public void OnCloseButtonClicked()
-  {
-    if (DebugInfo.PrintDebugInfo)
+    public void Init(float value)
     {
-      Debug.Log("close button clicked");
+        SetValue(value);
     }
-    interfaceIdx--;
-  }
-  #endregion
+
+    public override void OnUpdate()
+    {
+        // TODO: 更新加载进度
+        SetValue(_loadingBar.Value + 0.01f);
+        SetActive();
+    }
+
+    public void SetActive()
+    {
+        _loadingBar.SetActive(_interfaceList[interfaceIdx][0]);
+        _startInterface.SetActive(_interfaceList[interfaceIdx][1]);
+        _weiXinLoginInterface.SetActive(_interfaceList[interfaceIdx][2]);
+    }
+
+    // 设置加载进度
+    public void SetValue(float value)
+    {
+        if (_loadingBar.Value < 1)
+        {
+            _loadingBar.Value = value;
+            if (_loadingBar.Value >= 1)
+            {
+                DebugInfo.Print("move to start interface");
+                interfaceIdx++;
+            }
+        }
+    }
+
+
+
+    public void OnCloseButtonClicked()
+    {
+        if (DebugInfo.PrintDebugInfo)
+        {
+            Debug.Log("close button clicked");
+        }
+        interfaceIdx--;
+    }
+
+    public override void OnClose()
+    {
+        interfaceIdx--;
+    }
+    #endregion
 }

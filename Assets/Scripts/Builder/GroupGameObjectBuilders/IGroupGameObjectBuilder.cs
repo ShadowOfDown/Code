@@ -5,11 +5,8 @@ using Unity.VisualScripting;
 public interface IGroupGameObjectBuilder
 {
   #region Property
-<<<<<<< HEAD
-=======
   public GameObject GameObject { get; }
   public string GameObjectName { get; }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public Transform ParentTransform { get; }
   public Transform Transform { get; }
   public RectTransform RectTransform { get; }
@@ -25,9 +22,6 @@ public interface IGroupGameObjectBuilder
   public HashSet<string> GetGameObjectTypeTable();
   public HashSet<string> GetLackedGameObjectNameTable();
   public bool IsGameObjectValid(SortedDictionary<string, Dictionary<string, IComponentBuilder>> componentTable);
-<<<<<<< HEAD
-=======
   public void clearOffSet();
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 }

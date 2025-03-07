@@ -25,8 +25,6 @@ public class ButtonGameObjectBuilder : SingleGameObjectBuilder
 
   #region Properties
   public override string GameObjectName { get; }
-<<<<<<< HEAD
-=======
   public ImageComponentBuilder ImageBuilder
   {
     get { return ComponentTable["Image"] as ImageComponentBuilder; }
@@ -41,7 +39,6 @@ public class ButtonGameObjectBuilder : SingleGameObjectBuilder
   {
     get { return ComponentTable["Button"] as ButtonComponentBuilder; }
   }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 

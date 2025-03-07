@@ -5,16 +5,9 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.UIElements;
 
-<<<<<<< HEAD
-public class DramaPerformScene : ISceneState
-{
-  #region Fields
-  private string my_state_name = "DramaPerformScene";
-=======
 public class DramaPerformScene : MonoBehaviour
 {
   #region Fields
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   public static readonly string resourcesFolderPath = "Arts/Textures/DramaPerformScene/";
   private const int _nameCardNum = 0;
   private const int _characterImageNum = 1;
@@ -205,21 +198,13 @@ public class DramaPerformScene : MonoBehaviour
 
 
   #region ReviewButton
-<<<<<<< HEAD
-  private ButtonBoxGameObjectbuilder _reviewButton = null;
-=======
   private ButtonUniversalbuilder _reviewButton = null;
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   private Vector2 _reviewVector = new(0.1f, 0.9f);
   # endregion
 
 
   #region ReturnButton
-<<<<<<< HEAD
-  private ButtonBoxGameObjectbuilder _returnButton = null;
-=======
   private ButtonUniversalbuilder _returnButton = null;
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   private Vector2 _returnVector = new(0.95f, 0.9f);
   #endregion
 
@@ -328,19 +313,8 @@ public class DramaPerformScene : MonoBehaviour
   #endregion
 
   #region Methods
-<<<<<<< HEAD
-  public DramaPerformScene(SceneStateControl control) : base(control)
-  {
-    this.StateName = "DramaPerformState";
-  }
-
-  public override void StateBegin()
-  {
-    UI_Manager.Instance.Init();
-=======
   public void Start()
   {
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     Debug.Log($"Screensize: {PixelInfo.screenPixel}, scaleRadio: {PixelInfo.scaleRadio}");
 
     // canvas =========================================================================================
@@ -445,11 +419,7 @@ public class DramaPerformScene : MonoBehaviour
     _textBox_02.ModifyContent(_textBoxTextContent_02);
 
     // reviewButton ===================================================================================
-<<<<<<< HEAD
-    _reviewButton = new ButtonBoxGameObjectbuilder(
-=======
     _reviewButton = new ButtonUniversalbuilder(
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
       "ReviewButton", _reviewVector, _backgroundImage.Transform, new Dictionary<string, UnityAction>
         {
           {"onClickAction", OnReviewButtonClick},
@@ -458,11 +428,7 @@ public class DramaPerformScene : MonoBehaviour
       );
 
     // returnbutton ======================================================================================
-<<<<<<< HEAD
-    _returnButton = new ButtonBoxGameObjectbuilder(
-=======
     _returnButton = new ButtonUniversalbuilder(
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
       "ReturnButton", _returnVector, _backgroundImage.Transform, new Dictionary<string, UnityAction>
         {
           {"onClickAction", OnReturnButtonClick},
@@ -528,11 +494,7 @@ public class DramaPerformScene : MonoBehaviour
     _scrollRectGameObejctBuilder.SetContent(_verticalLayoutGroupGameObjectBuilder.RectTransform, _scrollbarColorBlock, _handleColor);
   }
 
-<<<<<<< HEAD
-  public override void StateUpdate()
-=======
   public void Update()
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   {
     SetActive();
   }
@@ -555,19 +517,6 @@ public class DramaPerformScene : MonoBehaviour
     _endBarImage.SetActive(!_isDramaPerform);
   }
 
-<<<<<<< HEAD
-  public override void StateEnd()
-  {
-    // no
-  }
-
-  public override string ToString()
-  {
-    return string.Format("[I_SceneState : StateName = {0}]", StateName);
-  }
-
-=======
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   private void OnTextBoxButtonClick_02()
   {
     if (DebugInfo.PrintDebugInfo)

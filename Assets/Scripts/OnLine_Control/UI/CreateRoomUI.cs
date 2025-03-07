@@ -39,14 +39,16 @@ public class CreateRoomUI : UIObject
         roomOptions.MaxPlayers = 8;
         roomOptions.PublishUserId = true;
         ExitGames.Client.Photon.Hashtable table = new ExitGames.Client.Photon.Hashtable();
-        table.Add("name", GameLoop.Instance.onlineManager.PlayerName + "的房间");
+        table.Add(OnlineManager.RoomNameSearchFilter, GameLoop.Instance.onlineManager.PlayerName + "的房间");
+        table.Add(OnlineManager.RoomIDSearchFilter, "1");
         roomOptions.CustomRoomProperties = table;
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { OnlineManager.RoomIDSearchFilter,OnlineManager.RoomNameSearchFilter};
         return roomOptions;
     }
     private string CreateRoomID()
     {
         System.Random random = new System.Random();
-        int id = random.Next((int)Mathf.Pow(10, RoomIDBit), (int)Mathf.Pow(10, RoomIDBit + 1) - 1);
+        int id = random.Next((int)Mathf.Pow(10, RoomIDBit-1), (int)Mathf.Pow(10, RoomIDBit) - 1);
         return id.ToString();
     }
 
@@ -62,13 +64,13 @@ public class CreateRoomUI : UIObject
     {
         if (inputField.text.Length < 2) { return; }
 
-        roomOptions.CustomRoomProperties["name"] = inputField.text;
+        roomOptions.CustomRoomProperties[OnlineManager.RoomNameSearchFilter] = inputField.text;
 
         if (!selfCreateRoomID)
         {
             roomID = CreateRoomID();
         }
-
+        roomOptions.CustomRoomProperties[OnlineManager.RoomIDSearchFilter] = roomID;
         GameLoop.Instance.onlineManager.CreateRoom(roomID, roomOptions);
 
         UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在创建房间...");
@@ -77,11 +79,10 @@ public class CreateRoomUI : UIObject
     {
         EventManager.RemoveListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
         EventManager.RemoveListener<short,string>("OnCreateRoomFailedEvent", OnCreateRoomFailed);
-        roomOptions.CustomRoomProperties.TryGetValue("name", out object temp);
-        UI_Manager.Instance.ShowUI<RoomUI>("RoomUI").SetRoomName((string) temp);
-        UI_Manager.Instance.CloseUI("LobbyUI");
-        UI_Manager.Instance.CloseUI("MaskUI");
-        UI_Manager.Instance.CloseUI(this.name);
+        roomOptions.CustomRoomProperties.TryGetValue(OnlineManager.RoomNameSearchFilter, out object temp);
+        UI_Manager.Instance.CloseAllUI();
+        UI_Manager.Instance.ShowUI<RoomUI>("RoomUI").SetRoomNameAndID((string) temp,roomID);
+
     }
     public void OnCreateRoomFailed(short returnCode,string message)
     {
@@ -90,13 +91,16 @@ public class CreateRoomUI : UIObject
             if (selfCreateRoomID)
             {
                 UI_Manager.Instance.LogWarnning("房间ID已存在");
+                UI_Manager.Instance.CloseUI("MaskUI");
                 UI_Manager.Instance.ShowUI<CreateRoomAdvancedSettings>("CreateRoomAdvancedSettings").Init(this);
                 return;
             }
             roomID = CreateRoomID();
+            roomOptions.CustomRoomProperties[OnlineManager.RoomIDSearchFilter] = roomID;
             GameLoop.Instance.onlineManager.CreateRoom(roomID, roomOptions);
             return;
         }
+        UI_Manager.Instance.CloseUI("MaskUI");
         UI_Manager.Instance.LogWarnning("创建房间失败");
         UI_Manager.Instance.CloseUI(name);
     }

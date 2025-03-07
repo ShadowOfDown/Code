@@ -20,12 +20,9 @@ public class VerticalLayoutGroupGameObjectBuilder : SingleGameObjectBuilder
 
   #region Properties
   public override string GameObjectName { get; }
-<<<<<<< HEAD
-=======
   public VerticalLayoutGroup VerticalLayoutGroup { get; set; }
   public float Spacing { get { return VerticalLayoutGroup.spacing; } set { VerticalLayoutGroup.spacing = value; } }
   public List<ISingleGameObjectBuilder> Children{ get; set; } = null;
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 
 
@@ -40,15 +37,6 @@ public class VerticalLayoutGroupGameObjectBuilder : SingleGameObjectBuilder
     contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
     contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
 
-<<<<<<< HEAD
-    VerticalLayoutGroup verticalLayoutGroup = GameObject.AddComponent<VerticalLayoutGroup>();
-    verticalLayoutGroup.spacing = 0;
-    verticalLayoutGroup.childControlHeight = true;
-    verticalLayoutGroup.childControlWidth = false;
-    verticalLayoutGroup.childScaleHeight = true;
-    verticalLayoutGroup.childScaleWidth = false;
-    verticalLayoutGroup.childAlignment = TextAnchor.LowerCenter;
-=======
     VerticalLayoutGroup = GameObject.AddComponent<VerticalLayoutGroup>();
     VerticalLayoutGroup.spacing = 0;
     VerticalLayoutGroup.childControlHeight = true;
@@ -56,7 +44,6 @@ public class VerticalLayoutGroupGameObjectBuilder : SingleGameObjectBuilder
     VerticalLayoutGroup.childScaleHeight = true;
     VerticalLayoutGroup.childScaleWidth = false;
     VerticalLayoutGroup.childAlignment = TextAnchor.LowerCenter;
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   }
 
   public override string GetGameObjectType()
@@ -76,10 +63,7 @@ public class VerticalLayoutGroupGameObjectBuilder : SingleGameObjectBuilder
 
   public void AddChild(List<ISingleGameObjectBuilder> GameObjectBuilderList) 
   {
-<<<<<<< HEAD
-=======
     Children = GameObjectBuilderList;
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
     foreach (ISingleGameObjectBuilder child in GameObjectBuilderList)
     {
       LayoutElement layoutElement = child.GameObject.AddComponent<LayoutElement>();
@@ -88,8 +72,6 @@ public class VerticalLayoutGroupGameObjectBuilder : SingleGameObjectBuilder
       layoutElement.flexibleHeight = 0;
     }
   }
-<<<<<<< HEAD
-=======
 
   public override void SetActive(bool state)
   {
@@ -102,6 +84,5 @@ public class VerticalLayoutGroupGameObjectBuilder : SingleGameObjectBuilder
       }
     }
   }
->>>>>>> 740b70b2d81a3bdd40b39a7c690b3d7a0aaddff3
   #endregion
 }

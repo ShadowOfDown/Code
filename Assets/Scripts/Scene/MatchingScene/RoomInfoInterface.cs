@@ -3,9 +3,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine.UI;
-using System.ComponentModel;
 
 public class RoomInfoInterface : IInterfaceBuilder
 {
