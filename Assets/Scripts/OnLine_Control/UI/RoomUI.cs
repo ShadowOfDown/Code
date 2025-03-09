@@ -38,7 +38,7 @@ public class RoomUI : UIObject
     }
     public void OnCloseBtnClicked()
     {
-        GameLoop.Instance.onlineManager.LeaveRoom(GameLoop.Instance.onlineManager.CurrentRoom.Name);
+        GameLoop.Instance.onlineManager.LeaveRoom();
     }
 
     public void SetRoomNameAndID(string name,string ID)

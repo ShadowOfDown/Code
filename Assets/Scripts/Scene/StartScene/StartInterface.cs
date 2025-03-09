@@ -57,7 +57,7 @@ public class StartInterface : IInterfaceBuilder
         // TODO: 进入登录逻辑
         if (GameLoop.Instance.onlineManager.IsConnected || GameLoop.Instance.onlineManager.IsConnectedAndReady)
         {
-            UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
+            UI_Manager.Instance.ShowUI<MatchingScene>("MatchingUI");
             UI_Manager.Instance.CloseUI("LoginUI");
             return;
         }
@@ -69,7 +69,7 @@ public class StartInterface : IInterfaceBuilder
     {
         UI_Manager.Instance.CloseUI("MaskUI");
 
-        UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
+        UI_Manager.Instance.ShowUI<MatchingScene>("MatchingUI");
 
 
         EventManager.RemoveListener("OnConnectedServerEvent", EnterLobbyUI);

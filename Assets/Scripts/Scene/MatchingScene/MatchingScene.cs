@@ -3,8 +3,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Photon.Realtime;
 
-public class MatchingScene : MonoBehaviour
+public class MatchingScene : UIObject
 {
   #region Fields
   private bool _isRoomInfo = true;    // 这是展示谁的界面
@@ -41,6 +42,10 @@ public class MatchingScene : MonoBehaviour
   public ButtonUniversalbuilder _exitButton = null;                               // 退出按钮
   public TextBoxUniversalBuilder _playNumBox = null;                              // 显示当前房间的玩家
   public TextBoxUniversalBuilder _roomIdBox = null;                               // 显示当前的房间号
+
+    private string password;
+    private Dictionary<string,bool> allIsReady = new Dictionary<string,bool>();
+    private bool isReady = false;
   #endregion
 
 
@@ -51,20 +56,10 @@ public class MatchingScene : MonoBehaviour
 
 
   #region Methods
-  public void Start()
+  public override void OnLoad()
   {
-    // Canvas
-    _canvas = new CanvasGameObjectBuilder();
-    _canvas.Build(
-      new Dictionary<string, IComponentBuilder>
-      {
-        {"RectTransform", new RectTransformComponentBuilder(_fullScreenRectTransformArgu)},
-      }
-    );
-
-    // Background
-    _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", _canvas.Transform);
-    _backgroundImage.Build(
+        _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", this.transform);
+        _backgroundImage.Build(
       new Dictionary<string, IComponentBuilder>
       {
         {"RectTransform", new RectTransformComponentBuilder(_fullScreenRectTransformArgu)},
@@ -187,7 +182,6 @@ public class MatchingScene : MonoBehaviour
     for (int idx = 0; idx < RoomLimit; idx++)
     {
       RoomInfoInterface temp = new(idx, _roomIdVerticalLayout.Transform);
-      temp.ModifyRoomContent("roomId", 0);
       temp.SetActive(false);
       _roomInfoList.Add(temp);
       _roomInfoBoxList.Add(temp.ImageGameObjectBuilder);
@@ -266,62 +260,65 @@ public class MatchingScene : MonoBehaviour
     // 房间号
     _roomIdBox = new TextBoxUniversalBuilder("RoomIdBox", _matchingBackgroundImage.Transform, new Vector2(0.328125f, _researchPosY), 5,
       80f / TextBoxUniversalBuilder.GetReferencePixel(5).y);
-  }
 
-  public void Update()
-  {
-    SetActive();
-  }
+        Init();
+    }
+    private void CallKeyInput(string password)
+    {
+        Debug.Log("CallKeyInput");
+        _keyInputInterface.SetActive(true);
+        this.password = password;
+        EventManager.RemoveListener<string>("CallKeyInput", CallKeyInput);
+    }
+
+    private void Init()
+    {
+        EventManager.AddListener<string>("OnLeftRoomEvent", OnLeftRoom);
+        EventManager.AddListener<List<RoomInfo>>("OnRoomListUpdateEvent", FreshRoomObjects);
+        EventManager.AddListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
+        EventManager.AddListener<Player>("OnPlayerLeftRoomEvent", OnPlayerLeftRoom);
+        EventManager.AddListener<Player>("OnPlayerEnteredRoomEvent", OnPlayerEnterRoom);
+        EventManager.AddListener<string>("CallKeyInput", CallKeyInput);
+        EventManager.AddListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerPropertiesUpdate);
+
+        SetActive();
+
+        _searchInputBox.InputBoxBuilder.InputFieldBuilder.InputField .InputField.text = null;
+        OnRefreshButtonClick();
+
+        if (GameLoop.Instance.onlineManager.IsClient)
+        {
+            isReady = true;
+            _returnButton.ModifyContent("开始游戏");
+            _returnButton.SetActive(false);
+            FreshStartButton();
+            return;
+        }
+        _returnButton.ModifyContent(isReady ? "已准备" : "准备");
+        GameLoop.Instance.onlineManager.SetPlayerCustomProperties(new ExitGames.Client.Photon.Hashtable { { "IsReady", isReady } });
+
+
+    }
+
 
   public void SetActive(bool state = true)
   {
-    if (state == true)
-    {
-      // 主要是切换模式
-      int roomCount = _roomInfoList.Count;
-      for (int i = 0; i < roomCount; i++)
-      {
-        // 在展示房间状态
-        if (_isRoomInfo == true)
-        {
-          if (_roomInfoList[i].NeedKey == true)
-          {
-            // 需要密钥, 弹出密钥输入框
-            _keyInputInterface.SetActive(true);
-            _roomInfoList[i].NeedKey = false;
-            _keyInputInterface.SetActive(false);
-          }
-          else 
-          {
-            // 不需要密钥, 判定是否存在按钮已经被点击, 是, 进行状态切换
-            if (_roomInfoList[i].IsRoomInfo == false)
-            {
-              _isRoomInfo = false;
-              RefreshList(_searchInputBox.GetContent());  // 不可能一直渲染
-              DebugInfo.Print("_isRoomInfo shift to" + _isRoomInfo.ToString());
-              break;
-            } 
-          }
-        }
-      }
+        // 控制界面的一些 UI:
+        _backgroundImage.SetActive(state);
+        _matchingBackgroundImage.SetActive(state);
+        _scrollRectGameObejctBuilder.SetActive(state);
+        _roomIdVerticalLayout.SetActive(state);
+        _exitButton.SetActive(state);
+
+        _searchInputBox.SetActive(_isRoomInfo & state);
+        _searchButton.SetActive(_isRoomInfo & state);
+        _refreshButton.SetActive(_isRoomInfo & state);
+        _createButton.SetActive(_isRoomInfo & state);
+
+        _returnButton.SetActive(!_isRoomInfo & state);
+        _roomIdBox.SetActive(!_isRoomInfo & state);
+        _playNumBox.SetActive(!_isRoomInfo & state);
     }
-
-    // 控制界面的一些 UI:
-    _backgroundImage.SetActive(state);
-    _matchingBackgroundImage.SetActive(state);
-    _scrollRectGameObejctBuilder.SetActive(state);
-    _roomIdVerticalLayout.SetActive(state);
-    _exitButton.SetActive(state);
-
-    _searchInputBox.SetActive(_isRoomInfo & state);
-    _searchButton.SetActive(_isRoomInfo & state);  
-    _refreshButton.SetActive(_isRoomInfo & state);
-    _createButton.SetActive(_isRoomInfo & state);
-
-    _returnButton.SetActive(!_isRoomInfo & state);
-    _roomIdBox.SetActive(!_isRoomInfo & state);
-    _playNumBox.SetActive(!_isRoomInfo & state);
-  }
 
   /* 按钮的部分: */
 
@@ -329,7 +326,19 @@ public class MatchingScene : MonoBehaviour
   public void OnExitButtonClick()
   {
     DebugInfo.Print("exit button clicked");
-    // TODO: 切换回开始界面
+        // TODO: 切换回开始界面
+
+        if (!_isRoomInfo)
+        {
+            _isRoomInfo = true;
+            GameLoop.Instance.onlineManager.LeaveRoom();
+            SetActive();
+        }
+        else
+        {
+            UI_Manager.Instance.ShowUI<StartScene>("LoginUI");
+            UI_Manager.Instance.CloseUI(this.gameObject.name);
+        }
   }
 
   // 点击刷新房间后更新
@@ -338,9 +347,21 @@ public class MatchingScene : MonoBehaviour
     DebugInfo.Print("refresh button clicked");
     RefreshList(_searchInputBox.GetContent());
   }
+    private void OnLeftRoom(string s)
+    {
+        EventManager.AddListener("OnConnectedServerEvent",OnConnected);
+    }
 
-  // 点击创建房间后弹出创建房间的内容
-  public void OnCreateButtonClick()
+    private void OnConnected()
+    {
+        RefreshList();
+        EventManager.RemoveListener("OnConnectedServerEvent", OnConnected);
+    }
+
+
+
+    // 点击创建房间后弹出创建房间的内容
+    public void OnCreateButtonClick()
   {
     DebugInfo.Print("join button clicked");
     _roomCreateInterface.SetActive(true);
@@ -357,66 +378,160 @@ public class MatchingScene : MonoBehaviour
     }
   }
 
-  // 在密钥输入界面输入密钥后加入房间
-  public void OnKeyInputComfirmClick()
-  {
-    DebugInfo.Print("key input");
-    // if (_keyInputInterface.GetContent() != null)
-    // {
-
-    //   // TODO: 输入密钥之后的验证逻辑:
-    //   // // 获得输入内容
-
-    //   // // 正确的: 来到选择解密
-    //   // _isRoomInfo = false;        // 准备更新界面
-
-    //   // // 错误的, 弹出提示框:
-    //   // _promptBox.ModifyContent("error key");
-    //   // _promptBox.SetActive(true);
-
-    //   // 在满足验证逻辑后关闭
-    //   _isRoomInfo = false;
-    //   _keyInputInterface.SetActive(false);
-    // }
-    _isRoomInfo = false;
-  }
-
-  // roomInfoList 的切换:
-  public void RefreshList(string searchRoomId)
-  {
-    if (_isRoomInfo == true)
+    // 在密钥输入界面输入密钥后加入房间
+    public void OnKeyInputComfirmClick()
     {
-      // TODO: 根据 searchRoomId 获取 roomCount, List<roomId>, List<playerCount>
-      // 只有在房间模式才会更新
-      int roomCount = 10;
-      for (int i = 0; i < RoomLimit; i++)
-      {
-        _roomInfoList[i].SetActive(i < roomCount);
-        _roomInfoList[i].ShiftMode(true);
-        // _roomInfoList[i].ModifyRoomContent(roomId, playerCount)
-      }
+        if(password == _keyInputInterface.KeyInputBox.GetContent())
+        {
+            EventManager.BroadCast("KeyRight");
+            _keyInputInterface.SetActive(false);
+            return;
+        }
+        UI_Manager.Instance.LogWarnning("密码错误！");
     }
-    else
+
+    // roomInfoList 的切换:
+    public void RefreshList(string searchRoomId)
     {
-      // TODO: 获取 playerCount, roomId
-      int playerCount = 5;
-      _playNumBox.ModifyContent(playerCount + " / 8");
-      _roomIdBox.ModifyContent("114514");
-      for (int i = 0; i < 20; i++)
-      {
-        _roomInfoList[i].SetActive(i < playerCount);
-        _roomInfoList[i].ShiftMode(false);
-        _roomInfoList[i].ModifyTextContent("hello world_0" + i.ToString());
-      }
+        GameLoop.Instance.onlineManager.RefreshRoomList(searchRoomId);
     }
-  }
+    public void RefreshList()
+    {
+        GameLoop.Instance.onlineManager.RefreshRoomList();
+    }
+
+    private void OnJoinedRoom(string roomId) { 
+        _isRoomInfo = false ;
+        _roomCreateInterface.SetActive(false);
+        SetActive();
+        InRoomUIFresh();
+        foreach(Player p in GameLoop.Instance.onlineManager.PlayerListOthers)
+        {
+            if (p.IsMasterClient)
+            {
+                allIsReady.Add(p.UserId, true);
+                continue;
+            }
+            p.CustomProperties.TryGetValue("IsReady", out object value);
+            allIsReady.Add(p.UserId, (bool)value);
+        }
+        if (!GameLoop.Instance.onlineManager.IsClient)
+        {
+            allIsReady.Add(GameLoop.Instance.onlineManager.LocalPlayer.UserId, GameLoop.Instance.onlineManager.IsClient);
+        }
+    }
+
+    private void OnPlayerPropertiesUpdate(Player targetPlayer,ExitGames.Client.Photon.Hashtable table)
+    {
+        if(table.TryGetValue("IsReady", out object value))
+        {
+            allIsReady[targetPlayer.UserId] = (bool)value;
+            Debug.Log((bool)value);
+            if (GameLoop.Instance.onlineManager.IsClient)
+            {
+                InRoomUIFresh();
+            }
+        }
+    }
+
+    private bool AllReady()
+    {
+        foreach(KeyValuePair<string,bool> pair in allIsReady)
+        {
+            if (!pair.Value)
+                return false;
+        }
+        return true;
+    }
+    private void OnPlayerEnterRoom(Player newPlayer)
+    {
+        allIsReady.Add(newPlayer.UserId, false);
+        InRoomUIFresh();
+
+    }
+
+    private void OnPlayerLeftRoom(Player thePlayer)
+    {
+        allIsReady.Remove(thePlayer.UserId);
+        InRoomUIFresh();
+
+    }
+    private void InRoomUIFresh()
+    {
+        if(GameLoop.Instance.onlineManager.CurrentRoom == null) { return; }
+        int playerCount = GameLoop.Instance.onlineManager.CurrentRoom.PlayerCount;
+        GameLoop.Instance.onlineManager.CurrentRoom.CustomProperties.TryGetValue(OnlineManager.RoomNameSearchFilter, out object roomName);
+        _playNumBox.ModifyContent(playerCount + " / 8");
+        _roomIdBox.ModifyContent((string)roomName);
+        for (int i = 0; i < 20; i++)
+        {
+            _roomInfoList[i].SetActive(i < playerCount);
+            _roomInfoList[i].ShiftMode(false);
+            if(i<playerCount)
+            {
+                if (i > 0) { _roomInfoList[i].ModifyTextContent(GameLoop.Instance.onlineManager.PlayerListOthers[i - 1].NickName); }
+                else { _roomInfoList[0].ModifyTextContent(GameLoop.Instance.onlineManager.LocalPlayer.NickName); }
+            }
+        }
+        FreshStartButton();
+    }
+
+    private void FreshStartButton()
+    {
+        if (GameLoop.Instance.onlineManager.IsClient)
+        {
+            isReady = true;
+            allIsReady[GameLoop.Instance.onlineManager.LocalPlayer.UserId] = true;
+            _returnButton.SetActive(AllReady());
+            return;
+        }
+        
+    }
+    private void FreshRoomObjects(List<RoomInfo> rooms)
+    {
+        int roomCount = rooms.Count;
+        for (int i = 0; i < RoomLimit; i++)
+        {
+            _roomInfoList[i].SetActive(i < roomCount);
+            _roomInfoList[i].ShiftMode(true);
+            if (i < roomCount)
+            {
+                rooms[i].CustomProperties.TryGetValue(OnlineManager.RoomNameSearchFilter, out object filter);
+                string roomId = rooms[i].Name;
+                int playerCount = rooms[i].PlayerCount;
+                _roomInfoList[i].ModifyRoomContent(roomId, playerCount,(string)filter);
+                Debug.Log(rooms[i].CustomProperties.TryGetValue(OnlineManager.RoomPasswordFilter, out object T)+ (string)T);
+                if (rooms[i].CustomProperties.TryGetValue(OnlineManager.RoomPasswordFilter,out object passwordKey))
+                {
+                    _roomInfoList[i].ModifyRoomContent(roomId, playerCount, (string)filter,(string)passwordKey);
+                }
+            }
+        }
+    }
 
   // 在当前房间进行退出
   public void OnReturnButonClicked()
   {
     DebugInfo.Print("return button clicked");
-    _isRoomInfo = true;
-    RefreshList(_searchInputBox.GetContent());
-  }
-  #endregion
+        if (GameLoop.Instance.onlineManager.IsClient)
+        {
+            GameLoop.Instance.onlineManager.SetPlayerCustomProperties(new ExitGames.Client.Photon.Hashtable { { "StartGame", true } } );
+            return;
+        }
+
+        isReady = !isReady;
+        _returnButton.ModifyContent(isReady ? "已准备" : "准备");
+        GameLoop.Instance.onlineManager.SetPlayerCustomProperties(new ExitGames.Client.Photon.Hashtable { { "IsReady", isReady } });
+
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveListener<List<RoomInfo>>("OnRoomListUpdateEvent", FreshRoomObjects);
+        EventManager.RemoveListener<Player>("OnPlayerLeftRoomEvent", OnPlayerLeftRoom);
+        EventManager.RemoveListener<Player>("OnPlayerEnteredRoomEvent", OnPlayerEnterRoom);
+        EventManager.RemoveListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerPropertiesUpdate);
+        EventManager.RemoveListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
+    }
+    #endregion
 }

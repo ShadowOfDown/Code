@@ -2,12 +2,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using Photon.Realtime;
 
 class RoomCreateInterface : IInterfaceBuilder
 {
+    const int RoomIDBit = 6;
 
-  #region Properities
-  public ScreenMaskUniversalBuilder ScreenMask { get; }
+    #region Properities
+    public ScreenMaskUniversalBuilder ScreenMask { get; }
   public TextBoxUniversalBuilder BoxBuilder { get; } 
   public ButtonUniversalbuilder ExitButton { get; }
   public CheckBoxUniversalBuilder CheckBox { get; }
@@ -181,7 +183,8 @@ class RoomCreateInterface : IInterfaceBuilder
   public void OnCheckedButtonClick()
   {
     DebugInfo.Print("checked button clicked");
-    KeyInputButton.SetActive(!CheckBox.Checked);  // 不知道为什么这个是反过来的
+        Debug.Log(!CheckBox.Checked);
+    KeyInputButton.SetActive(!CheckBox.Checked);  // 不知道为什么这个是反过来的(Checked在调用该函数之后转变)
   }
 
   // 点击关闭按钮后退出弹窗
@@ -202,15 +205,79 @@ class RoomCreateInterface : IInterfaceBuilder
   public void OnConfirmButtonClick()
   {
     DebugInfo.Print("comfirm button clicked");
-    // TODO: 输入房间号之后的逻辑
+        // TODO: 输入房间号之后的逻辑
+        RoomOptions roomOptions = CreateDefultOption();
+        roomOptions.CustomRoomProperties[OnlineManager.RoomNameSearchFilter] = RoomIdInputBox.GetContent();
+        string roomId = CreateRoomID();
+        roomOptions.CustomRoomProperties[OnlineManager.RoomIDSearchFilter] = roomId;
+        if (CheckBox.Checked)
+        {
+            Debug.Log("Add PassWord");
+            roomOptions.CustomRoomProperties.Add(OnlineManager.RoomPasswordFilter, KeyInputInterface.GetContent());
+            roomOptions.CustomRoomProperties.TryGetValue(OnlineManager.RoomPasswordFilter, out object value);
+            Debug.Log("Add PassWord " + (string)value);
+        }
+        GameLoop.Instance.onlineManager.CreateRoom(roomId, roomOptions);
+        EventManager.AddListener<short, string>("OnCreatedRoomFailedEvent", OnCreateRoomFailed);
+        EventManager.AddListener<string>("OnJoinRoomEvent", OnJoinRoom);
   }
+    private void OnJoinRoom(string s)
+    {
+        EventManager.RemoveListener<string>("OnJoinRoomEvent", OnJoinRoom);
+        EventManager.RemoveListener<short, string>("OnCreatedRoomFailedEvent", OnCreateRoomFailed);
+    }
 
-  // 输入完成确认后创建房间
-  public void OnKeyInputComfirmClick()
-  {
-    DebugInfo.Print("key input");
-    // TODO: 输入密钥后设置房间密钥
-    KeyInputInterface.SetActive(false);
-  }
-  #endregion
+    public void OnCreateRoomFailed(short returnCode, string message)
+    {
+        EventManager.RemoveListener<short, string>("OnCreatedRoomFailedEvent", OnCreateRoomFailed);
+        EventManager.RemoveListener<string>("OnJoinRoomEvent", OnJoinRoom);
+        if (returnCode == 32766)
+        {
+            RoomOptions roomOptions = CreateDefultOption();
+            roomOptions.CustomRoomProperties[OnlineManager.RoomNameSearchFilter] = RoomIdInputBox.GetContent();
+            string roomId = CreateRoomID();
+            roomOptions.CustomRoomProperties[OnlineManager.RoomIDSearchFilter] = roomId;
+            if (!CheckBox.Checked)
+            {
+                Debug.Log("Add PassWord");
+                roomOptions.CustomRoomProperties.Add(OnlineManager.RoomPasswordFilter, KeyInputInterface.GetContent());
+                roomOptions.CustomRoomProperties.TryGetValue(OnlineManager.RoomPasswordFilter,out object value);
+                Debug.Log("Add PassWord "+ (string)value);
+            }
+            GameLoop.Instance.onlineManager.CreateRoom(roomId, roomOptions);
+            return;
+        }
+        UI_Manager.Instance.LogWarnning("创建房间失败");
+    }
+    private string CreateRoomID()
+    {
+        System.Random random = new System.Random();
+        int id = random.Next((int)Mathf.Pow(10, RoomIDBit - 1), (int)Mathf.Pow(10, RoomIDBit) - 1);
+        return id.ToString();
+    }
+
+    // 输入完成确认后创建房间
+    public void OnKeyInputComfirmClick()
+    {
+        DebugInfo.Print("key input");
+        // TODO: 输入密钥后设置房间密钥
+
+        KeyInputInterface.SetActive(false);
+    }
+
+    public RoomOptions CreateDefultOption()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 8;
+        roomOptions.PublishUserId = true;
+        ExitGames.Client.Photon.Hashtable table = new ExitGames.Client.Photon.Hashtable();
+        table.Add(OnlineManager.RoomNameSearchFilter, GameLoop.Instance.onlineManager.PlayerName + "的房间");
+        table.Add(OnlineManager.RoomIDSearchFilter, "1");
+        roomOptions.CustomRoomProperties = table;
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { OnlineManager.RoomIDSearchFilter, OnlineManager.RoomNameSearchFilter ,OnlineManager.RoomPasswordFilter};
+        return roomOptions;
+    }
+
+    
+    #endregion
 }

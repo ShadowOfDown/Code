@@ -13,6 +13,7 @@ public class OnlineManager : MonoBehaviourPunCallbacks
 {
     public const string RoomIDSearchFilter = "C0";
     public const string RoomNameSearchFilter = "C1";
+    public const string RoomPasswordFilter = "password";
     public OnlineManager() { }
 
     #region paramaters
@@ -260,9 +261,7 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     /// <summary>
     /// 离开当前房间
     /// </summary>
-    /// <param name="roomName"></param>
-    /// <returns></returns>
-    public bool LeaveRoom(string roomName)
+    public bool LeaveRoom()
     {
         return PhotonNetwork.LeaveRoom(false);
     }
@@ -272,6 +271,7 @@ public class OnlineManager : MonoBehaviourPunCallbacks
     /// <param name="roomName"></param>
     /// <returns></returns>
     public bool JoinRoom(string roomName) { 
+        Debug.Log("Try Join Room :" + roomName);
         return PhotonNetwork.JoinRoom(roomName);
     }
     #endregion
@@ -396,7 +396,4 @@ public class OnlineManager : MonoBehaviourPunCallbacks
         if (table == null) { Debug.Log("SetPlayerCustomProperties With Null"); return; }
         PhotonNetwork.SetPlayerCustomProperties(table);
     }
-
-
-
 }

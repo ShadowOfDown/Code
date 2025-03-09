@@ -4,14 +4,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using Photon.Realtime;
 
 public class RoomInfoInterface : IInterfaceBuilder
 {
+
   #region Fields
   private TextBoxGameObjectBuilder _roomInfoBackgroundBuilder;  // 这是整个的方框, 也可以包含用户背景
   private TextBoxGameObjectBuilder _roomIdTextBuilder;          // 这是展示 roomId
   private TextBoxGameObjectBuilder _playNumTextBuilder;         // 展示目前多少玩家
   private ButtonUniversalbuilder _joinButton;                   // 加入某一个房间的按钮
+    private string password;
+    private string roomId;
+    private int playerCount;
   #endregion
 
   #region Properties
@@ -25,6 +30,7 @@ public class RoomInfoInterface : IInterfaceBuilder
 
 
   #region Methods
+
   // 构造函数
   public RoomInfoInterface(int roomIdx, Transform parentTransform)
   {
@@ -192,39 +198,55 @@ public class RoomInfoInterface : IInterfaceBuilder
   // 点击加入按钮后的逻辑
   public void OnJoinButtonClick()
   {
-    DebugInfo.Print(@$"button {RoomIdx} clicked");
-    // TODO: 
-    if (IsRoomFull() == false)
-    {
-      NeedKey = IsKeyNeeded();
+        DebugInfo.Print(@$"button {RoomIdx} clicked");
+        // TODO: 
+        if (IsRoomFull() == false)
+        {
+            Debug.Log("NeedKey : " + NeedKey);
+            if (NeedKey)
+            {
+                EventManager.BroadCast<string>("CallKeyInput", password);
+                EventManager.AddListener("KeyRight", NeedKeyCallBack);
+                return;
+            }
 
-      if (NeedKey == false)
-      {
-        // 进行状态切换
-        IsRoomInfo = false;
-        DebugInfo.Print("shift to" + IsRoomInfo.ToString());
-      }
+            GameLoop.Instance.onlineManager.JoinRoom(roomId);
+        }
     }
-  }
+
+    public void NeedKeyCallBack()
+    {
+        GameLoop.Instance.onlineManager.JoinRoom(roomId);
+    }
 
   public bool IsKeyNeeded()
   {
     // TODO: 房间是否需要密钥?
-    return false;
+    return NeedKey;
   }
 
   public bool IsRoomFull()
   {
-    // TODO: 房间是否满员?
-    return false;
+        // TODO: 房间是否满员?
+        return playerCount > 8;
   }
 
 
-  public void ModifyRoomContent(string roomId, int playerCount)
+  public void ModifyRoomContent(string roomId, int playerCount,string roomname)
   {
-    _roomIdTextBuilder.ModifyContent(roomId);
+        this.roomId = roomId;
+        this.playerCount = playerCount;
+    _roomIdTextBuilder.ModifyContent(roomname);
     _playNumTextBuilder.ModifyContent(playerCount + "/8");
   }
+
+    public void ModifyRoomContent(string roomId, int playerCount,string roomname,string password)
+    {
+        Debug.Log(roomId + " NeedPassWord");
+        ModifyRoomContent(roomId, playerCount,roomname);
+        NeedKey = true;
+        this.password = password;
+    }
 
   public void ModifyTextContent(string userId)
   {

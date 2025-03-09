@@ -74,7 +74,7 @@ public class CreateRoomAdvancedSettings : UIObject
     public void OnOKBtnClicked()
     {
         if (needPassword && passwordInputField.text!=null && passwordInputField.text.Length >0) {
-            roomOptions.CustomRoomProperties.Add("password", passwordInputField.text);
+            roomOptions.CustomRoomProperties.Add(OnlineManager.RoomPasswordFilter, passwordInputField.text);
         }
         if (needRoomID && roomIDInputField.text != null && roomIDInputField.text.Length > 0) { 
             createRoomUI.selfCreateRoomID = true;
