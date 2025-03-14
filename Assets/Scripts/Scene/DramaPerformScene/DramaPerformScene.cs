@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.UIElements;
 
-public class DramaPerformScene : MonoBehaviour
+public class DramaPerformScene : UIObject
 {
   #region Fields
   public static readonly string resourcesFolderPath = "Arts/Textures/DramaPerformScene/";
@@ -313,20 +313,12 @@ public class DramaPerformScene : MonoBehaviour
   #endregion
 
   #region Methods
-  public void Start()
+  public override void OnLoad()
   {
     Debug.Log($"Screensize: {PixelInfo.screenPixel}, scaleRadio: {PixelInfo.scaleRadio}");
 
-    // canvas =========================================================================================
-    _canvas = new CanvasGameObjectBuilder();
-    _canvas.Build(
-      new Dictionary<string, IComponentBuilder>
-      {
-        {"RectTransform", new RectTransformComponentBuilder(_fullScreenRectTransformArgu)},
-      }
-    );
     // backgroundImage ================================================================================
-    _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", _canvas.Transform);
+    _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", UI_Manager.Instance.CanvasTf);
     _backgroundImage.Build(
       new Dictionary<string, IComponentBuilder>
       {
@@ -494,7 +486,7 @@ public class DramaPerformScene : MonoBehaviour
     _scrollRectGameObejctBuilder.SetContent(_verticalLayoutGroupGameObjectBuilder.RectTransform, _scrollbarColorBlock, _handleColor);
   }
 
-  public void Update()
+  public override void OnUpdate()
   {
     SetActive();
   }
