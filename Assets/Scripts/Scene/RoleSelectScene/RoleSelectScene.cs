@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class RoleSelectScene : ISceneState
+public class RoleSelectScene : UIObject
 {
   #region Fields
   public static readonly string resourcesFolderPath = "Arts/Textures/RoleSelectScene/";
@@ -27,10 +27,6 @@ public class RoleSelectScene : ISceneState
   private readonly List<RoleInfoInterface> roleInfoBoxList = new();
   private RoleIntroduction _roleDetailInterface = null;
 
-    public RoleSelectScene(SceneStateControl control) : base(control)
-    {
-        this.StateName = "RoleSelectScene";
-    }
     #endregion
 
     #region Properties
@@ -39,20 +35,9 @@ public class RoleSelectScene : ISceneState
 
     #region Methods
 
-    public override void StateBegin()
+    public override void OnLoad()
     {
-        UI_Manager.Instance.Init();
-        // Canvas =========================================================================================
-        _canvas = new CanvasGameObjectBuilder();
-        _canvas.Build(
-          new Dictionary<string, IComponentBuilder>
-          {
-        {"RectTransform", new RectTransformComponentBuilder(_fullScreenRectTransformArgu)},
-          }
-        );
-
-        // Background =====================================================================================
-        _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", _canvas.Transform);
+        _backgroundImage = new ImageGameObjectBuilder("BackgroundImage", this.transform);
         _backgroundImage.Build(
           new Dictionary<string, IComponentBuilder>
           {
@@ -85,7 +70,7 @@ public class RoleSelectScene : ISceneState
         _promptSelectBox.ModifyContent("has been chosen");
         _promptSelectBox.SetActive(false);
     }
-    public override void StateUpdate()
+    public override void OnUpdate()
     {
         SetActive();
     }
@@ -93,44 +78,44 @@ public class RoleSelectScene : ISceneState
 
 
     public void SetActive()
-  {
-    // 展示角色
-    foreach (var roleInfoBox in roleInfoBoxList)
     {
-      roleInfoBox.SetActive(!_showIntroduction);
+        // 展示角色
+        foreach (var roleInfoBox in roleInfoBoxList)
+        {
+            roleInfoBox.SetActive(!_showIntroduction);
+        }
+        // 人物信息
+        _roleDetailInterface.SetActive(_showIntroduction);
+        // 提示框
+        _confirmSelectBox.SetActive(_showIntroduction);
     }
-    // 人物信息
-    _roleDetailInterface.SetActive(_showIntroduction);
-    // 提示框
-    _confirmSelectBox.SetActive(_showIntroduction);
-  }
 
-  // Buttons ==========================================================================================
-  public void OnRoleImageClicked()
-  {
-    if (DebugInfo.PrintDebugInfo)
+    // Buttons ==========================================================================================
+    public void OnRoleImageClicked()
     {
-      _showIntroduction = true;
-      Debug.Log("OnCharacterClicked");
+        if (DebugInfo.PrintDebugInfo)
+        {
+            _showIntroduction = true;
+            Debug.Log("OnCharacterClicked");
+        }
     }
-  }
 
-  public void OnReturnButtonClicked()
-  {
-    if (DebugInfo.PrintDebugInfo)
+    public void OnReturnButtonClicked()
     {
-      _showIntroduction = false;
-      Debug.Log("OnReturnButtonClicked");
+        if (DebugInfo.PrintDebugInfo)
+        {
+            _showIntroduction = false;
+            Debug.Log("OnReturnButtonClicked");
+        }
     }
-  }
 
-  public void OnConfirmButtonClicked()
-  {
-    if (DebugInfo.PrintDebugInfo)
+    public void OnConfirmButtonClicked()
     {
-      Debug.Log("OnConfirmButtonClicked");
+        if (DebugInfo.PrintDebugInfo)
+        {
+            Debug.Log("OnConfirmButtonClicked");
+        }
+        _promptSelectBox.SetActive(true);
     }
-    _promptSelectBox.SetActive(true);
-  }
-  #endregion
+    #endregion
 }

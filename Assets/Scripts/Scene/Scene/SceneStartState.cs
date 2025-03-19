@@ -36,7 +36,7 @@ public class SceneStartState : ISceneState
         if (changedProps != null && changedProps.ContainsKey("StartGame"))
         {
             UI_Manager.Instance.CloseAllUI();
-            my_control.SetState(new RoleSelectScene(my_control), "RoleSelectScene");
+            my_control.SetState(new GameScene(my_control), "RoleSelectScene");
         }
     }
 }

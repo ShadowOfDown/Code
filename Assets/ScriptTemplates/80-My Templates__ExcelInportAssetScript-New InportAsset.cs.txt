@@ -1,0 +1,30 @@
+//Author : #AUTHOR#
+//CreateTime : #CREATETIME#
+//Version : #VERSION#
+//UnityVersion : #UNITYVERSION#
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+//The Class used to store every row of excel sheet, its fields must match sheet columns. You can also Create Or Use other class or struct to replace it,but remember to replace the List<T> below;
+[Serializable]
+public class #SCRIPTNAME#Content
+{
+    #region Fields
+    
+    #endregion
+
+}
+
+
+//AssetPath is the path that the ScriptableObject to export,ExcelName is the name of excel data you want to transform
+[ExcelAsset()]
+public class #SCRIPTNAME# : ScriptableObject
+{
+    #region Fields
+    //Add a List here ,the List name MUST be the same as the sheet name of excel data£¬such as : public List<#SCRIPTNAME#> sheet1
+    
+    #endregion
+}
