@@ -3,23 +3,77 @@
 //Version : 1.0
 //UnityVersion : 2022.3.53f1c1
 
+using ExitGames.Client.Photon.StructWrapping;
+using Photon.Pun.Demo.PunBasics;
+using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using static GameSceneStart;
+
+public abstract class StateOfGameScene
+{
+    protected GameScene gameScene;
+    protected GameState gameState;
+    public StateOfGameScene(GameScene gameScene, GameState gameState)
+    {
+        this.gameScene = gameScene;
+        this.gameState = gameState;
+        Debug.Log("Switch To GameState : " + gameState);
+    }
+
+    public abstract void StateBegin();
+    public abstract void StateEnd();
+    public abstract void StateUpdate();
+}
+
+public class GameSceneStart : StateOfGameScene
+{
+    public GameSceneStart(GameScene gameScene, GameState gameState) : base(gameScene, gameState)
+    {
+        
+    }
+
+    public override void StateBegin()
+    {
+        UI_Manager.Instance.Init();
+    }
+
+    public override void StateEnd()
+    {
+        gameScene.SwitchGameState();
+    }
+
+    public override void StateUpdate()
+    {
+        
+    }
+}
+
 
 public enum GameState
 {
     SceneStart,
     RoleSelect,
+    DramaPerform,
     Decrypt,
     End,
 }
 
+public class RoleDialogueContainer : ScriptableObject
+{
+    public List<DialogueStruct> dialogues = new List<DialogueStruct>();
+}
+
+[Serializable]
 public struct RoleInfo
 {
     public string name;
     public short faction;
     public AllRoles ID;
+    public RoleDialogueContainer dialogues;
 }
 
 public enum AllRoles
@@ -36,38 +90,45 @@ public enum AllRoles
 public class GameScene : ISceneState
 {
     private GameState currentGameState = GameState.SceneStart;
-    public Dictionary<string , RoleInfo> roles = new Dictionary<string , RoleInfo>();
+    private StateOfGameScene currentState;
+    private Dictionary<GameState,StateOfGameScene> gameStates = new Dictionary<GameState,StateOfGameScene>();
+    public Dictionary<string , RoleInfo> selectedRoles = new Dictionary<string , RoleInfo>();
+    public Dictionary<AllRoles,RoleInfo> AllRoleInfo = new Dictionary<AllRoles,RoleInfo>();
     public AllRoles myRole;
     public GameScene(SceneStateControl control) : base(control)
     {
         this.StateName = "GameScene";
     }
 
-    public override void StateBegin() { 
-        UI_Manager.Instance.Init();
-        UI_Manager.Instance.ShowUI<RoleSelectScene>("RoleSelectUI");
+    public override void StateBegin() {
+        InportData();
+        Init();
     }
     public override void StateEnd() { 
-
+        RemoveAllListenners();
     }
     public override void StateUpdate() { 
-
+        currentState?.StateUpdate();
     }
 
     public void SwitchGameState(GameState state)
     {
+        if (currentState != null)
+        {
+            currentState.StateEnd();
+        }
         currentGameState = state;
+        currentState = gameStates[currentGameState];
+        currentState.StateBegin();
     }
     public void SwitchGameState()
     {
         currentGameState++;
-    }
-    private void CheckGameState()
-    {
-        if(currentGameState == GameState.End)
-        {
-            SwitchScene();
+        if (currentState != null) { 
+            currentState.StateEnd();
         }
+        currentState = gameStates[currentGameState];
+        currentState.StateBegin();
     }
 
     public void SwitchScene()
@@ -75,9 +136,48 @@ public class GameScene : ISceneState
 
     }
 
-    private void OnPlayerSelectRole(string playerID , RoleInfo roleInfo)
+    private void InportData()
     {
-        if(roles.ContainsValue(roleInfo))
-        roles.Add(playerID, roleInfo);
+        //AllRolesInfo 
+        List<RoleInfo> roleInfos = (Resources.Load("ProjectData/RoleInfo/AllRoles/AllRoleInfo") as AllRolesBulider).roleInfos;
+        foreach (RoleInfo roleInfo in roleInfos) { 
+            AllRoleInfo.Add(roleInfo.ID, roleInfo);
+        }
+
+
+    }
+
+    private void Init()
+    {
+        EventManager.AddListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerSelectRoles);
+
+        gameStates.Add(GameState.SceneStart, new GameSceneStart(this, GameState.SceneStart));
+
+        SwitchGameState(GameState.SceneStart);
+    }
+
+    private void RemoveAllListenners()
+    {
+        EventManager.RemoveListener<Player, ExitGames.Client.Photon.Hashtable>("OnPlayerPropertiesUpdateEvent", OnPlayerSelectRoles);
+    }
+
+    private void OnPlayerSelectRoles(Player targetPlayer,ExitGames.Client.Photon.Hashtable table)
+    {
+        if(!table.TryGetValue<AllRoles>("SelectRole", out AllRoles role)) { return; }
+        if (selectedRoles.ContainsValue(AllRoleInfo[role]))
+        {
+            EventManager.BroadCast<Player>("RoleHasSelectedEvent",targetPlayer);
+            return;
+        }
+        selectedRoles.Add(targetPlayer.UserId, AllRoleInfo[role]);
+        if(targetPlayer.UserId == GameLoop.Instance.onlineManager.LocalPlayer.UserId)
+        {
+            myRole = role;
+        }
+        EventManager.BroadCast<Player>("SucessfullySelectRoleEvent", targetPlayer);
+        if(selectedRoles.Count == AllRoleInfo.Count)
+        {
+            SwitchGameState();
+        }
     }
 }

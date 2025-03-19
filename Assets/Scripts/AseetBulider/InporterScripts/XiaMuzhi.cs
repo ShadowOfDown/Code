@@ -9,7 +9,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class XiaMuzhiBuilder
+public class DialogueStruct
 {
     #region Fields
     public int Id;
@@ -23,11 +23,7 @@ public class XiaMuzhiBuilder
     #endregion
 }
 //AssetPath is the path that the ScriptableObject to export,ExcelName is the name of excel data you want to transform
-[ExcelAsset(AssetPath = "Resources/DialogueData",ExcelName = "XiaMuzhi")]
-public class XiaMuzhi : ScriptableObject
+[ExcelAsset(AssetPath = "Resources/ProjectData/RoleInfo/DialogueData",ExcelName = "XiaMuzhi")]
+public class XiaMuzhi : RoleDialogueContainer
 {
-    #region Fields
-    //Add a List here ,the List name MUST be the same as the sheet name of excel data��such as : public List<XiaMuzhi> sheet1
-    public List<XiaMuzhiBuilder> dialogueStruct = new List<XiaMuzhiBuilder>();
-    #endregion
 }
