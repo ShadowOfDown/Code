@@ -13,6 +13,7 @@ public class SceneStateControl
     private bool stateBegin =false;
     [SerializeField]
     private bool isLoadingScene = false;
+    public float loadSceneProgress = 0f;
 
     public void SetState(ISceneState state,string SceneName)
     {
@@ -36,7 +37,8 @@ public class SceneStateControl
         if (isLoadingScene) { yield break; }
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneName);
         isLoadingScene = true;
-        yield return new WaitUntil(() => { return asyncOperation.isDone; });
+        yield return new WaitUntil(() => { loadSceneProgress = asyncOperation.progress; return asyncOperation.isDone; });
+        loadSceneProgress = 0;
         isLoadingScene = false ;
     }
 

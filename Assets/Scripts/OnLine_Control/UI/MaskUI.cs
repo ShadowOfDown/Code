@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MaskUI : MonoBehaviour
+public class MaskUI : UIObject
 {
     private Text text;
     public void ShowMessage(string message)

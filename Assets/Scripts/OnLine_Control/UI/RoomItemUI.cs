@@ -5,8 +5,6 @@
 
 
 using Photon.Realtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,18 +14,18 @@ public class RoomItemUI : MonoBehaviour
     private Text roomCount;
     private RoomInfo roomInfo;
     private Button joinBtn;
-    private void Awake()
+    public void Init ()
     {
         roomName = transform.Find("roomName").GetComponent<Text>();
         roomCount = transform.Find("Count").GetComponent<Text>();
         joinBtn = transform.Find("joinBtn").GetComponent<Button>();
         joinBtn.onClick.AddListener(JoinRoom);
-        OnLine_Manager.Instance.OnJoinedRoomEvent += OnJoinedRoom;
     }
 
     public void setRoomInfo(RoomInfo roomInfo)
     {
-        roomName.text = roomInfo.Name;
+        if(!roomInfo.CustomProperties.TryGetValue(OnlineManager.RoomNameSearchFilter, out object temp)) { Debug.Log("roomInfo Do Not Contain name!"); } 
+        roomName.text =(string)temp;
         roomCount.text = roomInfo.PlayerCount + " / " + roomInfo.MaxPlayers;
         this.roomInfo = roomInfo;
         if (roomInfo.PlayerCount >= roomInfo.MaxPlayers)
@@ -45,16 +43,19 @@ public class RoomItemUI : MonoBehaviour
     {
         if (roomInfo.PlayerCount < roomInfo.MaxPlayers)
         {
-            if(OnLine_Manager.Instance.JoinRoom(roomInfo.Name))
+            if(GameLoop.Instance.onlineManager.JoinRoom(roomInfo.Name))
+            {
                 UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在加入房间...");
+                EventManager.AddListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
+            }
         }
     }
 
 
     public void OnJoinedRoom(string name)
     {
-        OnLine_Manager.Instance.OnJoinedRoomEvent -= OnJoinedRoom;
-        UI_Manager.Instance.ShowUI<RoomUI>("RoomUI");
+        EventManager.RemoveListener<string>("OnJoinedRoomEvent", OnJoinedRoom);
+        UI_Manager.Instance.ShowUI<RoomUI>("RoomUI").SetRoomNameAndID(roomName.text,roomInfo.Name);
         UI_Manager.Instance.CloseUI("LobbyUI");
         UI_Manager.Instance.CloseUI("MaskUI");
     }

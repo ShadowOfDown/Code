@@ -9,14 +9,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginUI : MonoBehaviour
+public class LoginUI : UIObject
 {
     [SerializeField]
     private Button OnLine_StartButton;
     private Button QuitButton;
     private Button SettingsButton;
 
-    private void Awake()
+    public override void OnLoad()
     {
         OnLine_StartButton = transform.Find("OnLine_StartButton").GetComponent<Button>();
         QuitButton = transform.Find("QuitButton").GetComponent<Button>();
@@ -29,9 +29,14 @@ public class LoginUI : MonoBehaviour
 
     public void On_OnLine_StartButtonClicked()
     {
-        OnLine_Manager.Instance.ConnectMaster();
-        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在连接服务器...");
-        OnLine_Manager.Instance.OnConnectedServerEvent += EnterLobbyUI;
+        if (GameLoop.Instance.onlineManager.IsConnected|| GameLoop.Instance.onlineManager.IsConnectedAndReady) {
+            UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
+            UI_Manager.Instance.CloseUI("LoginUI");
+            return;
+        }
+        EventManager.AddListener("OnConnectedServerEvent", EnterLobbyUI);
+        GameLoop.Instance.onlineManager.ConnectMaster();
+        UI_Manager.Instance.ShowUI<MaskUI>("MaskUI").ShowMessage("正在连接服务器...");  
     }
 
     public void On_QuitButtonClicked()
@@ -51,12 +56,7 @@ public class LoginUI : MonoBehaviour
         UI_Manager.Instance.ShowUI<LobbyUI>("LobbyUI");
 
 
-        OnLine_Manager.Instance.OnConnectedServerEvent -= EnterLobbyUI;
+        EventManager.RemoveListener("OnConnectedServerEvent", EnterLobbyUI);
         UI_Manager.Instance.CloseUI("LoginUI");
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }

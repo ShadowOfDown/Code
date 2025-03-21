@@ -31,14 +31,18 @@ public class GameLoop : MonoBehaviour
     #endregion
 
     private GameLoop(){}
-    [SerializeField]
     private SceneStateControl sceneStateControl = new SceneStateControl();
+    public OnlineManager onlineManager;
+    [SerializeField]
     private UI_Manager ui_manager;
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
         UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
+
+        onlineManager = gameObject.AddComponent<OnlineManager>();
+
         ui_manager = UI_Manager.Instance;
+        ui_manager.Init();
     }
 
     private void Start()
@@ -49,5 +53,6 @@ public class GameLoop : MonoBehaviour
     private void Update()
     {
         sceneStateControl.StateUpdate();
+        ui_manager.UIobjectUpdate();
     }
 }
