@@ -34,7 +34,7 @@ public class DramaPerformScene : UIObject
 
 
   #region Canvas
-  private CanvasGameObjectBuilder _canvas = null;
+
   #endregion
 
 
