@@ -1,0 +1,1023 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb77034586bd3648b1b07747e367dda, type: 3}
+  m_Name: XiaMuzhi
+  m_EditorClassIdentifier: 
+  dialogueStruct:
+  - Id: 1
+    Text: "\u75BC\u75DB\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 1
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 2
+    Text: "\u94BB\u5FC3\u7684\u75BC\u75DB\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 2
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 3
+    Text: "\u8EAB\u4F53\u5FEB\u8981\u88AB\u6495\u88C2\uFF0C\u4ECE\u5DE6\u4FA7\u80A9\u80DB\u9AA8\u7A7F\u900F\u7684\u5DE8\u529B\u62C9\u626F\u7740\u8EAB\u4F53\u51E0\u4E4E\u8981\u88AB\u626F\u6210\u4E24\u534A\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 3
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 4
+    Text: "\u89C6\u91CE\u5267\u70C8\u5730\u6643\u52A8\uFF0C\u968F\u540E\u5411\u4E0B\u683D\u53BB\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 4
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 5
+    Text: "\u5C0F\u590F\uFF01"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 0
+    SecondBox: 1
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 6
+    Text: "\u8033\u8FB9\u4E00\u7247\u6DF7\u6C8C\uFF0C\u67AA\u58F0\u3001\u811A\u6B65\u58F0\u3001\u54C0\u568E\u58F0\uFF0C\u50CF\u6253\u7FFB\u7684\u989C\u6599\u6DF7\u6742\u5728\u4E00\u8D77\uFF0C\u4EFF\u4F5B\u4E00\u77AC\u95F4\u88AB\u4ECE\u4E16\u754C\u4E0A\u62BD\u79BB\uFF0C\u7075\u9B42\u8FDB\u5165\u4E86\u53E6\u4E00\u4E2A\u7A7A\u95F4\u3002"
+    BackoundJPGId: 1
+    VerticalPainting: 0
+    FirstBox: 5
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 7
+    Text: "\u5C0F\u590F\uFF01\u6E05\u9192\u70B9\uFF01"
+    BackoundJPGId: 1
+    VerticalPainting: 0
+    FirstBox: 0
+    SecondBox: 2
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 8
+    Text: "\u4E00\u58F0\u6025\u547C\u7A7F\u900F\u8033\u8FB9\u7684\u8FF7\u96FE\uFF0C\u77ED\u6682\u5730\u5C06\u7075\u9B42\u5524\u56DE\u73B0\u4E16\u3002"
+    BackoundJPGId: 1
+    VerticalPainting: 0
+    FirstBox: 6
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 9
+    Text: "\u773C\u524D\u662F\u6643\u52A8\u7684\u91CD\u5F71\uFF0C\u8EAB\u7740\u519B\u88C5\u7684\u56FD\u6C11\u515A\u58EB\u5175\u51B2\u8FDB\u624B\u65E0\u5BF8\u94C1\u7684\u5DE5\u4EBA\u4E2D\u95F4\uFF0C\u5B9B\u5982\u864E\u5165\u7F8A\u7FA4\u3002"
+    BackoundJPGId: 2
+    VerticalPainting: 0
+    FirstBox: 7
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 10
+    Text: "\u9C9C\u8840\u5728\u67AA\u54CD\u540E\u4ECE\u5DE5\u4EBA\u8EAB\u4E0A\u8E7F\u51FA\uFF0C\u67D3\u7EA2\u4E86\u89C6\u91CE\uFF0C\u4E5F\u523A\u75DB\u4E86\u5FC3\u3002"
+    BackoundJPGId: 2
+    VerticalPainting: 0
+    FirstBox: 8
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 11
+    Text: "\u5C0F\u590F\uFF01\u522B\u7761\u8FC7\u53BB\uFF01"
+    BackoundJPGId: 2
+    VerticalPainting: 1
+    FirstBox: 0
+    SecondBox: 3
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 12
+    Text: "\u7A46\u2026\u2026\u6148\u2026\u2026"
+    BackoundJPGId: 2
+    VerticalPainting: 1
+    FirstBox: 9
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 13
+    Text: "\u575A\u6301\u4F4F\uFF0C\u6211\u5E26\u4F60\u51FA\u53BB\uFF01"
+    BackoundJPGId: 2
+    VerticalPainting: 1
+    FirstBox: 0
+    SecondBox: 4
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 14
+    Text: "\u2026\u2026\u4E0D\uFF0C\u4E0D\uFF0C\u7A46\u2026\u2026\u6148\uFF0C\u5FEB\uFF0C\u8DD1\u2026\u2026"
+    BackoundJPGId: 2
+    VerticalPainting: 0
+    FirstBox: 10
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 15
+    Text: "\u8FD9\u8FB9\u8FD8\u6709\u4E24\u4E2A\uFF0C\u522B\u8BA9\u4ED6\u4EEC\u8DD1\u4E86\uFF01"
+    BackoundJPGId: 2
+    VerticalPainting: 2
+    FirstBox: 0
+    SecondBox: 5
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 16
+    Text: "\u4E0D\u7528\u7740\u6025\uFF0C\u90A3\u4E2A\u5973\u7684\u4E2D\u4E86\u67AA\uFF0C\u8DD1\u4E0D\u4E86\u7684\u3002"
+    BackoundJPGId: 2
+    VerticalPainting: 3
+    FirstBox: 0
+    SecondBox: 6
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 17
+    Text: "\u5FEB\u8D70\u554A\uFF0C\u7A46\u6148\u2026\u2026"
+    BackoundJPGId: 1
+    VerticalPainting: 4
+    FirstBox: 11
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 18
+    Text: "\u522B\u62C5\u5FC3\uFF0C\u5C0F\u590F\uFF0C\u6211\u4E00\u5B9A\u4F1A\u5E26\u4F60\u51FA\u53BB\u3002"
+    BackoundJPGId: 1
+    VerticalPainting: 5
+    FirstBox: 0
+    SecondBox: 7
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 19
+    Text: "\u7AD9\u4F4F\uFF01"
+    BackoundJPGId: 1
+    VerticalPainting: 2
+    FirstBox: 0
+    SecondBox: 8
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 20
+    Text: "\u7A46\u6148\u2026\u2026"
+    BackoundJPGId: 1
+    VerticalPainting: 0
+    FirstBox: 12
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 21
+    Text: "\u5FEB\uFF0C\u8DD1\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 13
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 22
+    Text: "\u2026\u2026\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 14
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 23
+    Text: "\u7A46\u6148\uFF01"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 0
+    SecondBox: 0
+    ThirdBox: 1
+    TextClass: 3
+  - Id: 24
+    Text: "\u5C0F\u590F\uFF0C\u4F60\u603B\u7B97\u9192\u8FC7\u6765\u4E86\uFF01"
+    BackoundJPGId: 3
+    VerticalPainting: 6
+    FirstBox: 0
+    SecondBox: 9
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 25
+    Text: "\u8FD8\u6709\u54EA\u91CC\u4E0D\u8212\u670D\uFF1F"
+    BackoundJPGId: 3
+    VerticalPainting: 6
+    FirstBox: 0
+    SecondBox: 10
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 26
+    Text: "\u2026\u2026\u4E2D\u836F\u7684\u6E05\u9999\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 6
+    FirstBox: 15
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 27
+    Text: "\u6726\u80E7\u7684\u6A59\u5149\u3002\u6E29\u70ED\u7684\u5E8A\u94FA\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 16
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 28
+    Text: "\u8FD8\u6709\uFF0C\u523A\u75DB\u7684\u5DE6\u80A9\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 17
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 29
+    Text: "\u4ED5\u6C11\u2026\u2026"
+    BackoundJPGId: 3
+    VerticalPainting: 7
+    FirstBox: 0
+    SecondBox: 0
+    ThirdBox: 2
+    TextClass: 3
+  - Id: 30
+    Text: "\u662F\u6211\u3002\u5DF2\u7ECF\u6CA1\u4E8B\u4E86\uFF0C\u5C0F\u590F\uFF0C\u5DF2\u7ECF\u6CA1\u4E8B\u4E86\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 6
+    FirstBox: 0
+    SecondBox: 11
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 31
+    Text: "\u7A46\u6148\u5462\uFF1F"
+    BackoundJPGId: 3
+    VerticalPainting: 7
+    FirstBox: 0
+    SecondBox: 11
+    ThirdBox: 3
+    TextClass: 3
+  - Id: 32
+    Text: "\u7A46\u6148\u5462\uFF1F\uFF01"
+    BackoundJPGId: 3
+    VerticalPainting: 7
+    FirstBox: 0
+    SecondBox: 11
+    ThirdBox: 4
+    TextClass: 3
+  - Id: 33
+    Text: "\u8FD8\u6709\uFF0C\u5DE5\u4EBA\u4EEC\u5462\uFF1F"
+    BackoundJPGId: 3
+    VerticalPainting: 7
+    FirstBox: 0
+    SecondBox: 11
+    ThirdBox: 5
+    TextClass: 3
+  - Id: 34
+    Text: "\u2026\u2026"
+    BackoundJPGId: 3
+    VerticalPainting: 7
+    FirstBox: 0
+    SecondBox: 12
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 35
+    Text: "\u6211\u5230\u7684\u65F6\u5019\uFF0C\u53EA\u6709\u4F60\u8EBA\u5728\u5730\u4E0A\uFF0C\u5DE6\u80A9\u4E0A\u4E2D\u4E86\u4E00\u67AA\u3002\u597D\u5728\uFF0C\u53EA\u662F\u5931\u8840\u8FC7\u591A\uFF0C\u90A3\u4E00\u67AA\u6253\u5F97\u6709\u70B9\u504F\uFF0C\u6211\u5BF9\u4F60\u8FDB\u884C\u4E86\u62A2\u6551\uFF0C\u547D\u662F\u4FDD\u4F4F\u4E86\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 8
+    FirstBox: 0
+    SecondBox: 13
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 36
+    Text: "\u4F46\u7A46\u6148\uFF0C\u8FD8\u6709\u5F53\u65F6\u5728\u573A\u7684\u5DE5\u4EBA\u2026\u2026"
+    BackoundJPGId: 3
+    VerticalPainting: 8
+    FirstBox: 0
+    SecondBox: 14
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 37
+    Text: "\u5DF2\u7ECF\u88AB\u56FD\u6C11\u515A\u4EE5\u2018\u6E05\u515A\u2019\u7684\u540D\u4E49\uFF0C\u67AA\u6740\u4E86\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 8
+    FirstBox: 0
+    SecondBox: 15
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 38
+    Text: "\u2026\u2026\u2026\u2026"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 18
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 39
+    Text: "\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 19
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 40
+    Text: "\u5598\u4E0D\u4E0A\u6C14\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 20
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 41
+    Text: "\u50CF\u6C14\u7BA1\u7600\u4E86\u8840\uFF0C\u5FC3\u810F\u88AB\u5343\u5428\u5DE8\u77F3\u6324\u538B\u7740\uFF0C\u547C\u5438\u4E0D\u80FD\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 21
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 42
+    Text: "\u590F\u4E5F\uFF0C\u4F60\u53C8\u5728\u5199\u6587\u7AE0\u5566\u3002\u8FD9\u6B21\u53C8\u662F\u4EC0\u4E48\uFF1F\u2018\u2026\u2026\u6C11\u4E3B\u5236\u5EA6\u7684\u5B8C\u5584\u2019\uFF1F"
+    BackoundJPGId: 4
+    VerticalPainting: 9
+    FirstBox: 0
+    SecondBox: 16
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 43
+    Text: "\u770B\u4E0A\u53BB\u597D\u6DF1\u5965\u554A\uFF0C\u590F\u4E5F\uFF0C\u4F60\u597D\u5389\u5BB3\uFF01"
+    BackoundJPGId: 4
+    VerticalPainting: 9
+    FirstBox: 0
+    SecondBox: 17
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 44
+    Text: "\u5389\u5BB3\uFF1F\u5475\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 9
+    FirstBox: 22
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 45
+    Text: "\u4E0D\u7BA1\u6C11\u4E3B\u5236\u5EA6\u5728\u5BAA\u6CD5\u4E2D\u5199\u5F97\u5982\u4F55\u5B8C\u5584\uFF0C\u5982\u679C\u6C11\u65CF\u4E0D\u72EC\u7ACB\uFF0C\u56FD\u5BB6\u4E0D\u7EDF\u4E00\uFF0C\u518D\u5B8C\u5584\u7684\u5236\u5EA6\u90FD\u6CA1\u6709\u5B9E\u65BD\u7684\u673A\u4F1A\uFF0C\u90FD\u4F1A\u53D8\u6210\u4E00\u7EB8\u7A7A\u8C08\u554A\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 0
+    FirstBox: 23
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 46
+    Text: "\u201C\u6279\u5224\u7684\u6B66\u5668\u4E0D\u80FD\u4EE3\u66FF\u6B66\u5668\u7684\u6279\u5224\uFF0C\u7269\u8D28\u529B\u91CF\u53EA\u80FD\u7528\u7269\u8D28\u529B\u91CF\u6467\u6BC1\u3002\u201D"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 0
+    SecondBox: 18
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 47
+    Text: "\uFF01"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 24
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 48
+    Text: "\u6279\u5224\u7684\u6B66\u5668\u6B63\u662F\u7406\u8BBA\u3002\u53EF\u662F\u7406\u8BBA\u4E00\u9047\u5230\u73B0\u5B9E\u7684\u6B66\u5668\uFF0C\u5F80\u5F80\u4F1A\u5931\u53BB\u529B\u91CF\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 0
+    SecondBox: 19
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 49
+    Text: "\u662F\u554A\uFF0C\u90A3\u8981\u600E\u4E48\u505A\uFF1F"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 25
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 50
+    Text: "\u6211\u4EEC\u53EF\u4EE5\u5C06\u7406\u8BBA\u53D8\u6210\u7269\u8D28\u529B\u91CF\uFF0C\u4ECE\u800C\u8FBE\u5230\u6467\u6BC1\u73B0\u5B58\u7269\u8D28\u529B\u91CF\u7684\u76EE\u7684\u3002\u7406\u8BBA\u53EA\u8981\u5F7B\u5E95\uFF0C\u5C31\u80FD\u8BF4\u670D\u4EBA\uFF1B\u53EA\u8981\u80FD\u8BF4\u670D\u4EBA\uFF0C\u5C31\u80FD\u638C\u63E1\u7FA4\u4F17\uFF1B\u7406\u8BBA\u4E00\u7ECF\u638C\u63E1\u7FA4\u4F17\uFF0C\u4FBF\u4F1A\u53D8\u6210\u7269\u8D28\u529B\u91CF\u3002\u6240\u8C13\u5F7B\u5E95\uFF0C\u5C31\u662F\u6293\u4F4F\u4E8B\u7269\u7684\u6839\u672C\u3002\u800C\u4EBA\u7684\u6839\u672C\u5C31\u662F\u4EBA\u672C\u8EAB\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 0
+    SecondBox: 20
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 51
+    Text: "\u4F60\u597D\uFF0C\u6211\u662F\u7A46\u6148\u3002\u4F60\u5BF9\u6C11\u4E3B\u5236\u5EA6\u7684\u770B\u6CD5\u5F88\u6709\u610F\u601D\uFF0C\u6211\u4EEC\u80FD\u8BA4\u8BC6\u4E00\u4E0B\u5417\uFF1F"
+    BackoundJPGId: 4
+    VerticalPainting: 11
+    FirstBox: 0
+    SecondBox: 21
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 52
+    Text: "\u7A46\u6148\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 26
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 53
+    Text: "\u5171\u4EA7\u515A\u6B63\u662F\u5173\u6CE8\u6211\u4EEC\u4EBA\u672C\u8EAB\u7684\uFF0C\u91CD\u89C6\u7FA4\u4F17\u7684\u7406\u8BBA\u578B\u653F\u515A\u3002\u6211\u4EEC\u4F55\u4E0D\u4E0E\u8FD9\u4E9B\u540C\u5FD7\u4EEC\u4E00\u8D77\uFF0C\u6467\u6BC1\u73B0\u5B58\u4E0D\u516C\u7684\u7269\u8D28\u529B\u91CF\uFF01"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 0
+    SecondBox: 22
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 54
+    Text: "\u6467\u6BC1\u73B0\u5B58\u4E0D\u516C\u7684\u7269\u8D28\u529B\u91CF\u4E4B\u540E\uFF0C\u6C11\u4E3B\u5236\u5EA6\u4E5F\u5C31\u80FD\u5728\u4E2D\u534E\u5927\u5730\u4E0A\u751F\u6839\u53D1\u82BD\u4E86\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 11
+    FirstBox: 0
+    SecondBox: 23
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 55
+    Text: "\u5171\u4EA7\u515A\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 27
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 56
+    Text: "\u6B22\u8FCE\u4F60\u4EEC\uFF0C\u9F50\u590F\u4E5F\uFF0C\u7A46\u6148\uFF0C\u5F88\u9AD8\u5174\u4F60\u4EEC\u52A0\u5165\u5171\u4EA7\u515A\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 12
+    FirstBox: 0
+    SecondBox: 24
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 57
+    Text: "\u73B0\u5728\uFF0C\u6211\u8981\u5BF9\u4F60\u4EEC\u53D1\u5E03\u5165\u515A\u7684\u7B2C\u4E00\u4E2A\u4EFB\u52A1\u3002\u4E0E\u6211\u4E00\u540C\uFF0C\u53BB\u4E3A\u4E0B\u5DE5\u540E\u7684\u5DE5\u4EBA\u4EEC\u5BA3\u8BB2\u9A6C\u514B\u601D\u4E3B\u4E49\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 12
+    FirstBox: 0
+    SecondBox: 25
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 58
+    Text: "\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 28
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 59
+    Text: "\u7A46\u6148\uFF0C\u4E3A\u4EC0\u4E48\u5927\u5BB6\u5BF9\u6211\u4EEC\u8BB2\u7684\u4E1C\u897F\u4E0D\u611F\u5174\u8DA3\uFF1F"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 29
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 60
+    Text: "\u5DE5\u4EBA\u4EEC\u4E0D\u540C\u4F60\u4EEC\u7684\u540C\u5B66\uFF0C\u4ED6\u4EEC\u65E0\u6CD5\u63A5\u53D7\u597D\u7684\u6559\u80B2\uFF0C\u5927\u591A\u6587\u5316\u7A0B\u5EA6\u4E0D\u9AD8\u3002\u4F60\u6240\u8A00\u7684\u786E\u6DF1\u523B\uFF0C\u4F46\u662F\u5BF9\u5DE5\u4EBA\u6765\u8BB2\uFF0C\u5374\u662F\u4E0D\u77E5\u5176\u7136\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 12
+    FirstBox: 0
+    SecondBox: 26
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 61
+    Text: "\u6211\u660E\u767D\u4E86\uFF0C\u9648\u5148\u751F\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 0
+    SecondBox: 27
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 62
+    Text: "\u6211\u4EEC\u53EA\u662F\u60F3\u7740\u5C06\u7406\u8BBA\u8BF4\u6E05\uFF0C\u5374\u672A\u66FE\u8003\u8651\u8FC7\u5DE5\u4EBA\u662F\u5426\u80FD\u542C\u8FDB\u3002\u6211\u4EEC\u6CA1\u6709\u771F\u6B63\u4E86\u89E3\u5DE5\u4EBA\u4EEC\u9700\u8981\u7684\u662F\u4EC0\u4E48\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 10
+    FirstBox: 0
+    SecondBox: 28
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 63
+    Text: "\u5C0F\u590F\uFF0C\u6211\u4EEC\u53BB\u548C\u5DE5\u4EBA\u4EEC\u4E00\u8D77\u505A\u5DE5\u5427\u3002\u8FD9\u6837\u6216\u8BB8\u6211\u4EEC\u5C31\u66F4\u80FD\u7ED3\u5408\u5DE5\u4EBA\u6240\u9700\u6765\u4E3A\u4ED6\u4EEC\u9610\u91CA\u7406\u8BBA\u4E86\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 11
+    FirstBox: 0
+    SecondBox: 29
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 64
+    Text: "\u597D\uFF0C\u7A46\u6148\u2026\u2026"
+    BackoundJPGId: 4
+    VerticalPainting: 11
+    FirstBox: 30
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 65
+    Text: "\u7A46\u6148\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 31
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 66
+    Text: "\u5C0F\u590F\uFF0C\u5FEB\u8D70\u2026\u2026"
+    BackoundJPGId: 1
+    VerticalPainting: 4
+    FirstBox: 0
+    SecondBox: 30
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 67
+    Text: "\u7A46\u6148\u2026\u2026"
+    BackoundJPGId: 1
+    VerticalPainting: 0
+    FirstBox: 32
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 68
+    Text: "\u2026\u2026"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 33
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 69
+    Text: "1931\u5E744\u670824\u65E5\u665A\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 34
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 70
+    Text: "\u70DF\u96E8\u6726\u80E7\uFF0C\u5C06\u4E00\u5207\u90FD\u63A9\u4E0A\u767D\u96FE\uFF0C\u4EC0\u4E48\u90FD\u770B\u4E0D\u771F\u5207\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 35
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 71
+    Text: "\u4ECE\u300A\u661F\u706B\u300B\u6742\u5FD7\u793E\u4E0B\u73ED\u540E\uFF0C\u4F60\u56DE\u5230\u5BB6\u3002\u7B80\u5355\u7528\u8FC7\u665A\u996D\uFF0C\u4F60\u51C6\u5907\u518D\u5DE5\u4F5C\u4E00\u4F1A\u513F\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 36
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 72
+    Text: "\u4F60\u7684\u4E66\u684C\u4E0A\u5806\u6EE1\u4E86\u4E66\u7A3F\u548C\u91C7\u8BBF\u8D44\u6599\uFF1A\u653E\u5728\u6700\u4E0A\u9762\u7684\u51E0\u5F20\u7EB8\u4E0A\u5199\u6709\u201C\u9F50\u590F\u6811\u201D\u7684\u5B57\u6837\uFF0C\u4E0B\u9762\u538B\u7740\u51E0\u9875\u4ECE\u62A5\u7EB8\u4E0A\u526A\u4E0B\u6765\u7684\u5173\u4E8E\u9A6C\u514B\u601D\u4E3B\u4E49\u7684\u6587\u7AE0\uFF0C\u5176\u4E2D\u8FD8\u5939\u6742\u4E86\u4E00\u4E9B\u5BF9\u65E0\u4EA7\u5DE5\u4EBA\u7684\u91C7\u8BBF\u3002\u5728\u6742\u4E71\u7684\u7EB8\u5F20\u4E2D\u95F4\uFF0C\u5360\u636E\u6700\u591A\u7684\u4F4D\u7F6E\u7684\uFF0C\u662F\u4E00\u672C\u644A\u5F00\u653E\u7740\u7684\u300A\u5171\u4EA7\u515A\u5BA3\u8A00\u300B\u3002"
+    BackoundJPGId: 6
+    VerticalPainting: 0
+    FirstBox: 37
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 73
+    Text: "\u4F60\u5750\u4E0B\u6765\uFF0C\u6D3B\u52A8\u4E86\u4E00\u4E0B\u5DE6\u80A9\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 38
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 74
+    Text: "\u90A3\u91CC\u66FE\u4E2D\u8FC7\u67AA\uFF0C\u662F\u8D2F\u7A7F\u4F24\uFF0C\u6BCF\u5230\u8FD9\u79CD\u9634\u96E8\u5929\u6C14\uFF0C\u5B83\u90FD\u9690\u9690\u4F5C\u75DB\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 39
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 75
+    Text: "\u75DB\u4E0D\u4EC5\u4EC5\u662F\u8089\u4F53\u7684\u75DB\uFF0C\u5B83\u8FD8\u7275\u8FDE\u7740\u4F60\u7684\u5FC3\uFF0C\u8DDF\u7740\u9690\u9690\u7684\u7EDE\u75DB\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 40
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 76
+    Text: "\u75BC\u75DB\u4F1A\u523A\u6FC0\u4F60\u7684\u795E\u7ECF\uFF0C\u5C06\u8BB0\u5FC6\u6DF1\u5904\u7684\u67D0\u4E9B\u75DB\u82E6\u7FFB\u51FA\u8BB0\u5FC6\u4E4B\u6D77\u3002\u90A3\u5F20\u6E05\u79C0\u7684\u9752\u5E74\u7684\u8138\u5728\u8111\u6D77\u4E2D\u5982\u8703\u5F71\u4E00\u822C\uFF0C\u89E6\u4E0D\u53EF\u53CA\uFF0C\u53C8\u6325\u4E4B\u4E0D\u53BB\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 5
+    FirstBox: 41
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 77
+    Text: "\u5F3A\u538B\u4E0B\u6CDB\u4E0A\u5FC3\u5934\u7684\u9178\u6DA9\uFF0C\u4F60\u6295\u5165\u4E86\u5DE5\u4F5C\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 42
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 78
+    Text: "\u4F60\u771F\u540D\u9F50\u590F\u4E5F\uFF0C\u662F\u4E00\u540D\u8BB0\u8005\uFF0C\u4E5F\u662F\u4E00\u540D\u5171\u4EA7\u515A\u5458\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 43
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 79
+    Text: "1926\u5E74\uFF0C\u4F60\u548C\u4F60\u7684\u604B\u4EBA\u7A46\u6148\uFF0C\u7ECF\u7531\u9648\u5FD7\u90A6\u4ECB\u7ECD\u52A0\u5165\u4E86\u4E2D\u56FD\u5171\u4EA7\u515A\u3002\u81EA\u90A3\u65F6\u8D77\uFF0C\u4F60\u4FBF\u5F00\u59CB\u4EE5\u201C\u590F\u7267\u4E4B\u201D\u8FD9\u4E00\u59D3\u540D\u6D3B\u52A8\uFF0C\u9632\u6B62\u7275\u8FDE\u5BB6\u4EBA\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 44
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 80
+    Text: "\u4E0E\u4F60\u4EEC\u540C\u671F\u5165\u515A\u7684\u8FD8\u6709\u8BB8\u8BDA\u3001\u6797\u4ED5\u6C11\u3001\u5F20\u80DC\u7537\u3001\u65B9\u4FEE\u5E73\u3001\u5173\u89C9\uFF0C\u5468\u590D\u793C\u3001\u5434\u4E2D\u9053\u3001\u8D75\u5B97\u5CB1\u3001\u5B59\u6654\u7B49\u540C\u5FD7\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 45
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 81
+    Text: "\u5165\u515A\u4E0D\u4E45\uFF0C12\u670828\u65E5\uFF0C\u4F60\u4E0E\u7A46\u6148\u4FBF\u5728\u9648\u5FD7\u90A6\u7684\u5E26\u9886\u4E0B\uFF0C\u5F00\u59CB\u5BF9\u5DE5\u4EBA\u5BA3\u8BB2\u9A6C\u514B\u601D\u4E3B\u4E49\u7406\u8BBA\uFF0C\u4EE5\u671F\u5524\u9192\u5DE5\u4EBA\u4EEC\u7684\u81EA\u6211\u610F\u8BC6\uFF0C\u53F7\u53EC\u5E7F\u5927\u65E0\u4EA7\u9636\u7EA7\u52A0\u5165\u53CD\u5E1D\u53CD\u5C01\u5EFA\u7684\u9769\u547D\u961F\u4F0D\uFF0C\u5C3D\u65E9\u5728\u4E2D\u534E\u5927\u5730\u4E0A\u5B9E\u73B0\u6C11\u65CF\u72EC\u7ACB\u548C\u89E3\u653E\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 0
+    FirstBox: 46
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 82
+    Text: "\u4F461927\u5E744\u670812\u65E5\uFF0C\u848B\u4ECB\u77F3\u53DB\u53D8\u9769\u547D\u3002\u5728\u5317\u4F10\u6218\u4E89\u987A\u5229\u5F00\u5C55\uFF0C\u5DE5\u519C\u8FD0\u52A8\u4E0D\u65AD\u9AD8\u6DA8\u7684\u60C5\u51B5\u4E0B\uFF0C\u8054\u5408\u5E1D\u56FD\u4E3B\u4E49\u548C\u5927\u8D44\u4EA7\u9636\u7EA7\u53D1\u52A8\u53CD\u9769\u547D\u8FD0\u52A8\uFF0C\u5927\u8086\u6355\u6740\u5171\u4EA7\u515A\u4EBA\u548C\u9769\u547D\u7FA4\u4F17\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 0
+    FirstBox: 47
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 83
+    Text: "\u653F\u53D8\u5F53\u5929\uFF0C\u4F60\u548C\u7A46\u6148\u6B63\u5728\u5DE5\u5382\u5BA3\u8BB2\uFF0C\u56FD\u6C11\u515A\u7684\u519B\u961F\u7A81\u7136\u51B2\u8FDB\u6765\uFF0C\u5C06\u4F60\u4EEC\u548C\u5DE5\u4EBA\u5305\u56F4\uFF0C\u9ED1\u6D1E\u6D1E\u7684\u67AA\u53E3\u6307\u5411\u4F60\u4EEC\u3002"
+    BackoundJPGId: 4
+    VerticalPainting: 0
+    FirstBox: 48
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 84
+    Text: "\u4F60\u7684\u5DE6\u80A9\u5C31\u662F\u5728\u90A3\u65F6\u4E2D\u4E86\u4E00\u67AA\uFF0C\u6240\u5E78\u6797\u4ED5\u6C11\u53CA\u65F6\u8D76\u5230\u5BF9\u4F60\u65BD\u884C\u4E86\u62A2\u6551\uFF0C\u4FDD\u4F4F\u4E86\u4F60\u7684\u6027\u547D\u3002"
+    BackoundJPGId: 2
+    VerticalPainting: 0
+    FirstBox: 49
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 85
+    Text: "\u4F60\u5BF9\u7A46\u6148\u6700\u540E\u7684\u8BB0\u5FC6\uFF0C\u4FBF\u662F\u4ED6\u62FC\u6B7B\u5C06\u4F60\u9001\u4E86\u51FA\u53BB\uFF0C\u800C\u81EA\u5DF1\u5219\u88AB\u56FD\u6C11\u515A\u5E26\u8D70\u3002"
+    BackoundJPGId: 2
+    VerticalPainting: 0
+    FirstBox: 50
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 86
+    Text: "\u540E\u6765\u4F60\u4ECE\u6797\u4ED5\u6C11\u90A3\u91CC\u5F97\u77E5\uFF0C\u88AB\u5E26\u8D70\u540E\u4E0D\u4E45\uFF0C\u7A46\u6148\u5C31\u727A\u7272\u4E86\u3002"
+    BackoundJPGId: 2
+    VerticalPainting: 0
+    FirstBox: 51
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 87
+    Text: "\u90A3\u6BB5\u65F6\u95F4\uFF0C\u4F60\u6781\u5EA6\u75DB\u82E6\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 52
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 88
+    Text: "\u4F60\u63A7\u5236\u4E0D\u6B62\u5730\u56DE\u60F3\u4F60\u4E0E\u7A46\u6148\u4E00\u540C\u6210\u957F\u7684\u65F6\u5149\u3002\u4ED6\u548C\u4F60\u6781\u5EA6\u540C\u8C03\uFF0C\u662F\u7B2C\u4E00\u4E2A\u8BA4\u540C\u5E76\u652F\u6301\u4F60\u7406\u60F3\u7684\u4EBA\uFF0C\u4ED6\u4E3A\u4F60\u5F00\u542F\u4E86\u9A6C\u514B\u601D\u4E3B\u4E49\u7684\u5927\u95E8\uFF0C\u548C\u4F60\u4E00\u8D77\u7814\u7A76\u9A6C\u514B\u601D\u4E3B\u4E49\uFF0C\u548C\u4F60\u4E00\u8D77\u5165\u515A\uFF0C\u548C\u4F60\u4E00\u8D77\u4E3A\u9769\u547D\u5954\u5FD9\uFF0C\u5BF9\u5DE5\u4EBA\u4EEC\u5BA3\u8BB2\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 53
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 89
+    Text: "\u4F60\u4EEC\u4E4B\u95F4\uFF0C\u751C\u871C\uFF0C\u53C8\u5145\u6EE1\u6FC0\u60C5\u548C\u7406\u60F3\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 54
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 90
+    Text: "\u4F60\u4EEC\u7684\u751F\u6D3B\u65E9\u5C31\u4EA4\u878D\u5728\u4E86\u4E00\u8D77\uFF0C\u4E0D\u5206\u5F7C\u6B64\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 55
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 91
+    Text: "\u800C\u4F60\u73B0\u5728\u7A81\u7136\u5931\u53BB\u4E86\u4ED6\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 56
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 92
+    Text: "\u4F60\u832B\u7136\uFF0C\u6050\u60E7\uFF0C\u6DF7\u4E71\uFF0C\u7A7A\u865A\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 57
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 93
+    Text: "\u6709\u90A3\u4E48\u4E00\u77AC\u95F4\uFF0C\u4F60\u751A\u81F3\u60F3\u8FC7\u9003\u907F\uFF0C\u4E0D\u518D\u53C2\u4E0E\u9769\u547D\uFF0C\u5C31\u6B64\u8FDC\u8D70\u9AD8\u98DE\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 58
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 94
+    Text: "\u4F46\u4F60\u53C8\u60F3\u8D77\u4E86\u4F60\u4EEC\u5171\u540C\u594B\u6597\u7684\u65F6\u5149\uFF0C\u7A46\u6148\u7684\u6E29\u67D4\uFF0C\u575A\u6BC5\uFF0C\u548C\u6700\u540E\u7684\u727A\u7272\u2014\u2014\u4F60\u600E\u4E48\u5FCD\u5FC3\u5C31\u6B64\u79BB\u53BB\uFF0C\u8BA9\u5343\u4E07\u82F1\u7075\u7684\u4EA1\u9B42\u767D\u767D\u57CB\u846C\u4E8E\u4E5D\u6CC9\u4E4B\u4E0B\uFF01"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 59
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 95
+    Text: "\u60F3\u5230\u8FD9\u91CC\uFF0C\u4F60\u91CD\u71C3\u8D77\u4E86\u6597\u5FD7\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 60
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 96
+    Text: "\u4F60\u53D1\u8A93\uFF0C\u4F60\u4E00\u5B9A\u8981\u8FDE\u5E26\u7740\u7A46\u6148\u7684\u90A3\u4EFD\u4E00\u8D77\uFF0C\u53BB\u6572\u5F00\u65B0\u4E16\u754C\u7684\u95E8\u6249\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 61
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 97
+    Text: "\u5728\u4F60\u4F11\u517B\u7684\u8FD9\u51E0\u5929\u91CC\uFF0C\u4F60\u4ED4\u7EC6\u5BA1\u89C6\u4E86\u5F53\u4E0B\u7684\u60C5\u51B5\u3002\u7A46\u6148\u5DF2\u7ECF\u727A\u7272\uFF0C\u56FD\u6C11\u515A\u80CC\u53DB\u4E86\u9769\u547D\uFF0C\u968F\u65F6\u4F1A\u5411\u4F60\u4EEC\u5F00\u67AA\uFF0C\u9769\u547D\u6761\u4EF6\u6781\u5176\u5371\u9669\u3002\u4F60\u4EEC\u7684\u5DE5\u4F5C\u5FC5\u987B\u4E07\u5206\u5C0F\u5FC3\uFF0C\u4EE5\u907F\u514D\u4E0D\u5FC5\u8981\u7684\u727A\u7272\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 62
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 98
+    Text: "\u4F60\u60F3\u5230\u4E86\u4F60\u7684\u5BB6\u4EBA\u3002\u4F60\u5BB6\u4E2D\u6709\u4E00\u53CC\u7236\u6BCD\uFF0C\u4ED6\u4EEC\u7ECF\u8425\u7740\u4E00\u5BB6\u9762\u9986\uFF0C\u4E00\u8F88\u5B50\u52E4\u594B\u5584\u826F\uFF0C\u4F60\u8FD8\u6709\u4E2A\u5F1F\u5F1F\uFF0C\u540D\u53EB\u9F50\u590F\u6811\uFF0C\u4F60\u4E0D\u80FD\u518D\u5C06\u4ED6\u4EEC\u7275\u626F\u8FDB\u6765\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 63
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 99
+    Text: "\u597D\u5728\uFF0C\u62B1\u6709\u76F8\u540C\u60F3\u6CD5\u7684\u4E0D\u6B62\u4F60\u4E00\u4EBA\uFF0C\u6797\u4ED5\u6C11\u544A\u77E5\u4F60\uFF0C\u9648\u5FD7\u90A6\u5DF2\u5728\u653F\u53D8\u5F00\u59CB\u540E\uFF0C\u66FF\u4F60\u5C06\u7236\u6BCD\u9001\u5230\u4E61\u4E0B\u8001\u5BB6\uFF0C\u5E76\u5C06\u4F60\u5F1F\u5F1F\u9F50\u590F\u6811\u548C\u4ED6\u81EA\u5DF1\u7684\u5973\u513F\u53F6\u5B50\u9001\u5F80\u65E5\u672C\u7559\u5B66\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 64
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 100
+    Text: "\u4F60\u7EC8\u4E8E\u653E\u4E0B\u5FC3\u6765\uFF0C\u5E76\u5BF9\u9648\u5FD7\u90A6\u5145\u6EE1\u611F\u6FC0\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 65
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 101
+    Text: "\u5EB7\u590D\u540E\uFF0C\u4F60\u548C\u5176\u4ED6\u540C\u5FD7\u7684\u5DE5\u4F5C\u8F6C\u5165\u5730\u4E0B\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 66
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 102
+    Text: "1927\u5E7411\u670814\u65E5\uFF0C\u515A\u4E2D\u592E\u5728\u4E0A\u6D77\u6210\u7ACB\u4E86\u7B2C\u4E00\u4E2A\u8F83\u4E3A\u6210\u719F\u7684\u60C5\u62A5\u4FDD\u536B\u5DE5\u4F5C\u673A\u6784\u2014\u2014\u4E2D\u56FD\u5171\u4EA7\u515A\u4E2D\u592E\u7279\u522B\u884C\u52A8\u79D1\uFF0C\u7B80\u79F0\u4E2D\u592E\u7279\u79D1\uFF0C\u4E3B\u8981\u4EFB\u52A1\u662F\u6253\u51FB\u654C\u4EBA\uFF0C\u4FDD\u536B\u81EA\u5DF1\u3002\u7279\u79D1\u7531\u5468\u6069\u6765\u76F4\u63A5\u9886\u5BFC\u3002"
+    BackoundJPGId: 7
+    VerticalPainting: 0
+    FirstBox: 67
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 103
+    Text: "1929\u5E74\uFF0C\u4F60\u5F00\u59CB\u4EE5\u4E2D\u592E\u7279\u79D1\u6210\u5458\u7684\u8EAB\u4EFD\u5728\u300A\u661F\u706B\u300B\u6742\u5FD7\u793E\u5F00\u5C55\u5730\u4E0B\u5DE5\u4F5C\u3002\u4F60\u7684\u4E3B\u8981\u4EFB\u52A1\u662F\u501F\u8BB0\u8005\u8EAB\u4EFD\u7684\u63A9\u62A4\uFF0C\u6697\u4E2D\u5411\u5927\u4F17\u5206\u53D1\u9A6C\u514B\u601D\u4E3B\u4E49\u6587\u7AE0\uFF0C\u5BA3\u4F20\u9A6C\u514B\u601D\u4E3B\u4E49\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 68
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 104
+    Text: "\u4F60\u7684\u4ECB\u7ECD\u4EBA\u9648\u5FD7\u90A6\u5148\u751F\u662F\u4F60\u7684\u4E0A\u7EA7\u76F4\u63A5\u8054\u7EDC\u4EBA\uFF0C\u4ED6\u6F5C\u4F0F\u5728\u5357\u4EAC\u65E0\u7EBF\u7535\u7BA1\u7406\u5C40\u8FDB\u884C\u60C5\u62A5\u5DE5\u4F5C\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 69
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 105
+    Text: "\u4E0E\u4F60\u540C\u7EA7\uFF0C\u5E76\u5728\u5357\u4EAC\u5F00\u5C55\u5730\u4E0B\u60C5\u62A5\u5DE5\u4F5C\u7684\u6709\u5728\u5357\u4EAC\u65B0\u58F0\u901A\u8BAF\u793E\u4EFB\u7F16\u8F91\u7684\uFF0C\u4F60\u7684\u597D\u53CB\u5F20\u80DC\u7537\uFF0C\u4EE5\u53CA\u6F5C\u4F0F\u5728\u56FD\u6C11\u515A\u5BA3\u4F20\u90E8\u4EFB\u79D1\u5458\u7684\u8BB8\u8BDA\uFF1B\u5728\u5357\u4EAC\u5F00\u5C55\u5730\u4E0B\u60C5\u62A5\u5DE5\u4F5C\u7684\u5219\u6709\u201C\u4E09\u5473\u8336\u5C4B\u201D\u8001\u677F\u5173\u89C9\u548C\u5468\u590D\u793C\uFF0C\u4EE5\u53CA\u5434\u4E2D\u9053\u3001\u8D75\u5B97\u5CB1\u3001\u5B59\u6654\u7B49\u4EBA\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 70
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 106
+    Text: "\u5C06\u4F60\u4ECE\u67AA\u6740\u73B0\u573A\u62A2\u6551\u56DE\u6765\u7684\u6797\u4ED5\u6C11\u5219\u5728\u5FB7\u4EC1\u5802\u836F\u5E97\u8001\u677F\u8EAB\u4EFD\u7684\u63A9\u62A4\u4E0B\uFF0C\u62C5\u4EFB\u5357\u4EAC\u65B9\u4E0E\u4E0A\u6D77\u7684\u4EA4\u901A\u5458\u3002"
+    BackoundJPGId: 3
+    VerticalPainting: 0
+    FirstBox: 71
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 107
+    Text: "\u7136\u800C\uFF0C1931\u5E74\u521D\u7684\u4E00\u6B21\u4EFB\u52A1\u4E2D\uFF0C\u9648\u5FD7\u90A6\u548C\u81EA\u4E0A\u6D77\u6765\u7684\u4EA4\u901A\u5458\u63A5\u5934\u65F6\u8EAB\u4EFD\u66B4\u9732\uFF0C\u4E3A\u56FD\u6C11\u515A\u6240\u6355\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 72
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 108
+    Text: "\u4F60\u548C\u51E0\u4F4D\u540C\u5FD7\u7ACB\u523B\u5BF9\u9648\u5FD7\u90A6\u548C\u4EA4\u901A\u5458\u5C55\u5F00\u8425\u6551\u884C\u52A8\uFF0C\u4F46\u8425\u6551\u884C\u52A8\u5904\u5904\u78B0\u58C1\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 73
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 109
+    Text: "\u4F60\u4EEC\u53EA\u6253\u542C\u5230\uFF0C\u56FD\u6C11\u515A\u5BF9\u9648\u5FD7\u90A6\u548C\u4EA4\u901A\u5458\u8FDB\u884C\u4E86\u5211\u8BAF\u903C\u4F9B\u3002\u4F46\u9648\u5FD7\u90A6\u548C\u4EA4\u901A\u5458\u5FCD\u53D7\u7740\u4E25\u5211\u62F7\u6253\uFF0C\u8C01\u4E5F\u6CA1\u6709\u51FA\u5356\u4EFB\u4F55\u540C\u5FD7\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 74
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 110
+    Text: "\u800C\u5C31\u5728\u524D\u51E0\u65E5\uFF0C\u56FD\u6C11\u515A\u516C\u5F00\u5904\u6B7B\u4E86\u4EA4\u901A\u5458\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 75
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 111
+    Text: "\u4EA4\u901A\u5458\u727A\u7272\u7684\u90A3\u4E00\u5929\uFF0C\u5929\u9634\uFF0C\u4F46\u6709\u4E00\u7EBF\u9633\u5149\u900F\u8FC7\u4E91\u5C42\u7167\u4EAE\u4E86\u5904\u5211\u7684\u5927\u8857\uFF0C\u7167\u4EAE\u4E86\u4EA4\u901A\u5458\u5E74\u8F7B\u800C\u575A\u6BC5\u7684\u9762\u5E9E\u3002"
+    BackoundJPGId: 8
+    VerticalPainting: 0
+    FirstBox: 76
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 112
+    Text: "\u4EA4\u901A\u5458\u5C31\u4E49\u540E\uFF0C\u5173\u89C9\u6210\u4E3A\u4E86\u4E0A\u6D77\u65B9\u4E0E\u5357\u4EAC\u8054\u7EDC\u7684\u4EA4\u901A\u5458\uFF0C\u8BB8\u8BDA\u6682\u4EE3\u9648\u5FD7\u90A6\u7684\u804C\u52A1\u6210\u4E3A\u4E86\u4F60\u7684\u4E0A\u7EA7\u8054\u7EDC\u4EBA\u3002\u4F60\u7684\u5FC3\u60C5\u4E5F\u6108\u53D1\u6C89\u91CD\uFF0C\u8425\u6551\u9648\u5FD7\u90A6\u540C\u5FD7\u7684\u4EFB\u52A1\u4E5F\u8D8A\u53D1\u7D27\u8FEB\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 77
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 113
+    Text: "\u66F4\u8981\u547D\u7684\u662F\uFF0C\u9648\u5FD7\u90A6\u88AB\u6355\u540E\uFF0C\u7ECF\u9648\u5FD7\u90A6\u9001\u51FA\u56FD\u7684\u53F6\u5B50\u548C\u9F50\u590F\u6811\u90FD\u5931\u53BB\u4E86\u6D88\u606F\uFF0C\u4EE4\u4F60\u66F4\u52A0\u5FC3\u70E6\u610F\u4E71\u3002"
+    BackoundJPGId: 0
+    VerticalPainting: 0
+    FirstBox: 78
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 114
+    Text: "\u4F60\u63C9\u4E86\u63C9\u592A\u9633\u7A74\uFF0C\u6536\u655B\u601D\u7EEA\uFF0C\u6B63\u51C6\u5907\u63D0\u7B14\u5199\u70B9\u4EC0\u4E48\u7684\u65F6\u5019\uFF0C\u95E8\u5916\u4F20\u6765\u4E86\u53E9\u95E8\u58F0\u3002"
+    BackoundJPGId: 6
+    VerticalPainting: 0
+    FirstBox: 79
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 115
+    Text: "\u53E9\u53E9\u3002"
+    BackoundJPGId: 6
+    VerticalPainting: 0
+    FirstBox: 0
+    SecondBox: 31
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 116
+    Text: "\u5C0F\u590F\uFF0C\u6211\u6765\u62FF\u65B0\u4E00\u671F\u7684\u6742\u5FD7\u3002"
+    BackoundJPGId: 6
+    VerticalPainting: 0
+    FirstBox: 0
+    SecondBox: 32
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 117
+    Text: "\u4F60\u542C\u51FA\u8FD9\u662F\u65B0\u58F0\u901A\u8BAF\u793E\u7684\u7F16\u8F91\u5F20\u80DC\u7537\uFF0C\u5FD9\u8D77\u8EAB\u5F00\u95E8\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 80
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 118
+    Text: "\u4F60\u624B\u4E0A\u5F53\u7136\u6CA1\u62FF\u4EC0\u4E48\u6742\u5FD7\uFF0C\u8FD9\u662F\u4F60\u4EEC\u7EA6\u5B9A\u7684\u7D27\u6025\u6697\u53F7\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 81
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 119
+    Text: "\u58EE\u98DE\u7ED9\u6211\u7559\u4E86\u5B57\u6761\uFF0C\u6211\u4EEC\u5F97\u8D76\u7D27\u524D\u5F80\u8BB8\u8BDA\u5BB6\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 13
+    FirstBox: 0
+    SecondBox: 33
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 120
+    Text: "\u4F60\u5FC3\u5934\u4E00\u7D27\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 13
+    FirstBox: 82
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 121
+    Text: "\u51FA\u4E8B\u4E86\uFF1F"
+    BackoundJPGId: 5
+    VerticalPainting: 13
+    FirstBox: 82
+    SecondBox: 0
+    ThirdBox: 6
+    TextClass: 3
+  - Id: 122
+    Text: "\u4ED6\u90A3\u8FB9\u4F3C\u4E4E\u6709\u7A81\u53D1\u60C5\u51B5\uFF0C\u9053\u662F\u9700\u8981\u6211\u4EEC\u4E00\u540C\u884C\u52A8\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 13
+    FirstBox: 0
+    SecondBox: 34
+    ThirdBox: 0
+    TextClass: 2
+  - Id: 123
+    Text: "\u5F20\u80DC\u7537\u6240\u8BF4\u7684\u201C\u58EE\u98DE\u201D\u5373\u4E3A\u4E2D\u592E\u6D3E\u9A7B\u5357\u4EAC\u7684\u7279\u79D1\u603B\u7EC4\u957F\u94B1\u58EE\u98DE\uFF0C\u5148\u524D\u6253\u5165\u62C5\u4EFB\u56FD\u6C11\u515A\u7EC4\u7EC7\u90E8\u8C03\u67E5\u79D1\u4EFB\u4E3B\u4EFB\u673A\u8981\u79D8\u4E66\uFF0C\u6697\u4E2D\u9001\u51FA\u4E86\u4E0D\u5C11\u56FD\u6C11\u515A\u65B9\u9762\u7684\u91CD\u8981\u60C5\u62A5\uFF0C\u4E5F\u662F\u76EE\u524D\u8BB8\u8BDA\u7684\u76F4\u63A5\u8054\u7EDC\u4EBA\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 13
+    FirstBox: 83
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 124
+    Text: "\u4F46\u662F\u4E0D\u4E45\u524D\uFF0C\u9648\u5FD7\u90A6\u88AB\u6355\uFF0C\u94B1\u58EE\u98DE\u906D\u5230\u4E86\u56FD\u6C11\u515A\u65B9\u9762\u7684\u6000\u7591\u3002\u65E0\u5948\u4E4B\u4E0B\uFF0C\u4ED6\u4E0D\u5F97\u4E0D\u86F0\u4F0F\u8D77\u6765\uFF0C\u4ED6\u4E0E\u6797\u4ED5\u6C11\u7684\u60C5\u62A5\u4EA4\u63A5\u5DE5\u4F5C\u4E5F\u6682\u7531\u8BB8\u8BDA\u4EE3\u7406\uFF0C\u540C\u65F6\uFF0C\u5F20\u80DC\u7537\u6267\u884C\u63A9\u62A4\u4ED6\u7684\u4EFB\u52A1\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 84
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 125
+    Text: "\u6240\u4EE5\uFF0C\u82E5\u975E\u60C5\u51B5\u5341\u5206\u7D27\u6025\uFF0C\u94B1\u58EE\u98DE\u4E0D\u4F1A\u8D38\u7136\u8981\u4F60\u4EEC\u96C6\u5408\u884C\u52A8\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 85
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1
+  - Id: 126
+    Text: "\u4F60\u601D\u53CA\u6B64\uFF0C\u7ACB\u523B\u4E0E\u5F20\u80DC\u7537\u4E00\u9053\u51FA\u53D1\uFF0C\u524D\u5F80\u8BB8\u8BDA\u7684\u4F4F\u5904\u3002"
+    BackoundJPGId: 5
+    VerticalPainting: 0
+    FirstBox: 86
+    SecondBox: 0
+    ThirdBox: 0
+    TextClass: 1

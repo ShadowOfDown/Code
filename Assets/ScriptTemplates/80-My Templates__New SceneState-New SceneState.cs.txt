@@ -1,0 +1,26 @@
+//Author : #AUTHOR#
+//CreateTime : #CREATETIME#
+//Version : #VERSION#
+//UnityVersion : #UNITYVERSION#
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : ISceneState
+{
+    public #SCRIPTNAME#(SceneStateControl control) : base(control)
+    {
+        this.StateName = "#SCRIPTNAME#";
+    }
+
+    public override void StateBegin() { 
+
+    }
+    public override void StateEnd() { 
+
+    }
+    public override void StateUpdate() { 
+
+    }
+}

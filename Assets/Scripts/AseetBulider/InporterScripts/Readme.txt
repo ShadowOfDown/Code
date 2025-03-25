@@ -1,0 +1,1 @@
+在此文件夹内放入构建表格的脚本（也可放在他处），脚本可通过Creat -> MyTemplates->ExcelAssetInporterScript创建。
